@@ -1,0 +1,13 @@
+@import '~element-ui/lib/theme-chalk/upload.css';
+.s-upload {
+  .el-upload-list__item.is-success .el-upload-list__item-name:focus, .el-upload-list__item.is-success .el-upload-list__item-name:hover{
+    @include font_color($color: '$2-color-1');
+  }
+  .el-upload-list__item .el-icon-close-tip{
+    @include font_color($color: '$2-color-1');
+  }
+  .el-upload--picture-card:hover, .el-upload:focus{
+    @include border_color($color: '$2-color-1');
+    @include font_color($color: '$2-color-1');
+  }
+}

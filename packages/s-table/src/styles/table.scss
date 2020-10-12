@@ -1,0 +1,15 @@
+@import 'element-ui/lib/theme-chalk/table.css';
+.s-table {
+  @include font_color($color: '$1-color-1', $opacity: .65);
+  thead {
+    @include font_color($color: '$1-color-1', $opacity: .85);
+  }
+  th {
+    font-weight: 500;
+  }
+  .el-table__header-wrapper {
+    th {
+      @include background_color($color: '$1-color-1', $opacity: .02);
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@import "~element-ui/lib/theme-chalk/icon.css";
+@import "../../styles/font/iconfont.css";
+[class*="el-icon-ali"] {
+  font-family: iconfont !important;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: baseline;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -1,0 +1,42 @@
+.custome-infinite-scroll .page {
+  .infinite-list {
+    height: 300px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    .infinite-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      background: #e8f3fe;
+      margin: 10px;
+      color: #7dbcfc;
+    }
+  }
+  .infinite-list-wrapper {
+    height: 300px;
+    text-align: center;
+    .list {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .list-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      background: #fff6f6;
+      color: #ff8484;
+      & + .list-item {
+        margin-top: 10px;
+      }
+    }
+  }
+  p {
+    font-size: 14px;
+    color: #5e6d82;
+    line-height: 1.5em;
+  }
+}

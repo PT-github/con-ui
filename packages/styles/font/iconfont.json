@@ -1,0 +1,184 @@
+{
+  "id": "1788426",
+  "name": "星通ui组件",
+  "font_family": "iconfont",
+  "css_prefix_text": "el-icon-ali-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4765897",
+      "name": "location",
+      "font_class": "location",
+      "unicode": "e790",
+      "unicode_decimal": 59280
+    },
+    {
+      "icon_id": "4765957",
+      "name": "edit-square",
+      "font_class": "edit-square",
+      "unicode": "e791",
+      "unicode_decimal": 59281
+    },
+    {
+      "icon_id": "4766901",
+      "name": "cloud-upload",
+      "font_class": "cloud-upload",
+      "unicode": "e7d9",
+      "unicode_decimal": 59353
+    },
+    {
+      "icon_id": "4766902",
+      "name": "cloud",
+      "font_class": "cloud",
+      "unicode": "e7da",
+      "unicode_decimal": 59354
+    },
+    {
+      "icon_id": "4766903",
+      "name": "cloud-download",
+      "font_class": "cloud-download",
+      "unicode": "e7db",
+      "unicode_decimal": 59355
+    },
+    {
+      "icon_id": "4766954",
+      "name": "star",
+      "font_class": "star",
+      "unicode": "e7df",
+      "unicode_decimal": 59359
+    },
+    {
+      "icon_id": "4767011",
+      "name": "right",
+      "font_class": "right",
+      "unicode": "e7eb",
+      "unicode_decimal": 59371
+    },
+    {
+      "icon_id": "4767012",
+      "name": "left",
+      "font_class": "left",
+      "unicode": "e7ec",
+      "unicode_decimal": 59372
+    },
+    {
+      "icon_id": "4767013",
+      "name": "up",
+      "font_class": "up",
+      "unicode": "e7ed",
+      "unicode_decimal": 59373
+    },
+    {
+      "icon_id": "4767014",
+      "name": "down",
+      "font_class": "down",
+      "unicode": "e7ee",
+      "unicode_decimal": 59374
+    },
+    {
+      "icon_id": "4767025",
+      "name": "upload",
+      "font_class": "upload",
+      "unicode": "e7ef",
+      "unicode_decimal": 59375
+    },
+    {
+      "icon_id": "4767031",
+      "name": "download",
+      "font_class": "download",
+      "unicode": "e7f0",
+      "unicode_decimal": 59376
+    },
+    {
+      "icon_id": "4767038",
+      "name": "sort-descending",
+      "font_class": "sort-descending",
+      "unicode": "e7f1",
+      "unicode_decimal": 59377
+    },
+    {
+      "icon_id": "4767039",
+      "name": "sort-ascending",
+      "font_class": "sort-ascending",
+      "unicode": "e7f2",
+      "unicode_decimal": 59378
+    },
+    {
+      "icon_id": "4767050",
+      "name": "indent",
+      "font_class": "indent",
+      "unicode": "e7f3",
+      "unicode_decimal": 59379
+    },
+    {
+      "icon_id": "4767051",
+      "name": "outdent",
+      "font_class": "outdent",
+      "unicode": "e7f4",
+      "unicode_decimal": 59380
+    },
+    {
+      "icon_id": "4767093",
+      "name": "check",
+      "font_class": "check",
+      "unicode": "e7fd",
+      "unicode_decimal": 59389
+    },
+    {
+      "icon_id": "4767096",
+      "name": "close",
+      "font_class": "close",
+      "unicode": "e7fe",
+      "unicode_decimal": 59390
+    },
+    {
+      "icon_id": "4936519",
+      "name": "heart-fill",
+      "font_class": "heart-fill",
+      "unicode": "e849",
+      "unicode_decimal": 59465
+    },
+    {
+      "icon_id": "4936522",
+      "name": "message-fill",
+      "font_class": "message-fill",
+      "unicode": "e84a",
+      "unicode_decimal": 59466
+    },
+    {
+      "icon_id": "4765852",
+      "name": "reload",
+      "font_class": "reload",
+      "unicode": "e788",
+      "unicode_decimal": 59272
+    },
+    {
+      "icon_id": "4765891",
+      "name": "setting",
+      "font_class": "setting",
+      "unicode": "e78e",
+      "unicode_decimal": 59278
+    },
+    {
+      "icon_id": "4766680",
+      "name": "bell",
+      "font_class": "bell",
+      "unicode": "e7c4",
+      "unicode_decimal": 59332
+    },
+    {
+      "icon_id": "4767094",
+      "name": "ellipsis",
+      "font_class": "ellipsis",
+      "unicode": "e7fc",
+      "unicode_decimal": 59388
+    },
+    {
+      "icon_id": "6598347",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "e8ef",
+      "unicode_decimal": 59631
+    }
+  ]
+}

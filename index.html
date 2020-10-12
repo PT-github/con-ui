@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./node_modules/vue/dist/vue.min.js"></script>
+  <script src="./lib/index.js"></script>
+  <link rel="stylesheet" href="./lib/theme-chalk/index.css">
+</head>
+<body>
+  <div id="app">
+    <s-button :plain="true" @click="open2">成功</s-button>
+  <s-button :plain="true" @click="open3">警告</s-button>
+  <s-button :plain="true" @click="open1">消息</s-button>
+  <s-button :plain="true" @click="open4">错误</s-button>
+    </div>
+  </div>
+  <script>
+    new Vue({
+      mounted () {
+        // console.log(this.$refs.button)
+      },
+      data: function () {
+        return {
+          tableData: [{
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }],
+        loading: true
+        }
+      },
+      methods: {
+        handleChange (v) {
+          console.log(v)
+        },
+        handleClick () {
+          console.log('click')
+          this.$refs.input.select()
+        },
+        open1() {
+        this.$message('这是一条消息提示');
+      },
+      open2() {
+        this.$message({
+          message: '恭喜你，这是一条成功消息',
+          type: 'success'
+        });
+      },
+
+      open3() {
+        this.$message({
+          message: '警告哦，这是一条警告消息',
+          type: 'warning'
+        });
+      },
+
+      open4() {
+        this.$message.error('错了哦，这是一条错误消息');
+      }
+      }
+    }).$mount('#app')
+  </script>
+</body>
+</html>

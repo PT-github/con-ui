@@ -1,0 +1,34 @@
+.theme-container {
+  &.custom-date-picker,
+  &.datetime-picker {
+    .page {
+      .demo-content > div {
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .block {
+        padding: 30px 0;
+        text-align: center;
+        border-right: 1px solid #eff2f6;
+        flex: 1;
+      }
+      .demonstration {
+        display: block;
+        color: #8492a6;
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+      .container {
+        flex: 1;
+        border-right: 1px solid #eff2f6;
+        .block {
+          border-right: none;
+          &:last-child {
+            border-top: 1px solid #eff2f6;
+          }
+        }
+      }
+    }
+  }
+}

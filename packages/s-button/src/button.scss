@@ -1,0 +1,115 @@
+@import '~element-ui/lib/theme-chalk/button.css';
+// 修改button的属性
+@mixin button_property($color1, $color2, $color3, $font-opacity:null, $body-opacity:null, $back-opacity:null) {
+  @include background_color($color2, $back-opacity);
+  @include border_color($color1, $body-opacity);
+  @include font_color($color1, $font-opacity);
+  &:focus, &:hover{
+    @include background_color($color1, $back-opacity);
+    @include font_color($color3, $font-opacity);
+    opacity: 1;
+  }
+}
+.s-button.el-button {
+  border-radius: 2px;
+  &.el-button--default{
+    @include font_color($color: '$1-color-1', $opacity: .65);
+    &:focus,&:hover{
+      @include font_color($color: '$2-color-1');
+    }
+    &.is-disabled, &.is-disabled:hover{
+      @include font_color($color: '$1-color-1', $opacity: .25);
+    }
+  }
+  &.is-round {
+    border-radius: 20px;
+  }
+  &.is-circle {
+    border-radius: 50%;
+  }
+  &.el-button--dashed {
+    border-style: dashed;
+    @include font_color($color: '$1-color-1', $opacity: .65);
+    &:focus,&:hover{
+      @include font_color($color: '$2-color-1');
+    }
+    &.is-disabled, &.is-disabled:hover{
+      @include font_color($color: '$1-color-1', $opacity: .25);
+    }
+  }
+  &.el-button--primary{
+    @include font_color($color: '$0-color-1');
+    @include background_color($color: '$2-color-1');
+    @include border_color($color: '$2-color-1');
+    &:focus, &:hover{
+      opacity: 0.8;
+    }
+    &.is-plain{
+      @include button_property($color1:'$2-color-1', $color2:'$2-color-2', $color3:'$0-color-1', $body-opacity: .4)
+    }
+  }
+  &.el-button--success{
+    @include font_color($color: '$0-color-1');
+    @include background_color($color: '$3-color-1');
+    @include border_color($color: '$3-color-1');
+    &:focus, &:hover{
+      opacity: 0.8;
+    }
+    &.is-plain{
+      @include button_property($color1:'$3-color-1', $color2:'$3-color-2', $color3:'$0-color-1', $body-opacity: .4)
+    }
+  }
+  &.el-button--warning{
+    @include font_color($color: '$0-color-1');
+    @include background_color($color: '$4-color-1');
+    @include border_color($color: '$4-color-1');
+    &:focus, &:hover{
+      opacity: 0.8;
+    }
+    &.is-plain{
+      @include button_property($color1:'$4-color-1', $color2:'$4-color-2', $color3:'$0-color-1', $body-opacity: .4)
+    }
+  }
+  &.el-button--danger{
+    @include font_color($color: '$0-color-1');
+    @include background_color($color: '$5-color-1');
+    @include border_color($color: '$5-color-1');
+    &:focus, &:hover{
+      opacity: 0.8;
+    }
+    &.is-plain{
+      @include button_property($color1:'$5-color-1', $color2:'$5-color-2', $color3:'$0-color-1', $body-opacity: .4)
+    }
+  }
+  &.el-button--ghost {
+    @include font_color($color: '$0-color-1', $opacity: .65);
+    @include background_color($color: '$9-color-1');
+    @include border_color($color: '$0-color-1', $opacity: .2);
+    &:hover {
+      @include font_color($color: '$2-color-1');
+      @include border_color($color: '$2-color-1');
+    }
+  }
+  &.el-button--text-ghost {
+    background: 0 0;
+    padding-left: 0;
+    padding-right: 0;
+    border: none;
+    @include font_color($color: '$0-color-1', $opacity: .65);
+    @include background_color($color: '$9-color-1');
+    &:hover {
+      @include font_color($color: '$2-color-1');
+    }
+  }
+  &.el-button--text-danger {
+    background: 0 0;
+    padding-left: 0;
+    padding-right: 0;
+    border: none;
+    @include font_color($color: '$5-color-1');
+    @include background_color($color: '$9-color-1');
+    &:active {
+      @include font_color($color: '$5-color-1', $opacity: .8);
+    }
+  }
+}

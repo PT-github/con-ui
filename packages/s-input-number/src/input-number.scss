@@ -1,0 +1,9 @@
+@import '~element-ui/lib/theme-chalk/input-number.css';
+.s-input-number{
+  &.el-input-number--mini {
+    width: 88px;
+  }
+  &.is-controls-right .el-input__inner{
+    text-align: left
+  }
+}

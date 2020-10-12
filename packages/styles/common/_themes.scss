@@ -1,0 +1,56 @@
+//当HTML的data-theme为dark时，样式引用dark
+//data-theme为其他值时，就采用组件库的默认样式
+//这里我只定义了两套主题方案，想要再多只需在`$themes`里加就行了
+//注意一点是，每套配色方案里的key可以自定义但必须一致，不然就会混乱
+
+$themes: (
+  light: (
+    // #region 白色 以$0-开头
+    '$0-color-1': #FFFFFF,
+    // #endregion
+
+    // #region 灰色 以$1-开头
+    '$1-color-1': #000000,
+    '$1-color-2': #001529,
+    '$1-color-3': #000C17,
+    '$1-color-4': #F0F2F5,
+    // #endregion
+
+    // #region 蓝色 以$2-开头
+    '$2-color-1': #1890FF,
+    '$2-color-2': #E6F7FF,
+    '$2-color-3': #91D5FF,
+    // #endregion
+
+    // #region 绿色 以$3-开头
+    '$3-color-1': #52C41A,
+    '$3-color-2': #F6FFED,
+    // #endregion
+
+    // #region 橘色 以$4-开头
+    '$4-color-1': #FAAD14,
+    '$4-color-2': #FFFBE6,
+    // #endregion
+
+    // #region 红色 以$5-开头
+    '$5-color-1': #FF4D4F,
+    '$5-color-2': #FFF1F0,
+    // #endregion
+    
+    // #region 透明 以$9-开头
+    '$9-color-1': transparent,
+    // #endregion
+  ),
+  // dark: (
+  //   // 字体
+  //   font_color1: #a7a7a7,
+  //   font_color2: white,
+  //   // 背景
+  //   background_color1: #1b2531,
+  //   background_color2: #283142,
+  //   background_color3: #1e6ceb,
+  //   background_color4: #323e4e,
+  //   // 边框
+  //   border_color1: #3d414a,
+  // )
+);

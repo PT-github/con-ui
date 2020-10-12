@@ -1,0 +1,13 @@
+@import '~element-ui/lib/theme-chalk/checkbox-group.css';
+.s-checkbox-group {
+  display: inline-block;
+  vertical-align: middle;
+  .el-checkbox-button__inner{
+    @include font_color($color: '$1-color-1', $opacity:.65);
+  }
+  .el-checkbox-button.is-checked .el-checkbox-button__inner{
+    @include font_color($color: '$0-color-1');
+    @include border_color($color: '$2-color-1');
+    @include background_color($color: '$2-color-1');
+  }
+}

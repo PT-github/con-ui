@@ -1,0 +1,13 @@
+@import '~element-ui/lib/theme-chalk/radio.css';
+.s-radio.el-radio {
+  @include font_color($color: '$1-color-1', $opacity:.65);
+  &.is-bordered.is-checked{
+    @include border_color($color: '$2-color-1');
+  }
+  .el-radio__input.is-checked + .el-radio__label,.el-radio__input.is-checked .el-radio__inner{
+    @include font_color($color: '$2-color-1');
+  }
+  .el-radio__input.is-disabled + span.el-radio__label{
+    @include font_color($color: '$1-color-1', $opacity:.25);
+  }
+}

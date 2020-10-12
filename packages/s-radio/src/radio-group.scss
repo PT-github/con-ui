@@ -1,0 +1,13 @@
+@import '~element-ui/lib/theme-chalk/radio-group.css';
+.s-radio-group {
+  display: inline-block;
+  vertical-align: middle;
+  .el-radio-button__inner{
+    @include font_color($color: '$1-color-1', $opacity:.65);
+  }
+  .el-radio-button__orig-radio:checked + .el-radio-button__inner{
+    @include font_color($color: '$0-color-1');
+    @include border_color($color: '$2-color-1');
+    @include background_color($color: '$2-color-1');
+  }
+}

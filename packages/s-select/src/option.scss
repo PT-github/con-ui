@@ -1,0 +1,9 @@
+@import '~element-ui/lib/theme-chalk/option.css';
+.s-option {
+  &.el-select-dropdown__item.selected{
+    @include font_color($color: '$2-color-1');
+  }
+  .el-select-dropdown.is-multiple &.el-select-dropdown__item.selected{
+    @include font_color($color: '$2-color-1');
+  }
+}

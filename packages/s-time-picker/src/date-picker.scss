@@ -1,0 +1,127 @@
+@import "~element-ui/lib/theme-chalk/date-picker.css";
+
+// .s-date-picker {
+//   .el-input__inner {
+//     @include font_color($color: "$1-color-1", $opacity: 0.65);
+//   }
+//   //&.el-input--prefix .el-input__inner {
+//   //  padding-left: 12px;
+//   //}
+//   //
+//   //.el-input__prefix {
+//   //  left: unset;
+//   //  right: 5px;
+//   //}
+//   .el-icon-error:before {
+//     @include font_color($color: "$1-color-1", $opacity: 0.45);
+//   }
+// }
+
+// .s-date-picker-popper {
+//   .el-picker-panel {
+//     @include font_color($color: "$1-color-1", $opacity: 0.65);
+//   }
+//   .el-picker-panel__icon-btn {
+//     @include font_color($color: "$1-color-1", $opacity: 0.45);
+//   }
+//   .el-date-picker__header-label {
+//     @include font_color($color: "$1-color-1", $opacity: 0.85);
+//   }
+//   .el-picker-panel__shortcut:hover {
+//     @include font_color($color: "$2-color-1");
+//   }
+//   .el-date-table {
+//     th {
+//       @include font_color($color: "$1-color-1", $opacity: 0.85);
+//       border-bottom: none;
+//     }
+//     td {
+//       span {
+//         border-radius: 2px;
+//       }
+//     }
+//     td.next-month,
+//     td.prev-month {
+//       @include font_color($color: "$1-color-1", $opacity: 0.25);
+//     }
+//     td.today span {
+//       @include font_color($color: "$2-color-1");
+//       font-weight: 400;
+//       border-width: 1px;
+//       border-style: solid;
+//       @include border_color($color: "$2-color-1");
+//       /*border-radius: 2px;*/
+//     }
+//     td.available {
+//       &:hover {
+//         @include font_color($color: "$1-color-1", $opacity: 0.65);
+//       }
+//       span {
+//         /*border-radius: 2px;*/
+//         &:hover {
+//           @include background_color($color: "$2-color-2");
+//           @include font_color($color: "$1-color-1");
+//           border-width: 1px;
+//           border-style: solid;
+//           @include border_color($color: "$2-color-2");
+//         }
+//       }
+//     }
+//     td.current:not(.disabled) span {
+//       @include font_color($color: "$0-color-1");
+//       @include background_color($color: "$2-color-1");
+//     }
+//     td.start-date {
+//       div {
+//         border-top-left-radius: 0;
+//         border-bottom-left-radius: 0;
+//       }
+//       span {
+//         @include background_color($color: "$2-color-1");
+//         &:hover {
+//           @include background_color($color: "$2-color-1");
+//           @include font_color($color: "$0-color-1");
+//         }
+//       }
+//     }
+//     td.end-date {
+//       div {
+//         border-top-right-radius: 0;
+//         border-bottom-right-radius: 0;
+//       }
+//       span {
+//         @include background_color($color: "$2-color-1");
+//         &:hover {
+//           @include background_color($color: "$2-color-1");
+//           @include font_color($color: "$0-color-1");
+//         }
+//       }
+//     }
+
+//     &.is-week-mode .el-date-table__row.current div,
+//     &.is-week-mode .el-date-table__row:hover div,
+//     td.in-range div,
+//     td.in-range div:hover {
+//       @include background_color($color: "$2-color-2");
+//     }
+//   }
+
+//   .el-month-table {
+//     td .cell {
+//       @include font_color($color: "$1-color-1", $opacity: 0.65);
+//       border-radius: 2px;
+//     }
+//     td.today .cell {
+//       @include font_color($color: "$2-color-1");
+//       font-weight: 400;
+//       border-width: 1px;
+//       border-style: solid;
+//       @include border_color($color: "$2-color-1");
+//       /*border-radius: 2px;*/
+//     }
+//     td.current:not(.disabled) .cell {
+//       @include font_color($color: "$0-color-1");
+//       @include background_color($color: "$2-color-1");
+//     }
+//   }
+// }

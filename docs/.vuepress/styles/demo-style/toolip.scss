@@ -1,0 +1,26 @@
+.custom-tooltip .page {
+  .box {
+    width: 400px;
+    .el-tooltip {
+      margin-left: 0;
+    }
+    .item {
+      margin: 4px;
+    }
+    .top {
+      text-align: center;
+    }
+    .left {
+      float: left;
+      width: 60px;
+    }
+    .right {
+      float: right;
+      width: 60px;
+    }
+    .bottom {
+      clear: both;
+      text-align: center;
+    }
+  }
+}

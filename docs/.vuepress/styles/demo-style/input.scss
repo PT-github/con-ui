@@ -1,0 +1,18 @@
+.theme-container.custom-input {
+  .el-input {
+    width: 180px;
+  }
+  .el-textarea {
+    width: 414px;
+  }
+  .demo-input-suffix {
+    margin-bottom: 15px;
+    .el-input {
+      margin-right: 15px;
+    }
+  }
+  .el-input-group {
+    width: 100%;
+  }
+}
+  

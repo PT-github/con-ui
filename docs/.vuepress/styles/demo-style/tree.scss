@@ -1,0 +1,17 @@
+.custom-tree .page {
+  .buttons,
+  .filter-tree {
+    margin-top: 20px;
+  }
+  .custom-tree-container {
+    display: flex;
+    margin: -24px;
+  }
+  .block:first-child {
+    border-right: 1px solid #eff2f6;
+  }
+  .block {
+    flex: 1;
+    padding: 8px 24px 24px;
+  }
+}

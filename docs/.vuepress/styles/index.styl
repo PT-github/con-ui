@@ -1,0 +1,67 @@
+@require '~demo-style/input.scss'
+@require '~demo-style/row.scss'
+@require '~demo-style/icon.scss'
+@require '~demo-style/button.scss'
+@require '~demo-style/radio.scss'
+@require '~demo-style/cascader.scss'
+@require '~demo-style/switch.scss'
+@require '~demo-style/date-picker.scss'
+@require '~demo-style/rate.scss'
+@require '~demo-style/form.scss'
+@require '~demo-style/tag.scss'
+@require '~demo-style/progress.scss'
+@require '~demo-style/tree.scss'
+@require '~demo-style/avatar.scss'
+@require '~demo-style/alert.scss'
+@require '~demo-style/toolip.scss'
+@require '~demo-style/carousel.scss'
+@require '~demo-style/image.scss'
+@require '~demo-style/infinite-scroll.scss'
+
+table:not([class^=el-]) {
+  width: 100%;
+  background-color: #fff;
+  font-size: 14px;
+  margin-bottom: 45px;
+  line-height: 1.5em;
+  display: table;
+  border: none;
+  td, th {
+    border-width: 0 0 1px 0;
+    border-bottom-style: solid;
+    border-bottom-color: #dcdfe6;
+    padding: 15px;
+    max-width: 250px;
+  }
+  th {
+    text-align: left;
+    white-space: nowrap;
+    color: #909399;
+    font-weight: 400;
+  }
+  td {
+    color: #606266;
+  }
+  td:first-child, th:first-child {
+    padding-left: 10px;
+  }
+}
+.demo-block .demo-block-control {
+  border-top: 0 !important;
+}
+
+.theme-default-content:not(.custom), .page-edit, .page-nav {
+  max-width: 960px !important;
+}
+@import '//at.alicdn.com/t/font_2118325_xhptjwmq5xf.css';
+
+[class*=" icon-"], [class^=icon-]
+  font-family: icomoon!important;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;

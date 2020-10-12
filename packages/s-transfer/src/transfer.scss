@@ -1,0 +1,66 @@
+@import "~element-ui/lib/theme-chalk/transfer.css";
+.s-transfer.el-transfer {
+  .el-transfer-panel__item.el-checkbox,
+  .el-transfer-panel
+    .el-transfer-panel__header
+    .el-checkbox
+    .el-checkbox__label {
+    @include font_color($color: "$1-color-1", $opacity: 0.65);
+  }
+  .el-transfer__button {
+    border-radius: 2px;
+    padding: 4px;
+    span {
+      font-size: 12px;
+    }
+  }
+  .el-button--primary.is-disabled,
+  .el-button--primary.is-disabled:active,
+  .el-button--primary.is-disabled:focus,
+  .el-button--primary.is-disabled:hover {
+    @include border_color($color: "$1-color-1", $opacity: 0.15);
+    @include background_color($color: "$1-color-1", $opacity: 0.04);
+    @include font_color($color: "$1-color-1", $opacity: 0.15);
+  }
+  .el-checkbox__input.is-checked .el-checkbox__inner,
+  .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    @include border_color($color: "$2-color-1");
+    @include background_color($color: "$2-color-1");
+  }
+  .el-checkbox__input.is-checked + .el-checkbox__label {
+    @include font_color($color: "$2-color-1");
+  }
+  .el-checkbox__input.is-disabled + span.el-checkbox__label {
+    @include font_color($color: "$1-color-1", $opacity: 0.25);
+  }
+  .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    background-color: #fff;
+    border-color: #dcdfe6;
+    &:before {
+      @include background_color($color: "$2-color-1");
+    }
+  }
+  .el-transfer-panel__body {
+    padding: 0 5px;
+  }
+  .el-transfer-panel__filter {
+    margin: 8px 0;
+    .el-input__inner {
+      border-radius: 4px;
+    }
+  }
+  .el-transfer-panel .el-transfer-panel__header .el-checkbox {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    .el-checkbox__label {
+      flex: 1;
+      text-align: right;
+      padding-right: 16px;
+      span {
+        left: 24px;
+        right: initial;
+      }
+    }
+  }
+}

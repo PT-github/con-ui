@@ -1,0 +1,64 @@
+.theme-container.custom-icon .page {
+  i {
+    color: #606266;
+    margin: 0 20px;
+    font-size: 1.5em;
+    vertical-align: middle;
+  }
+  ul.icon-list {
+    overflow: hidden;
+    list-style: none;
+    padding: 0!important;
+    border: 1px solid #eaeefb;
+    border-radius: 4px;
+  }
+  ul:not(.timeline) {
+    margin: 10px 0;
+    padding: 0 0 0 20px;
+    font-size: 14px;
+    color: #5e6d82;
+    line-height: 2em;
+  }
+  .icon-list li {
+    float: left;
+    width: 16.66%;
+    text-align: center;
+    height: 120px;
+    line-height: 120px;
+    color: #666;
+    font-size: 13px;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-right: -1px;
+    margin-bottom: -1px;
+    &:after {
+      content: '';
+      height: 100%;
+    }
+    i {
+      display: block;
+      font-size: 32px;
+      margin-bottom: 15px;
+      color: #606266;
+      transition: color .15s linear;
+    }
+    span {
+      line-height: normal;
+      font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+      color: #99a9bf;
+      transition: color .15s linear;
+    }
+    .icon-name {
+      display: inline-block;
+      padding: 0 3px;
+      height: 1em;
+    }
+  }
+  .icon-list li:after, .icon-list li span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .icon-list li:hover i, .icon-list li:hover span {
+    color: #5cb6ff;
+  }
+}

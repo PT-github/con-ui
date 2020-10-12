@@ -1,0 +1,46 @@
+{
+  "name": "con-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "build": "webpack --config ./build/webpack.config.js",
+    "build:watch": "webpack --config ./build/webpack.config.js --watch --progress",
+    "build:entry": "node entry.js",
+    "build:component": "webpack --config ./build/webpack.component.js --progress"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
+    "@vue/babel-preset-jsx": "^1.1.2",
+    "element-ui": "^2.13.2",
+    "sortablejs": "^1.12.0",
+    "vue": "^2.6.12",
+    "vue-loader": "^15.9.3"
+  },
+  "devDependencies": {
+    "async-validator": "^1.11.5",
+    "css-loader": "^4.3.0",
+    "eslint": "^7.10.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "file-loader": "^6.1.0",
+    "mini-css-extract-plugin": "^0.11.2",
+    "node-sass": "^4.14.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "postcss-loader": "^4.0.2",
+    "sass-loader": "^10.0.2",
+    "sass-resources-loader": "^2.1.1",
+    "style-loader": "^1.2.1",
+    "terser-webpack-plugin": "^4.2.2",
+    "url-loader": "^4.1.0",
+    "vuepress": "^1.6.0",
+    "vuepress-plugin-demo-container": "^0.2.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  }
+}
