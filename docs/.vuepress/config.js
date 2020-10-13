@@ -8,6 +8,7 @@ module.exports = {
   themeConfig: {
     logo: '/logo.png',
     sidebarDepth: 0,
+    smoothScroll: true,
     nav: [
       { text: '指南', link: '/guide/' },
       { text: '组件', link: '/component/basic/row' },

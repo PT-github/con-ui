@@ -10,15 +10,19 @@
 </head>
 <body>
   <div id="app">
-    <s-table-con
-    :data="tableData"
-    showPagination
-    border
-    :columns="columns"
-    show-summary
-    :pagination="pagination"
-    style="width: 100%">
-  </s-table-con>
+    <div style="border: 1px solid red;width: 800px;height: 300px;">
+      <s-table-con
+      :data="tableData"
+      showPagination
+      table-header-dragable
+      border
+      auto-height
+      :columns="columns"
+      show-summary
+      :pagination="pagination"
+      style="width: 100%">
+    </s-table-con>
+    </div>
   </div>
   <script>
     new Vue({

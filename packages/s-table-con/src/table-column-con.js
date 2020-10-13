@@ -2,7 +2,6 @@ import STableColumn from '../../s-table/src/table-column'
 export default {
   name: 'STableColumnCon',
   render () {
-    console.log(this.$attrs.prop, this.$scopedSlots)
     let scopedSlots = {}
     if (this.$attrs.slotbool) {
       scopedSlots.default = this.$scopedSlots[this.$attrs.prop]
