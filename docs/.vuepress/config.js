@@ -100,7 +100,20 @@ module.exports = {
           '/component/others/backtop',
           '/component/others/infinite-scroll'
         ]
-      }]
+      }],
+      '/adv-component/': [{
+        title: '高级组件',
+        collapsable: false,
+        children: [
+          {
+            title: 'Data 组件',
+            collapsable: false,
+            children: [
+              '/adv-component/data/table-con',
+            ]
+          }
+        ]
+      }],
     }
   },
   alias: {

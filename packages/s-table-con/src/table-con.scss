@@ -1,0 +1,66 @@
+@import '../../s-table/src/styles/table.scss';
+@import '../../s-table/src/styles/table-column.scss';
+@import '../../s-pagination//src/pagination.scss';
+
+$font: PingFangSC, PingFangSC-Regular;
+.s-table-con {
+  .s-pagination {
+    text-align: right;
+    &:not(.el-pagination--small) {
+      padding: 16px;
+      &.is-background {
+        font-family: $font;
+        font-weight: 400;
+        .btn-next, .btn-prev, .el-pager li{
+          @include background_color($color: '$0-color-1');
+          @include font_color($color: '$1-color-1', $opacity: 0.65);
+          @include border_color($color: '$1-color-1', $opacity: 0.15);
+          margin: 0 4px;
+          min-width: 32px;
+          height: 32px;
+          line-height: 30px;
+          border-width: 1px;
+          border-style: solid;
+          font-size: 14px;
+        }
+        .el-pager li {
+          &.active, &:hover {
+            @include background_color($color: '$2-color-1');
+            @include font_color($color: '$0-color-1');
+            @include border_color($color: '$2-color-1');
+          }
+        }
+        .el-pagination__total {
+          @include font_color($color: '$1-color-1', $opacity: 0.65);
+          font-size: 14px;
+          line-height: 32px;
+        }
+        .el-pagination__sizes {
+          height: 32px;
+          line-height: 30px;
+          margin-right: 8px;
+          @include font_color($color: '$1-color-1', $opacity: 0.65);
+          // .el-input--mini 
+        }
+        .el-pagination__jump {
+          font-size: 14px;
+          margin-left: 0;
+          height: 32px;
+          line-height: 32px;
+        }
+        .el-pagination__editor {
+          height: 32px;
+          
+        }
+        .el-input__inner {
+          height: 32px;
+          line-height: 32px;
+          @include font_color($color: '$1-color-1', $opacity: 0.65);
+          @include border_color($color: '$1-color-1', $opacity: 0.15);
+          font-size: 14px;
+          font-family: $font;
+        }
+      }
+    }
+  }
+}

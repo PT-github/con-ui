@@ -13,7 +13,7 @@ export default {
   name: 'STable',
   render (){
     return (
-      <el-table ref='table' class="s-table s-table-111" {
+      <el-table ref='table' class="s-table" {
         ...{
           attrs: {
             ...this.$attrs
