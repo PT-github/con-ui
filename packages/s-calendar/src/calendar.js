@@ -1,10 +1,11 @@
 /*
  * @Author: PT
- * @Date: 2020-09-28 16:11:54
+ * @Date: 2020-10-12 15:32:34
  * @LastEditors: PT
- * @LastEditTime: 2020-10-12 16:23:53
- * @Description: SCard组件
+ * @LastEditTime: 2020-10-13 09:57:52
+ * @Description: SCalendar
  */
+
 import './calendar.scss'
 import Calendar from 'element-ui/lib/calendar'
 export default {
@@ -27,6 +28,6 @@ export default {
     )
   },
   components: {
-    [Calendar.name]: Calendar
+    [ Calendar.name ]: Calendar
   }
 }

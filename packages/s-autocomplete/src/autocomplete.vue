@@ -29,9 +29,6 @@
 import Autocomplete from 'element-ui/lib/autocomplete'
 export default {
   name: 'SAutocomplete',
-  mounted () {
-    console.log('this.$attrs.popperClass', this.$attrs, this.$props)
-  },
   components: {
     [ Autocomplete.name ]: Autocomplete
   }

@@ -1,7 +1,7 @@
-import Divider from './src/divider'
+import Calendar from './src/calendar'
 
-Divider.install = function (Vue) {
-  Vue.component(Divider.name, Divider)
+Calendar.install = function (Vue) {
+  Vue.component(Calendar.name, Calendar)
 }
 
-export default Divider 
+export default Calendar 

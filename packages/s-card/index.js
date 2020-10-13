@@ -1,7 +1,7 @@
-import Calendar from './src/calendar'
+import Card from './src/card'
 
-Calendar.install = function (Vue) {
-  Vue.component(Calendar.name, Calendar)
+Card.install = function (Vue) {
+  Vue.component(Card.name, Card)
 }
 
-export default Calendar 
+export default Card 
