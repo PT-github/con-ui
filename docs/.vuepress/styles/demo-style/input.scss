@@ -14,5 +14,18 @@
   .el-input-group {
     width: 100%;
   }
-}
   
+}
+.s-autocomplete-suggestion li {
+  line-height: normal;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  .name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .addr {
+    font-size: 12px;
+    color: #b4b4b4;
+  }
+}

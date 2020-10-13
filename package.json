@@ -38,6 +38,7 @@
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^4.2.2",
     "url-loader": "^4.1.0",
+    "vue-template-compiler": "^2.6.12",
     "vuepress": "^1.6.0",
     "vuepress-plugin-demo-container": "^0.2.0",
     "webpack": "^4.44.2",
