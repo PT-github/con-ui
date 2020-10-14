@@ -53,7 +53,7 @@
 //获取placeholder颜色
 @mixin placeholder_color($color, $opacity:null) {
   @include themeify {
-    &[placeholder] {
+    &:placeholder {
       color: themed($color, $opacity);
     }
   }

@@ -470,6 +470,10 @@
 | props | 分页配置（针对`data`为`function`时） | object | — | `{ pageSize: 'pageSize', total: 'total', ageNo: 'pageNo', list: 'list'}` |
 | columns | 表格列配置，列表中每个对象即对TableColumn进行配置**详见[Table-column Attributes](/component/data/table.html#table-column-attributes)** | array | — | [] |
 
+### TableCon columns配置
+| edittype | 编辑类型(设置该字段，单元格可编辑) | input/select | — | — |
+列表中每个对象即对TableColumn进行配置**详见[Table-column Attributes](/component/data/table.html#table-column-attributes)**
+
 ### TableCon Methods
 **详见[Table-column Attributes](/component/data/table.html#table-methods)**
 

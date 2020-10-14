@@ -1,11 +1,22 @@
 import STableColumn from '../../s-table/src/table-column'
+import STableEditComponent from './table-edit-component'
+
 export default {
   name: 'STableColumnCon',
-  render () {
-    let scopedSlots = {}
-    if (this.$attrs.slotbool) {
-      scopedSlots.default = this.$scopedSlots[this.$attrs.prop]
+  componentName: 'STableColumnCon',
+  data () {
+    return {
+      rowIndex: '', // 单元格所在行下标
+      isEditting: false, // 表格是否正在编辑
     }
+  },
+  render () {
+    // 传递expand和列插槽
+    let defaultScopedSlots = this.$scopedSlots[this.$attrs.type === 'expand' ? 'expand' : this.$attrs.prop]
+
+    // 单元格可编辑，并且是正在编辑状态，传递编辑插槽
+    this.$attrs.edittype && (defaultScopedSlots = this.renderEditSlots())
+
     return (
       <s-table-column
         {...{
@@ -13,7 +24,7 @@ export default {
             ...this.$attrs
           },
           scopedSlots: {
-            default: this.$scopedSlots[this.$attrs.type === 'expand' ? 'expand' : this.$attrs.prop],
+            default: defaultScopedSlots,
             header: this.$scopedSlots[this.$attrs.prop + 'header']
           }
         }}
@@ -32,13 +43,43 @@ export default {
     )
   },
   methods: {
-    handleSlots () {
-      let scopedSlots = {}
-      this.$scopedSlots[this.$attrs.prop] && (scopedSlots.default = this.$scopedSlots[this.$attrs.prop])
-      this.$attrs.slot
+    /**
+     * @description: 设置编辑单元格插槽
+     */
+    renderEditSlots () {
+      return (scope) => {
+        this.rowIndex = scope.$index
+        return (
+          <s-table-edit-component
+            rowIndex={scope.$index}
+            rowData={scope.row}
+            value={scope.row[this.$attrs.prop]}
+            {
+              ...{
+                attrs: { ...this.$attrs},
+                on: {
+                  'update:value': (v) => {
+                    this.handleChange(scope, v)
+                  }
+                }
+              }
+            }
+            ></s-table-edit-component>
+        )
+      }
     },
+    /**
+     * @description: 监听表格数据变化
+     * 用vModel指令不生效，改为用传value，监听update:value事件，改变表格数据
+     * @param {object} scope 当前行数据
+     * @param {} v 单元格改变后的数据
+     */
+    handleChange (scope, v) {
+      scope.row[this.$attrs.prop] = v
+    }
   },
   components: {
-    STableColumn
+    STableColumn,
+    STableEditComponent
   }
 }

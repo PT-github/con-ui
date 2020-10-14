@@ -4,44 +4,110 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="./node_modules/vue/dist/vue.min.js"></script>
+  <script src="./node_modules/vue/dist/vue.js"></script>
   <script src="./lib/index.js"></script>
   <link rel="stylesheet" href="./lib/theme-chalk/index.css">
 </head>
 <body>
   <div id="app">
-    <div style="border: 1px solid red;width: 800px;height: 300px;">
+    <s-select-con v-model="value" :options="options2"></s-select-con>
+    <s-button size="small" @click="cancelEdit">取消编辑</s-button>
+    <s-button size="small" @click="save">表格保存</s-button>
+    <!-- <div style="border: 1px solid red;width: 800px;height: 300px;"> -->
       <s-table-con
+      ref="table"
       :data="tableData"
-      showPagination
+      show-pagination
       table-header-dragable
       border
-      auto-height
       :columns="columns"
       show-summary
       :pagination="pagination"
       style="width: 100%">
-    </s-table-con>
+      <template v-slot:action="scope">
+        <s-button size="small" @click="setEdit(scope)">编辑</s-button>
+        <s-button size="small" @click="save(scope.$index)">保存</s-button>
+      </template>
+    <!-- </s-table-con> -->
     </div>
   </div>
   <script>
     new Vue({
       data: function () {
         return {
+          options: [{
+            label: '热门城市',
+            options: [{
+              value: 'Shanghai',
+              label: '上海'
+            }, {
+              value: 'Beijing',
+              label: '北京'
+            }]
+          }, {
+            label: '城市名',
+            options: [{
+              value: 'Chengdu',
+              label: '成都'
+            }, {
+              value: 'Shenzhen',
+              label: '深圳'
+            }, {
+              value: 'Guangzhou',
+              label: '广州'
+            }, {
+              value: 'Dalian',
+              label: '大连'
+            }]
+          }],
+          options2: [{
+            value: '选项1',
+            label: '黄金糕'
+          }, {
+            value: '选项2',
+            label: '双皮奶'
+          }, {
+            value: '选项3',
+            label: '蚵仔煎'
+          }, {
+            value: '选项4',
+            label: '龙须面'
+          }, {
+            value: '选项5',
+            label: '北京烤鸭'
+          }],
+          value: '',
           pagination: {
             'page-sizes':[5, 10, 20, 50],
             'page-size': 5,
-            'current-page': 2,
+            'current-page': 1,
             background: true,
             layout:"total, prev, pager, next, sizes, jumper"
           },
           columns: [
-            { type: 'index', width: 100},
+            { type: 'index', width: 55},
             { label: 'ID', prop: 'id' },
-            { label: '姓名', prop: 'name' },
+            { label: '姓名', prop: 'name', edittype: 'input', input: { placeholder:"请输入", size: 'small' } },
+            { label: '下拉框', prop: 'value', edittype: 'select', select: { placeholder: "请选择", size: 'small', options: [{
+                value: '选项1',
+                label: '黄金糕'
+              }, {
+                value: '选项2',
+                label: '双皮奶'
+              }, {
+                value: '选项3',
+                label: '蚵仔煎'
+              }, {
+                value: '选项4',
+                label: '龙须面'
+              }, {
+                value: '选项5',
+                label: '北京烤鸭'
+              }] }
+            },
             { label: '数值 1（元）', prop: 'amount1' },
             { label: '数值 2（元）', prop: 'amount2' },
-            { label: '数值 3（元）', prop: 'amount3' },
+            { label: '操作', prop: 'action' },
           ],
           tableData: this.loadData,
           tempData: {
@@ -50,8 +116,8 @@
               pageSize: 5,
               total: 200,
               list: [
-                { id: '1', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10},
-                { id: '2', name: '王小虎2', amount1: '234', amount2: '3.2', amount3: 10},
+                { id: '1', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, value: '选项1'},
+                { id: '2', name: '王小虎2', amount1: '234', amount2: '3.2', amount3: 10, value: '你好'},
                 { id: '3', name: '王小虎3', amount1: '234', amount2: '3.2', amount3: 10},
                 { id: '4', name: '王小虎4', amount1: '234', amount2: '3.2', amount3: 10},
                 { id: '5', name: '王小虎5', amount1: '234', amount2: '3.2', amount3: 10},
@@ -85,6 +151,19 @@
         }
       },
       methods: {
+        save (rowIndex) {
+          this.$refs.table.saveEdit(rowIndex)
+        },
+        cancelEdit () {
+          this.$refs.table.cancelEdit()
+        },
+        cancelEdit () {
+          this.$refs.table.cancelEdit()
+        },
+        // 设置行编辑
+        setEdit (scope) {
+          this.$refs.table.setRowEdit([scope.$index])
+        },
         loadData (params) {
           console.log(params, '====')
           return new Promise(resolve => {

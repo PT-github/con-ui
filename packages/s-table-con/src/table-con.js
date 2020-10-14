@@ -3,10 +3,18 @@ import STableColumnCon from './table-column-con'
 import SPagination from '../../s-pagination'
 import Sortable from 'sortablejs'
 import { domObserve } from '../../../src/utils/dom-helper'
+import Emitter from '../../../src/utils/emitter'
 import './table-con.scss'
 
 export default {
   name: 'STableCon',
+  componentName: 'STableCon',
+  mixins: [ Emitter ],
+  provide () {
+    return {
+      tableCon: this
+    }
+  },
   props: {
     // 表头是否可拖拽
     tableHeaderDragable: {
@@ -67,7 +75,8 @@ export default {
       paginationHeight: 0, // 分页组件高度
       parentNode: null, // 父容器
       timer: null, // 防抖
-      sortable: null // 表头拖拽实例
+      sortable: null, // 表头拖拽实例
+      editComponent: [] // 正在编辑的子组件
     }
   },
   render () {
@@ -117,6 +126,41 @@ export default {
   },
   methods: {
     ...STable.methods,
+    /**
+     * @description: 添加正在编辑的子组件
+     */
+    addEdittingComponent (instance) {
+      this.editComponent.indexOf(instance) === -1 && this.editComponent.push(instance)
+    },
+    /**
+     * @description: 删除编辑完的子组件
+     */
+    removeEdittingComponent (instance) {
+      let index = this.editComponent.indexOf(instance)
+      index !== -1 && this.editComponent.splice(index, 1)
+    },
+    /**
+     * @description: 设置表格行为编辑状态
+     * @param {Array} rowIndexs
+     * @param {Boolean} isEdit
+     */
+    setRowEdit (rowIndexs = [], isEdit = true) {
+      this.broadcast('STableEditComponent', 'tablecell-edit', {rowIndexs, isEdit})
+    },
+    /**
+     * @description: 保存编辑后的数据
+     * @param {Number} rowIndex 需要保存的行下标
+     */
+    saveEdit (rowIndex) {
+      this.$emit('save-start', rowIndex)
+      this.broadcast('STableEditComponent', 'tablecell-save', rowIndex)
+    },
+    /**
+     * @description: 取消编辑
+     */
+    cancelEdit () {
+      this.broadcast('STableEditComponent', 'cancel-tablecell-edit')
+    },
     /**
      * @description: 根据showPagination配置显示分页组件
      */

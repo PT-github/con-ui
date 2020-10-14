@@ -107,6 +107,12 @@ module.exports = {
         collapsable: false,
         children: [
           {
+            title: 'Form 组件',
+            collapsable: false,
+            children: [
+              '/adv-component/form/select-con',
+            ]
+          },{
             title: 'Data 组件',
             collapsable: false,
             children: [
