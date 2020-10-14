@@ -41,7 +41,7 @@ export default {
           }></s-select>
       }
     } else {
-      console.log(this, this.row, this.rowIndex, '000', this.$attrs)
+      // console.log(this, this.row, this.rowIndex, '000', this.$attrs)
       return <span>{this.value}</span>
     }
   },

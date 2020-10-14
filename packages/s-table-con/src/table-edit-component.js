@@ -24,20 +24,26 @@ export default {
     value: {}
   },
   created () {
-    // 监听单元格保存
-    this.$on('tablecell-save', this.handleTableSave)
-    // 监听单元格编辑
-    this.$on('tablecell-edit', this.handleTableCellEdit)
-    // 取消单元格编辑
-    this.$on('cancel-tablecell-edit', () => {
-      this.isEditting = false
-      this.renderValue = this.value
-      this.tableCon.removeEdittingComponent(this)
-    })
+    // 排除fixed中的单元格
+    if (!this.$parent.fixed) {
+      // 监听单元格保存
+      this.$on('tablecell-save', this.handleTableSave)
+      // 监听单元格编辑
+      this.$on('tablecell-edit', this.handleTableCellEdit)
+      // 取消单元格编辑
+      this.$on('cancel-tablecell-edit', () => {
+        this.isEditting = false
+        this.renderValue = this.value
+        this.tableCon.removeEdittingComponent(this)
+      })
+    }
+    
     this.renderValue = this.value
+    // console.log('created', 'table-edit-component', this.$attrs.prop, this.rowIndex)
   },
   destroyed () {
     this.tableCon.removeEdittingComponent(this)
+    this.$off()
   },
   data () {
     return {
@@ -76,6 +82,8 @@ export default {
      * @param {Number} rowIndex 需要保存的行下标
      */
     handleTableSave (rowIndex) {
+      // console.log(this, '--', this.$attrs.prop, this.rowIndex)
+      // console.log(this.edittype, rowIndex, this.rowIndex, this.$attrs.prop, this.renderValue, this.value)
       if (this.isEditting && (rowIndex === 'all' || rowIndex === this.rowIndex)) {
         // rowIndex为undefined即保存所有单元格
         this.renderValue !== this.value && this.$emit('update:value', this.renderValue)

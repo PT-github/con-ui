@@ -78,7 +78,7 @@ export default {
       sortable: null, // 表头拖拽实例
       isSaving: false, // 表格是否正在保存
       savedRowIndex: null, // 正在保存的行下标 'all'表示整个表格保存
-      editComponent: [] // 正在编辑的子组件
+      editComponent: [], // 正在编辑的子组件
     }
   },
   render () {
@@ -126,6 +126,15 @@ export default {
     this.initTableheaderDrag()
     this.calcTableHeight()
   },
+  computed: {
+    // 正在编辑的行下标
+    currentEditedRows () {
+      return this.editComponent.reduce((editedRows, current) => {
+        editedRows.indexOf(current.rowIndex) === -1 && editedRows.push(current.rowIndex)
+        return editedRows
+      }, [])
+    }
+  },
   methods: {
     ...STable.methods,
     /**
@@ -164,6 +173,8 @@ export default {
           ret.then(() => {
             this.loading = false
           })
+        } else {
+          this.loading = false
         }
       } else {
         this.loading = false
@@ -171,11 +182,25 @@ export default {
     },
     /**
      * @description: 设置表格行为编辑状态
-     * @param {Array} rowIndexs
+     * @param {Array || String || Number} rowIndexs
      * @param {Boolean} isEdit
      */
-    setRowEdit (rowIndexs = [], isEdit = true) {
-      this.broadcast('STableEditComponent', 'tablecell-edit', {rowIndexs, isEdit})
+    setRowEdit (rowIndexs = 'all', isEdit = true) {
+      if (rowIndexs === 'all') {
+        // 设置所有单元格编辑状态
+        rowIndexs = this.tableData.reduce((totalIndex, currentValue, currentIndex) => {
+          totalIndex.push(currentIndex)
+          return totalIndex
+        }, [])
+        this.broadcast('STableEditComponent', 'tablecell-edit', {rowIndexs: rowIndexs, isEdit})
+      } else if (typeof rowIndexs === 'number') {
+        // 设置rowIndexs行的编辑状态
+        rowIndexs = [ rowIndexs ]
+        this.broadcast('STableEditComponent', 'tablecell-edit', {rowIndexs, isEdit})
+      } else if (Array.isArray(rowIndexs)) {
+        // 设置多列的编辑状态
+        this.broadcast('STableEditComponent', 'tablecell-edit', {rowIndexs, isEdit})
+      }
     },
     /**
      * @description: 保存编辑后的数据
@@ -271,7 +296,7 @@ export default {
         let result = data(params)
         if (typeof result === 'object' && typeof result.then === 'function') {
           result.then(res => {
-            console.log(res, '=================')
+            // console.log(res, '=================')
             if (res[props.list] && res[props.list].length > 0) {
               // 设置表格数据
               this.tableData.push(...res[props.list])
@@ -375,6 +400,12 @@ export default {
         }
         this.tableHeight = height
       }, 0)
+    }
+  },
+  watch: {
+    // 监听正在编辑行数据
+    currentEditedRows (v) {
+      this.$emit('edit-rows-change', v)
     }
   },
   destroyed () {
