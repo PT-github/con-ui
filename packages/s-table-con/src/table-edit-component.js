@@ -76,7 +76,7 @@ export default {
      * @param {Number} rowIndex 需要保存的行下标
      */
     handleTableSave (rowIndex) {
-      if (this.isEditting && (rowIndex === undefined || rowIndex === this.rowIndex)) {
+      if (this.isEditting && (rowIndex === 'all' || rowIndex === this.rowIndex)) {
         // rowIndex为undefined即保存所有单元格
         this.renderValue !== this.value && this.$emit('update:value', this.renderValue)
         this.isEditting = false

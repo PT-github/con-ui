@@ -76,6 +76,8 @@ export default {
       parentNode: null, // 父容器
       timer: null, // 防抖
       sortable: null, // 表头拖拽实例
+      isSaving: false, // 表格是否正在保存
+      savedRowIndex: null, // 正在保存的行下标 'all'表示整个表格保存
       editComponent: [] // 正在编辑的子组件
     }
   },
@@ -138,6 +140,34 @@ export default {
     removeEdittingComponent (instance) {
       let index = this.editComponent.indexOf(instance)
       index !== -1 && this.editComponent.splice(index, 1)
+      if (this.isSaving) {
+        if (this.savedRowIndex === 'all') {
+          if (this.editComponent.length === 0) {
+            this.handleSaveFinishedCallback()
+          }
+        } else {
+          let arry = this.editComponent.filter(component => component.rowIndex === this.savedRowIndex)
+          if (arry.length === 0) {
+            this.handleSaveFinishedCallback(this.savedRowIndex)
+          }
+        }
+      }
+    },
+    // 处理保存成功后 关闭loading
+    handleSaveFinishedCallback () {
+      this.$emit('save-finished', this.savedRowIndex === 'all' ? this.tableData : this.tableData[this.savedRowIndex])
+      this.isSaving = false
+      this.savedRowIndex = null
+      if (typeof this.$listeners.saveFinished === 'function') {
+        let ret = this.$listeners.saveFinished()
+        if (typeof ret === 'object' && typeof ret.then === 'function') {
+          ret.then(() => {
+            this.loading = false
+          })
+        }
+      } else {
+        this.loading = false
+      }
     },
     /**
      * @description: 设置表格行为编辑状态
@@ -151,8 +181,14 @@ export default {
      * @description: 保存编辑后的数据
      * @param {Number} rowIndex 需要保存的行下标
      */
-    saveEdit (rowIndex) {
+    saveEdit (rowIndex = 'all') {
+      if (!this.editComponent.length) {
+        return
+      }
+      this.savedRowIndex = rowIndex
       this.$emit('save-start', rowIndex)
+      this.loading = true
+      this.isSaving = true
       this.broadcast('STableEditComponent', 'tablecell-save', rowIndex)
     },
     /**
