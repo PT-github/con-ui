@@ -235,6 +235,7 @@ export default {
                 layout: this.$attrs.pagination && this.$attrs.pagination.layout || 'total, prev, pager, next, sizes, jumper',
                 'page-size': this.pageSize = this.$attrs.pagination && this.$attrs.pagination['page-size'] || this.pageSize,
                 'current-page': this.pageNo = this.$attrs.pagination && this.$attrs.pagination['current-page'] || this.pageNo,
+                background: true,
                 total: this.total
               },
               on: {
