@@ -78,6 +78,7 @@ export default {
       isSaving: false, // 表格是否正在保存
       savedRowIndex: null, // 正在保存的行下标 'all'表示整个表格保存
       editComponent: [], // 正在编辑的子组件
+      observe: null // dom监听
     }
   },
   render () {
@@ -403,11 +404,11 @@ export default {
         // 父容器
         this.parentNode = this.$el.parentNode
         // 被监听的父节点
-        this.observeDom = this.parentSelector ? (document.querySelector(this.parentSelector) || this.parentNode) : this.parentNode
+        let observeDom = this.parentSelector ? (document.querySelector(this.parentSelector) || this.parentNode) : this.parentNode
         // 设置父容器溢出隐藏
         this.parentNode.style.overflow = 'hidden'
         // 监听高度变化的容器class和style属性变化
-        this.observe = domObserve(this.observeDom, {
+        this.observe = domObserve(observeDom, {
           attributes: true,
           attributeFilter: ['class', 'style'],
           characterData: true, // 节点内容或节点文本的变动
@@ -440,7 +441,8 @@ export default {
       this.$emit('edit-rows-change', v)
     }
   },
-  destroyed () {
+  beforeDestroy () {
+    clearTimeout(this.timer)
     this.observe && this.observe.disconnect()
   },
   components: {

@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-13 20:36:55
  * @LastEditors: PT
- * @LastEditTime: 2020-10-13 20:37:25
+ * @LastEditTime: 2020-10-15 17:30:24
  * @Description: dom帮助类
  */
 /**
@@ -28,6 +28,7 @@ export const domObserve = (dom, option, callback) => {
     records.map(record => {
       callback(record)
     })
-  }).observe(dom, option)
+  })
+  observe.observe(dom, option)
   return observe
 }

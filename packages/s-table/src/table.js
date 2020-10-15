@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-09-28 11:56:30
  * @LastEditors: PT
- * @LastEditTime: 2020-10-10 10:17:59
+ * @LastEditTime: 2020-10-15 17:40:56
  * @Description: STable
  */
 
@@ -48,7 +48,7 @@ export default {
     this.$refs.table.$refs.bodyWrapper.addEventListener('scroll', this.handlerScroll, { passive: true })
   },
 
-  destroyed () {
+  beforeDestroy () {
     this.$refs.table.$refs.bodyWrapper.removeEventListener('scroll', this.handlerScroll, { passive: true })
   },
 
