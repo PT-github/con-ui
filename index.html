@@ -108,16 +108,17 @@
               input: {
                 placeholder:"请输入",
                 clearable: true,
-                rules: [
-                  { required: true, message: '请输入姓名', trigger: 'change' },
-                  { validator: checkAge, trigger: 'blur' },
-                ],
+                // rules: [
+                //   { required: true, message: '请输入姓名', trigger: 'change' },
+                //   { validator: checkAge, trigger: 'blur' },
+                // ],
                 size: 'small'
               }
             },
             { label: '下拉框', prop: 'value', edittype: 'select', select: {
                 placeholder: "请选择",
                 size: 'small',
+                multiple: true,
                 clearable: true,
                 rules: [
                   { required: true, message: '请选择选项', trigger: 'change' }

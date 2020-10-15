@@ -87,6 +87,10 @@ export default {
         })
       }
       return isRequired
+    },
+    // 是否为多选select
+    isMultiple () {
+      return !!this.$attrs.select && !!this.$attrs.select.multiple
     }
   },
   render () {
@@ -244,11 +248,27 @@ export default {
      * @return {String} 匹配的数据 
      */
     getSelectValue (v) {
+      console.log(v, '$$$$$$$$')
+      if (!v || (Array.isArray(v) && v.length === 0)) {
+        return ''
+      }
       let value = this.$attrs.select &&
       this.$attrs.select.options &&
       this.$attrs.select.options.length > 0 &&
-      this.$attrs.select.options.filter(item => item.value === v) || []
+      this.$attrs.select.options.filter(item => {
+        if (this.$attrs.select.multiple) {
+          return v.indexOf(item.value) !== -1
+        }
+        return item.value === v
+      }) || []
+      console.log(value, '=======')
+      if (this.isMultiple) {
+        return value.length > 0 ? this.getArrayValue(value, this.$attrs.select && this.$attrs.select.separator ? this.$attrs.select.separator : ',') : ''
+      }
       return value[0] && value[0].label || v
+    },
+    getArrayValue (arry, separator = ',') {
+      return arry.map(item => item.label).join(separator)
     },
     // 根据trigger获取规则
     getFilteredRule (trigger) {
