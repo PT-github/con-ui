@@ -37,8 +37,13 @@ export default {
       this.$on('cancel-tablecell-edit', () => {
         this.isEditting = false
         this.renderValue = this.value
+        this.showPopover = false
+        this.validateState = ''
         this.tableCon.removeEdittingComponent(this)
       })
+      // 监听table发送的单元格校验
+      this.$on('tablecell-validate', this.handleFieldSave)
+      // 表格滚动 隐藏popoper弹窗
       this.$on('body-scroll', () => {
         this.showPopover && (this.showPopover = false)
       })
@@ -109,6 +114,7 @@ export default {
       if (rowIndexs.indexOf(this.rowIndex) !== -1) {
         this.isEditting = isEdit
         this.tableCon[isEdit ? 'addEdittingComponent' : 'removeEdittingComponent'](this)
+        !isEdit && (this.renderValue = this.value, this.showPopover = false, this.validateState = '')
       }
     },
     /**
@@ -123,6 +129,24 @@ export default {
         this.renderValue !== this.value && this.$emit('update:value', this.renderValue)
         this.isEditting = false
         this.tableCon.removeEdittingComponent(this)
+      }
+    },
+    // 监听table发送的单元格校验回调 (利用延时函数 优先处理没有rules规则的单元格)
+    handleFieldSave (rowIndex) {
+      let self = this
+      if (this.isEditting && (rowIndex === 'all' || rowIndex === this.rowIndex)) {
+        if (!this.validRules.length) {
+          this.validateState = 'success'
+          this.tableCon.updateEdittingComponent()
+        } else {
+          setTimeout(() => {
+            // errMessage, invalidFields
+            this.validate('', function () {
+              // console.log('errMessage, invalidFields', errMessage, invalidFields)
+              self.tableCon.updateEdittingComponent()
+            })
+          })
+        }
       }
     },
     /**

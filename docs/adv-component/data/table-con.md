@@ -465,7 +465,7 @@
   <template>
     <div style="margin-bottom: 16px;">
       <s-button size="small" @click="setEdit('all')">表格编辑</s-button>
-      <s-button size="small" @click="setEdit([ 1, 2 ])">第一行和第二行编辑</s-button>
+      <s-button size="small" @click="setEdit([ 1, 2 ])">第二行和第三行编辑</s-button>
       <s-button size="small" @click="save('all')">表格保存</s-button>
       <s-button size="small" @click="cancelEdit">取消编辑</s-button>
     </div>
@@ -600,7 +600,7 @@
   <template>
     <div style="margin-bottom: 16px;">
       <s-button size="small" @click="setEdit('all')">表格编辑</s-button>
-      <s-button size="small" @click="setEdit([ 1, 2 ])">第一行和第二行编辑</s-button>
+      <s-button size="small" @click="setEdit([ 1, 2 ])">第二行和第三行编辑</s-button>
       <s-button size="small" @click="save('all')">表格保存</s-button>
       <s-button size="small" @click="cancelEdit">取消编辑</s-button>
     </div>

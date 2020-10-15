@@ -218,14 +218,34 @@ export default {
       }
       this.savedRowIndex = rowIndex
       this.$emit('save-start', rowIndex)
-      this.loading = true
       this.isSaving = true
-      this.broadcast('STableEditComponent', 'tablecell-save', rowIndex)
+      // 先进行表格校验
+      this.broadcast('STableEditComponent', 'tablecell-validate', rowIndex)
+      // this.loading = true
+      // this.broadcast('STableEditComponent', 'tablecell-save', rowIndex)
+    },
+    /**
+     * @description: 可编辑单元格校验完成 回调
+     */
+    updateEdittingComponent () {
+      if (this.isSaving) {
+        let arry = []
+        if (this.savedRowIndex === 'all') {
+          arry = this.editComponent.filter(component => component.validateState !== 'success')
+        } else {
+          arry = this.editComponent.filter(component => component.rowIndex === this.savedRowIndex && component.validateState !== 'success')
+        }
+        if (arry.length === 0) {
+          this.loading = true
+          this.broadcast('STableEditComponent', 'tablecell-save', this.savedRowIndex)
+        }
+      }
     },
     /**
      * @description: 取消编辑
      */
     cancelEdit () {
+      this.isSaving = false
       this.broadcast('STableEditComponent', 'cancel-tablecell-edit')
     },
     /**
