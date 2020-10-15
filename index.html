@@ -13,22 +13,22 @@
     <s-select-con v-model="value" :options="options2"></s-select-con>
     <s-button size="small" @click="cancelEdit">取消编辑</s-button>
     <s-button size="small" @click="save('all')">表格保存</s-button>
-    <!-- <div style="border: 1px solid red;width: 800px;height: 300px;"> -->
+    <div style="border: 1px solid red;width: 800px;height: 300px;">
       <s-table-con
       ref="table"
       :data="tableData"
       show-pagination
       table-header-dragable
       border
+      auto-height
       :columns="columns"
-      show-summary
       :pagination="pagination"
       style="width: 100%">
       <template v-slot:action="scope">
         <s-button size="small" @click="setEdit(scope)">编辑</s-button>
         <s-button size="small" @click="save(scope.$index)">保存</s-button>
       </template>
-    <!-- </s-table-con> -->
+    </s-table-con>
     </div>
   </div>
   <script>

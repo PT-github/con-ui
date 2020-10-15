@@ -72,7 +72,6 @@ export default {
       pageSize: 10, // 每页显示条数
       total: 0, // 总条数
       tableHeight: null, // 表格高度
-      paginationHeight: 0, // 分页组件高度
       parentNode: null, // 父容器
       timer: null, // 防抖
       sortable: null, // 表头拖拽实例
@@ -379,24 +378,29 @@ export default {
         this.observeDom = this.parentSelector ? (document.querySelector(this.parentSelector) || this.parentNode) : this.parentNode
         // 设置父容器溢出隐藏
         this.parentNode.style.overflow = 'hidden'
-        // 分页组件高度
-        this.paginationHeight = this.showPagination ? this.$refs.pagination.$el.offsetHeight + 'px' : 0
         // 监听高度变化的容器class和style属性变化
         this.observe = domObserve(this.observeDom, {
           attributes: true,
-          attributeFilter: ['class', 'style']
+          attributeFilter: ['class', 'style'],
+          characterData: true, // 节点内容或节点文本的变动
+          childList: true, // 子节点的变动（新增、删除或者更改）
+          subtree: true, // 是否将观察器应用于该节点的所有后代节点
         }, this.handleTableHeight)
         this.handleTableHeight()
       }
     },
+    // 表格高度计算
     handleTableHeight () {
       clearTimeout(this.timer)
       this.timer = setTimeout(() => {
-        let height = window.getComputedStyle(this.parentNode).height // 外部容器高度
+        // let height = window.getComputedStyle(this.parentNode).height // 外部容器高度
+        let height = this.parentNode.offsetHeight
         try {
-          this.showPagination && (height = (Number(height.substring(0, height.length - 2)) - Number(this.paginationHeight.substring(0, this.paginationHeight.length - 2))) + 'px')
+          let paginationHeight = this.showPagination ? this.$refs.pagination.$el.offsetHeight : 0
+          height -= paginationHeight
+          this.$refs.table.doLayout()
         } catch (error) {
-          console.error('STableCon组件计算Pagination高度发生错误', error)
+          console.error('STableCon组件计算自适应高度发生错误', error)
         }
         this.tableHeight = height
       }, 0)
