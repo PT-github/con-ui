@@ -248,7 +248,6 @@ export default {
      * @return {String} 匹配的数据 
      */
     getSelectValue (v) {
-      console.log(v, '$$$$$$$$')
       if (!v || (Array.isArray(v) && v.length === 0)) {
         return ''
       }
@@ -261,7 +260,6 @@ export default {
         }
         return item.value === v
       }) || []
-      console.log(value, '=======')
       if (this.isMultiple) {
         return value.length > 0 ? this.getArrayValue(value, this.$attrs.select && this.$attrs.select.separator ? this.$attrs.select.separator : ',') : ''
       }
