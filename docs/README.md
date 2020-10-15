@@ -15,10 +15,3 @@ features:
 footer: MIT Licensed | Copyright © 2020-present Peng Tao
 ---
 [//]: # (Unknow custom element:<v-xxxxx>报错，关闭vue-devtools)
-
-
-table auto-heights show-summary 高度设置 未完成
-edit-table
-.el-table td, .el-table th {
-  padding: 8px 0;
-}

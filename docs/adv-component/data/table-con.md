@@ -477,7 +477,7 @@
       table-header-dragable
       @save-finished="handleEditFinished"
       @edit-rows-change="handleEditRows"
-      border>
+      >
       <template v-slot:action="scope">
         <s-button v-if="editRowsArray.indexOf(scope.$index) === -1" size="small" type="primary" @click="setEdit(scope.$index)">编辑</s-button>
         <template v-else>
@@ -547,7 +547,7 @@
             { label: '详细地址',
               children: [
                 { label: '省份', prop: 'province', width: 90, edittype: 'input', input: { size: 'small' } },
-                { label: '地址', prop: 'address', width: 220, edittype: 'input', input: { type: 'textarea',size: 'small' }  },
+                { label: '地址', prop: 'address', width: 220, edittype: 'input', input: { size: 'small' }  },
               ]
             },
             {
@@ -600,8 +600,8 @@
 | data | 显示的数据 | array/function(当为function时，必须返回promise) | — | — |
 | show-pagination | 是否显示分页组件 | boolean | — | false |
 | auto-height | 是否根据父容器自适应高度 | boolean | — | false |
-| props | 分页配置（针对`data`为`function`时） | object | — | `{ pageSize: 'pageSize', total: 'total', ageNo: 'pageNo', list: 'list'}` |
-| columns | 表格列配置，列表中每个对象即对TableColumn进行配置**详见[Table-column Attributes](/component/data/table.html#table-column-attributes)** | array | — | [] |
+| props | 分页参数配置（针对`data`为`function`时） | object | — | `{ pageSize: 'pageSize', total: 'total', pageNo: 'pageNo', list: 'list'}` |
+| columns | 表格列配置，详见下表 | array | — | [] |
 
 ### TableCon columns配置
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
