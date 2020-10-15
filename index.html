@@ -13,7 +13,7 @@
     <s-select-con v-model="value" :options="options2"></s-select-con>
     <s-button size="small" @click="cancelEdit">取消编辑</s-button>
     <s-button size="small" @click="save('all')">表格保存</s-button>
-    <div style="border: 1px solid red;width: 800px;height: 300px;">
+    <div style="border: 1px solid red;height: 200px;">
       <s-table-con
       ref="table"
       :data="tableData"
@@ -32,8 +32,25 @@
     </div>
   </div>
   <script>
+
     new Vue({
       data: function () {
+        var checkAge = (rule, value, callback) => {
+          if (!value) {
+            return callback(new Error('年龄不能为空'));
+          }
+          setTimeout(() => {
+            if (!Number.isInteger(value)) {
+              callback(new Error('请输入数字值'));
+            } else {
+              if (value < 18) {
+                callback(new Error('必须年满18岁'));
+              } else {
+                callback();
+              }
+            }
+          }, 1000);
+        }
         return {
           options: [{
             label: '热门城市',
@@ -87,23 +104,41 @@
           columns: [
             { type: 'index', width: 55},
             { label: 'ID', prop: 'id' },
-            { label: '姓名', prop: 'name', edittype: 'input', input: { placeholder:"请输入", size: 'small' } },
-            { label: '下拉框', prop: 'value', edittype: 'select', select: { placeholder: "请选择", size: 'small', options: [{
-                value: '选项1',
-                label: '黄金糕'
-              }, {
-                value: '选项2',
-                label: '双皮奶'
-              }, {
-                value: '选项3',
-                label: '蚵仔煎'
-              }, {
-                value: '选项4',
-                label: '龙须面'
-              }, {
-                value: '选项5',
-                label: '北京烤鸭'
-              }] }
+            { label: '姓名', prop: 'name', edittype: 'input',
+              input: {
+                placeholder:"请输入",
+                clearable: true,
+                rules: [
+                  { required: true, message: '请输入姓名', trigger: 'change' },
+                  { validator: checkAge, trigger: 'blur' },
+                ],
+                size: 'small'
+              }
+            },
+            { label: '下拉框', prop: 'value', edittype: 'select', select: {
+                placeholder: "请选择",
+                size: 'small',
+                clearable: true,
+                rules: [
+                  { required: true, message: '请选择选项', trigger: 'change' }
+                ],
+                options: [{
+                  value: '选项1',
+                  label: '黄金糕'
+                }, {
+                  value: '选项2',
+                  label: '双皮奶'
+                }, {
+                  value: '选项3',
+                  label: '蚵仔煎'
+                }, {
+                  value: '选项4',
+                  label: '龙须面'
+                }, {
+                  value: '选项5',
+                  label: '北京烤鸭'
+                }]
+              }
             },
             { label: '数值 1（元）', prop: 'amount1' },
             { label: '数值 2（元）', prop: 'amount2' },

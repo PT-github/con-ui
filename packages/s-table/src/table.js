@@ -44,11 +44,22 @@ export default {
     )
   },
 
+  mounted () {
+    this.$refs.table.$refs.bodyWrapper.addEventListener('scroll', this.handlerScroll, { passive: true })
+  },
+
+  destroyed () {
+    this.$refs.table.$refs.bodyWrapper.removeEventListener('scroll', this.handlerScroll, { passive: true })
+  },
+
   components: {
     [Table.name]: Table
   },
 
   methods: {
+    handlerScroll () {
+      this.$emit('body-scroll')
+    },
     clearSelection () {
       return this.$refs.table.clearSelection()
     },

@@ -97,7 +97,8 @@ export default {
                 height: this.height || this.tableHeight
               },
               on: {
-                ...this.$listeners
+                ...this.$listeners,
+                'body-scroll': this.handleBodyScroll
               }
             }
           }
@@ -136,6 +137,12 @@ export default {
   },
   methods: {
     ...STable.methods,
+    /**
+     * @description: 监听tablebody scroll事件
+     */
+    handleBodyScroll () {
+      this.broadcast('STableEditComponent', 'body-scroll')
+    },
     /**
      * @description: 添加正在编辑的子组件
      */

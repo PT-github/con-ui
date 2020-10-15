@@ -477,6 +477,7 @@
       table-header-dragable
       @save-finished="handleEditFinished"
       @edit-rows-change="handleEditRows"
+      border
       >
       <template v-slot:action="scope">
         <s-button v-if="editRowsArray.indexOf(scope.$index) === -1" size="small" type="primary" @click="setEdit(scope.$index)">编辑</s-button>

@@ -1,4 +1,5 @@
 const getReference = (el, binding, vnode) => {
+  console.log(el, binding, vnode, '====')
   const _ref = binding.expression ? binding.value : binding.arg
   const popper = vnode.context.$refs[_ref].$refs['popover']
   if (popper) {

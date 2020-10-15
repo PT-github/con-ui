@@ -1,5 +1,8 @@
 import SInput from '../../s-input'
 import SSelectCon from '../../s-select-con'
+import AsyncValidator from 'async-validator'
+import SPopoper from '../../s-popover'
+import { generateUUID } from '../../../src/utils'
 export default {
   name: 'STableEditComponent',
   componentName: 'STableEditComponent',
@@ -36,6 +39,9 @@ export default {
         this.renderValue = this.value
         this.tableCon.removeEdittingComponent(this)
       })
+      this.$on('body-scroll', () => {
+        this.showPopover && (this.showPopover = false)
+      })
     }
     
     this.renderValue = this.value
@@ -46,9 +52,36 @@ export default {
     this.$off()
   },
   data () {
+    let uuid = generateUUID()
     return {
+      uuid,
       isEditting: false, // 是否正在编辑
-      renderValue: null // 组件的绑定数据
+      renderValue: null, // 组件的绑定数据
+      showPopover: false, // 显示错误弹窗
+      validateState: '', // 校验状态
+      validateMessage: '', // 错误内容
+    }
+  },
+  computed: {
+    // 校验规则
+    validRules () {
+      return this.$attrs[this.edittype] && this.$attrs[this.edittype].rules || []
+    },
+    // 是否必填
+    isRequired () {
+      let rules = this.validRules
+      let isRequired = false
+
+      if (rules && rules.length) {
+        rules.every(rule => {
+          if (rule.required) {
+            isRequired = true
+            return false
+          }
+          return true
+        })
+      }
+      return isRequired
     }
   },
   render () {
@@ -66,6 +99,7 @@ export default {
      */
     handleChange (v) {
       this.renderValue = v
+      this.validate('change')
     },
     /**
      * @description: 设置单元格编辑状态 {rowIndexs = [], isEdit = false}
@@ -97,17 +131,46 @@ export default {
     renderInput () {
       if (this.isEditting) {
         return (
-          <s-input
-            value={ this.renderValue }
+          <div class='table-input'>
             {
-              ...{
-                attrs: { ...this.$attrs.input },
-                on: {
-                  input: this.handleChange
+              this.isRequired && <span class="is-required">*</span>
+            }
+            <s-popover
+              ref="popover"
+              placement="top-start"
+              trigger="manual"
+              vModel={this.showPopover}
+              content={ this.validateMessage || '请输入' + this.$attrs.label }>
+            </s-popover>
+            <s-input
+              value={ this.renderValue }
+              class={ 'is-' + this.validateState }
+              vPopover:popover
+              {
+                ...{
+                  attrs: { 
+                    ...this.$attrs.input
+                  },
+                  on: {
+                    input: this.handleChange,
+                    blur: this.handleBlur,
+                    focus: () => {
+                      this.showPopover = false
+                    }
+                  }
                 }
+              }>
+              {
+                this.validateState && (
+                  <i class={[
+                    'el-input__icon',
+                    this.validateState === 'error' && 'icon__error el-icon-circle-close',
+                    this.validateState === 'validating' && 'icon__validating el-icon-loading'
+                  ]} slot="suffix"></i>
+                )
               }
-            }>
-          </s-input>
+            </s-input>
+          </div>
         )
       }
       return <span>{this.value}</span>
@@ -118,17 +181,35 @@ export default {
     renderSelect () {
       if (this.isEditting) {
         return (
-          <s-select-con
-            vModel={this.renderValue}
+          <div class='table-select'>
             {
-              ...{
-                attrs: { ...this.$attrs.select },
-                on: {
-                  change: this.handleChange
+              this.isRequired && <span class="is-required">*</span>
+            }
+            <s-popover
+              ref="popover"
+              placement="top-start"
+              trigger="manual"
+              vModel={this.showPopover}
+              content={ this.validateMessage || '请选择' + this.$attrs.label }>
+            </s-popover>
+            <s-select-con
+              vModel={this.renderValue}
+              class={ 'is-' + this.validateState }
+              vPopover:popover
+              {
+                ...{
+                  attrs: { ...this.$attrs.select },
+                  on: {
+                    change: this.handleChange,
+                    focus: () => {
+                      this.showPopover = false
+                    },
+                    'visible-change': v => v && this.showPopover && (this.showPopover = false)
+                  }
                 }
-              }
-            }>
-          </s-select-con>
+              }>
+            </s-select-con>
+          </div>
         )
       }
       return <span>{this.getSelectValue(this.value)}</span>
@@ -144,10 +225,66 @@ export default {
       this.$attrs.select.options.length > 0 &&
       this.$attrs.select.options.filter(item => item.value === v) || []
       return value[0] && value[0].label || v
+    },
+    // 根据trigger获取规则
+    getFilteredRule (trigger) {
+      const rules = this.validRules
+
+      return rules.filter(rule => {
+        if (!rule.trigger || trigger === '') return true
+        if (Array.isArray(rule.trigger)) {
+          return rule.trigger.indexOf(trigger) > -1
+        } else {
+          return rule.trigger === trigger
+        }
+      }).map(rule => Object.assign({}, rule))
+    },
+    // 校验单元格数据
+    validate (trigger, callback = function () {}) {
+      const rules = this.getFilteredRule(trigger)
+      if (!rules || rules.length === 0) {
+        callback()
+        return true
+      }
+
+      this.showPopover = false // 关闭错误弹窗
+      this.validateState = 'validating' // 校验设置成功
+
+      const descriptor = {}
+      if (rules && rules.length > 0) {
+        rules.forEach(rule => {
+          delete rule.trigger
+        })
+      }
+      descriptor[this.uuid] = rules
+
+      const validator = new AsyncValidator(descriptor)
+      const model = {}
+
+      model[this.uuid] = this.renderValue
+
+      validator.validate(model, { firstFields: true }, (errors, invalidFields) => {
+        this.showPopover = !!errors
+        this.validateState = !errors ? 'success' : 'error'
+        this.validateMessage = errors ? errors[0].message : ''
+        // console.log('invalidFields', invalidFields)
+
+        callback(this.validateMessage, invalidFields)
+      })
+    },
+    // 监听blur事件
+    handleBlur () {
+      this.validate('blur')
     }
   },
+  // watch: {
+  //   renderValue () {
+  //     this.validate('change')
+  //   }
+  // },
   component: {
     SInput,
-    SSelectCon
+    SSelectCon,
+    SPopoper
   }
 }

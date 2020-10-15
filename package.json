@@ -23,7 +23,7 @@
     "vue-loader": "^15.9.3"
   },
   "devDependencies": {
-    "async-validator": "^1.11.5",
+    "async-validator": "^1.12.2",
     "css-loader": "^4.3.0",
     "eslint": "^7.10.0",
     "eslint-loader": "^4.0.2",
