@@ -2,13 +2,14 @@
  * @Author: PT
  * @Date: 2020-09-28 11:58:51
  * @LastEditors: PT
- * @LastEditTime: 2020-10-15 11:04:38
+ * @LastEditTime: 2020-10-15 22:38:25
  * @Description: 安装依赖
 -->
 # 项目需要的依赖
 ```
 npm i vue element-ui
 npm i async-validator // 校验
+npm i @riophae/vue-treeselect //下拉树
 ```
 # docs文档
 ```

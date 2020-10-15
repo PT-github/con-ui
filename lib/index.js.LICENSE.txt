@@ -1,3 +1,9 @@
+/*!
+ * vue-treeselect v0.4.0 | (c) 2017-2019 Riophae Lee
+ * Released under the MIT License.
+ * https://vue-treeselect.js.org/
+ */
+
 /**
  * Checks if an event is supported in the current execution environment.
  *
