@@ -11,7 +11,6 @@
   <s-select-con
     v-model="value"
     placeholder="请选择"
-    size="small"
     :options="options">
   </s-select-con>
 </template>
@@ -50,7 +49,6 @@
 ```html
 <template>
   <s-select-con
-    size="mini"
     v-model="value"
     placeholder="请选择"
     :options="options">

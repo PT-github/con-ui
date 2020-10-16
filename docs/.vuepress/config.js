@@ -111,6 +111,7 @@ module.exports = {
             collapsable: false,
             children: [
               '/adv-component/form/select-con',
+              '/adv-component/form/treeselect',
             ]
           },{
             title: 'Data 组件',

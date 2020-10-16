@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-15 22:36:22
  * @LastEditors: PT
- * @LastEditTime: 2020-10-16 15:40:10
+ * @LastEditTime: 2020-10-16 17:17:14
  * @Description: STreeselect
  */
 import Treeselect from '@riophae/vue-treeselect'
@@ -16,9 +16,9 @@ export default {
       type: String,
       default: ''
     },
-    clearable: {
-      type: Boolean,
-      default: false
+    clearValueText: {
+      type: String,
+      default: ''
     },
     loadingText: {
       type: String,
