@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-15 22:36:22
  * @LastEditors: PT
- * @LastEditTime: 2020-10-16 21:20:59
+ * @LastEditTime: 2020-10-16 22:14:28
  * @Description: STreeselect
  */
 import Treeselect from '@riophae/vue-treeselect'
@@ -12,6 +12,11 @@ import './treeselect.scss'
 export default {
   name: 'STreeselect',
   props: {
+    value: {},
+    validateEvent: {
+      type: Boolean,
+      default: true
+    },
     clearAllText: {
       type: String,
       default: ''
@@ -61,6 +66,14 @@ export default {
       default: 'large'
     }
   },
+  inject: {
+    elForm: {
+      default: ''
+    },
+    elFormItem: {
+      default: ''
+    }
+  },
   data () {
     return {
       // selectClearable: false,
@@ -75,9 +88,9 @@ export default {
       <Treeselect class={
         {
           's-treeselect': true,
-          's-treeselect--medium': this.size === 'medium',
-          's-treeselect--small': this.size === 'small',
-          's-treeselect--mini': this.size === 'mini'
+          's-treeselect--medium': this.treeselectSize === 'medium',
+          's-treeselect--small': this.treeselectSize === 'small',
+          's-treeselect--mini': this.treeselectSize === 'mini'
         }
       }
         {
@@ -85,7 +98,7 @@ export default {
           attrs: {
             ...this.$attrs,
             ...this.$props,
-            // clearable: this.selectClearable
+            disabled: this.treeselectDisabled
           },
           on: {
             ...this.$listeners
@@ -97,27 +110,40 @@ export default {
       </Treeselect>
     )
   },
-  methods: {
-    // handleMouseOver () {
-    //   clearTimeout(this.timer)
-    //   this.timer = setTimeout(() => {
-    //     this.clearable && (this.selectClearable = true)
-    //   }, 20)
-    // },
-    // handleMouseOut () {
-    //   clearTimeout(this.timer)
-    //   this.timer = setTimeout(() => {
-    //     this.selectClearable && (this.selectClearable = false)
-    //   }, 500)
-    // },
+  computed: {
+    _elFormItemSize () {
+      return (this.elFormItem || {}).elFormItemSize
+    },
+    validateState () {
+      return this.elFormItem ? this.elFormItem.validateState : ''
+    },
+    treeselectSize () {
+      return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size
+    },
+    treeselectDisabled () {
+      return this.disabled || (this.elForm || {}).disabled
+    },
   },
+  // methods: {
+  //   handleMouseOver () {
+  //     clearTimeout(this.timer)
+  //     this.timer = setTimeout(() => {
+  //       this.clearable && (this.selectClearable = true)
+  //     }, 20)
+  //   },
+  //   handleMouseOut () {
+  //     clearTimeout(this.timer)
+  //     this.timer = setTimeout(() => {
+  //       this.selectClearable && (this.selectClearable = false)
+  //     }, 500)
+  //   },
+  // },
   watch: {
-    clearable: {
-      handler: function (v) {
-        this.selectClearable = v
-      },
-      immediate: true
-    }
+    value (val) {
+      if (this.validateEvent) {
+        this.dispatch('ElFormItem', 'el.form.change', val)
+      }
+    },
   },
   component: {
     Treeselect
