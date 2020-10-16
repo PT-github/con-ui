@@ -11,7 +11,7 @@ pageClass: custom-form
 
 :::demo 在 Form 组件中，每一个表单域由一个 Form-Item 组件构成，表单域中可以放置各种类型的表单控件，包括 Input、Select、Checkbox、Radio、Switch、DatePicker、TimePicker
 ```html
-<s-form ref="form" :model="form" label-width="80px">
+<s-form ref="form" :disabled="true" :model="form" label-width="80px">
   <s-form-item label="活动名称">
     <s-input v-model="form.name"></s-input>
   </s-form-item>

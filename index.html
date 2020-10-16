@@ -10,276 +10,77 @@
 </head>
 <body>
   <div id="app">
-    <s-select-con v-model="value" :options="options2"></s-select-con>
-    <s-button size="small" @click="cancelEdit">取消编辑</s-button>
-    <s-button size="small" @click="save('all')">表格保存</s-button>
-    <div style="border: 1px solid red;height: 200px;">
-      <s-table-con
-      ref="table"
-      :data="tableData"
-      show-pagination
-      table-header-dragable
-      border
-      auto-height
-      :columns="columns"
-      :pagination="pagination"
-      style="width: 100%">
-      <template v-slot:action="scope">
-        <s-button size="small" @click="setEdit(scope)">编辑</s-button>
-        <s-button size="small" @click="save(scope.$index)">保存</s-button>
-      </template>
-    </s-table-con>
-    </div>
+    <s-select :disabled="true" v-model="form.region" placeholder="请选择活动区域">
+      <s-option label="区域一" value="shanghai"></s-option>
+      <s-option label="区域二" value="beijing"></s-option>
+    </s-select>
+    <br/><br/><br/><br/>
+    <s-form ref="form" :disabled="true" :model="form" label-width="80px">
+      <s-form-item label="活动名称">
+        <s-input v-model="form.name"></s-input>
+      </s-form-item>
+      <s-form-item label="活动区域">
+        <s-select v-model="form.region" placeholder="请选择活动区域">
+          <s-option label="区域一" value="shanghai"></s-option>
+          <s-option label="区域二" value="beijing"></s-option>
+        </s-select>
+      </s-form-item>
+      <s-form-item label="活动时间">
+        <s-col :span="11">
+          <s-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></s-date-picker>
+        </s-col>
+        <s-col class="line" :span="2">-</s-col>
+        <s-col :span="11">
+          <s-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></s-time-picker>
+        </s-col>
+      </s-form-item>
+      <s-form-item label="即时配送">
+        <s-switch v-model="form.delivery"></s-switch>
+      </s-form-item>
+      <s-form-item label="活动性质">
+        <s-checkbox-group v-model="form.type">
+          <s-checkbox label="美食/餐厅线上活动" name="type"></s-checkbox>
+          <s-checkbox label="地推活动" name="type"></s-checkbox>
+          <s-checkbox label="线下主题活动" name="type"></s-checkbox>
+          <s-checkbox label="单纯品牌曝光" name="type"></s-checkbox>
+        </s-checkbox-group>
+      </s-form-item>
+      <s-form-item label="特殊资源">
+        <s-radio-group v-model="form.resource">
+          <s-radio label="线上品牌商赞助"></s-radio>
+          <s-radio label="线下场地免费"></s-radio>
+        </s-radio-group>
+      </s-form-item>
+      <s-form-item label="活动形式">
+        <s-input type="textarea" v-model="form.desc"></s-input>
+      </s-form-item>
+      <s-form-item>
+        <s-button type="primary" @click="onSubmit">立即创建</s-button>
+        <s-button>取消</s-button>
+      </s-form-item>
+    </s-form>
   </div>
   <script>
 
     new Vue({
-      data: function () {
-        var checkAge = (rule, value, callback) => {
-          if (!value) {
-            return callback(new Error('年龄不能为空'));
-          }
-          setTimeout(() => {
-            if (!Number.isInteger(value)) {
-              callback(new Error('请输入数字值'));
-            } else {
-              if (value < 18) {
-                callback(new Error('必须年满18岁'));
-              } else {
-                callback();
-              }
-            }
-          }, 1000);
-        }
+      data() {
         return {
-          options: [{
-            label: '热门城市',
-            options: [{
-              value: 'Shanghai',
-              label: '上海'
-            }, {
-              value: 'Beijing',
-              label: '北京'
-            }]
-          }, {
-            label: '城市名',
-            options: [{
-              value: 'Chengdu',
-              label: '成都'
-            }, {
-              value: 'Shenzhen',
-              label: '深圳'
-            }, {
-              value: 'Guangzhou',
-              label: '广州'
-            }, {
-              value: 'Dalian',
-              label: '大连'
-            }]
-          }],
-          options2: [{
-            value: '选项1',
-            label: '黄金糕'
-          }, {
-            value: '选项2',
-            label: '双皮奶'
-          }, {
-            value: '选项3',
-            label: '蚵仔煎'
-          }, {
-            value: '选项4',
-            label: '龙须面'
-          }, {
-            value: '选项5',
-            label: '北京烤鸭'
-          }],
-          value: '',
-          pagination: {
-            'page-sizes':[5, 10, 20, 50],
-            'page-size': 5,
-            'current-page': 1,
-            background: true,
-            layout:"total, prev, pager, next, sizes, jumper"
-          },
-          columns: [
-            { type: 'index', width: 55},
-            { label: 'ID', prop: 'id' },
-            { label: '姓名', prop: 'name', edittype: 'input',
-              input: {
-                placeholder:"请输入",
-                clearable: true,
-                // rules: [
-                //   { required: true, message: '请输入姓名', trigger: 'change' },
-                //   { validator: checkAge, trigger: 'blur' },
-                // ],
-                size: 'small'
-              }
-            },
-            { label: '下拉框', prop: 'value', edittype: 'select', select: {
-                placeholder: "请选择",
-                size: 'small',
-                multiple: true,
-                clearable: true,
-                rules: [
-                  { required: true, message: '请选择选项', trigger: 'change' }
-                ],
-                options: [{
-                  value: '选项1',
-                  label: '黄金糕'
-                }, {
-                  value: '选项2',
-                  label: '双皮奶'
-                }, {
-                  value: '选项3',
-                  label: '蚵仔煎'
-                }, {
-                  value: '选项4',
-                  label: '龙须面'
-                }, {
-                  value: '选项5',
-                  label: '北京烤鸭'
-                }]
-              }
-            },
-            { label: '数值 1（元）', prop: 'amount1' },
-            { label: '数值 2（元）', prop: 'amount2' },
-            { label: '操作', prop: 'action' },
-          ],
-          tableData: this.loadData,
-          tempData: {
-            '1': {
-              pageNo: 1,
-              pageSize: 5,
-              total: 200,
-              list: [
-                { id: '1', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, value: '选项1'},
-                { id: '2', name: '王小虎2', amount1: '234', amount2: '3.2', amount3: 10, value: '你好'},
-                { id: '3', name: '王小虎3', amount1: '234', amount2: '3.2', amount3: 10},
-                { id: '4', name: '王小虎4', amount1: '234', amount2: '3.2', amount3: 10},
-                { id: '5', name: '王小虎5', amount1: '234', amount2: '3.2', amount3: 10},
-              ]
-            },
-            '2': {
-              pageNo: 1,
-              pageSize: 5,
-              total: 200,
-              list: [
-                { id: '2-1', name: '2-王小虎1', amount1: '234', amount2: '3.2', amount3: 10},
-                { id: '2-2', name: '2-王小虎2', amount1: '234', amount2: '3.2', amount3: 10},
-                { id: '2-3', name: '2-王小虎3', amount1: '234', amount2: '3.2', amount3: 10},
-                { id: '2-4', name: '2-王小虎4', amount1: '234', amount2: '3.2', amount3: 10},
-                { id: '2-5', name: '2-王小虎5', amount1: '234', amount2: '3.2', amount3: 10},
-              ]
-            },
-            '3': {
-              pageNo: 1,
-              pageSize: 5,
-              total: 200,
-              list: [
-                { id: '3-1', name: '3-王小虎1', amount1: '234', amount2: '3.2', amount3: 10},
-                { id: '3-2', name: '3-王小虎2', amount1: '234', amount2: '3.2', amount3: 10},
-                { id: '3-3', name: '3-王小虎3', amount1: '234', amount2: '3.2', amount3: 10},
-                { id: '3-4', name: '3-王小虎4', amount1: '234', amount2: '3.2', amount3: 10},
-                { id: '3-5', name: '3-王小虎5', amount1: '234', amount2: '3.2', amount3: 10},
-              ]
-            }
+          form: {
+            name: '',
+            region: '',
+            date1: '',
+            date2: '',
+            delivery: false,
+            type: [],
+            resource: '',
+            desc: ''
           }
         }
       },
       methods: {
-        save (rowIndex) {
-          this.$refs.table.saveEdit(rowIndex)
-        },
-        cancelEdit () {
-          this.$refs.table.cancelEdit()
-        },
-        // 设置行编辑
-        setEdit (scope) {
-          this.$refs.table.setRowEdit([scope.$index])
-        },
-        loadData (params) {
-          console.log(params, '====')
-          return new Promise(resolve => {
-            setTimeout(() => {
-              this.tempData[params.pageNo].pageSize = params.pageSize
-              resolve(this.tempData[params.pageNo])
-            }, 1000)
-          })
-        },
-        arraySpanMethod({ row, column, rowIndex, columnIndex }) {
-          if (rowIndex % 2 === 0) {
-            if (columnIndex === 0) {
-              return [1, 2];
-            } else if (columnIndex === 1) {
-              return [0, 0];
-            }
-          }
-        },
-        getSummaries(param) {
-          const { columns, data } = param;
-          const sums = [];
-          columns.forEach((column, index) => {
-            if (index === 0) {
-              sums[index] = '总价';
-              return;
-            }
-            const values = data.map(item => Number(item[column.property]));
-            if (!values.every(value => isNaN(value))) {
-              sums[index] = values.reduce((prev, curr) => {
-                const value = Number(curr);
-                if (!isNaN(value)) {
-                  return prev + curr;
-                } else {
-                  return prev;
-                }
-              }, 0);
-              sums[index] += ' 元';
-            } else {
-              sums[index] = 'N/A';
-            }
-          });
-
-          return sums;
-        },
-        toggleSelection(rows) {
-          if (rows) {
-            rows.forEach(row => {
-              this.$refs.multipleTable.toggleRowSelection(row);
-            });
-          } else {
-            this.$refs.multipleTable.clearSelection();
-          }
-        },
-        handleSelectionChange(val) {
-          console.log(val, '==========')
-          this.multipleSelection = val;
-        },
-        handleChange (v) {
-          console.log(v)
-        },
-        handleClick (v) {
-          console.log('click', v)
-        },
-        open1() {
-        this.$message('这是一条消息提示');
-      },
-      open2() {
-        this.$message({
-          message: '恭喜你，这是一条成功消息',
-          type: 'success'
-        });
-      },
-
-      open3() {
-        this.$message({
-          message: '警告哦，这是一条警告消息',
-          type: 'warning'
-        });
-      },
-
-      open4() {
-        this.$message.error('错了哦，这是一条错误消息');
-      }
+        onSubmit() {
+          console.log('submit!');
+        }
       }
     }).$mount('#app')
   </script>

@@ -8,7 +8,7 @@
 :::demo `v-model`的值为当前被选中的 `id` 属性值
 ```html
 <template>
-  <div style="width: 200px">
+  <div style="width: 220px">
     <s-treeselect v-model="value" :options="options" />
   </div>
 </template>
@@ -48,7 +48,7 @@
 :::demo `v-model`的值为当前被选中的的 `id` 属性值的数组
 ```html
 <template>
-  <div style="width: 200px">
+  <div style="width: 220px">
     <s-treeselect
       v-model="value"
       :multiple="true"
@@ -238,47 +238,52 @@
 :::demo
 ```html
 <template>
-  <div style="width: 500px">
-    <s-treeselect
-      name="demo"
-      :multiple="multiple"
-      :clearable="clearable"
-      :searchable="searchable"
-      :disabled="disabled"
-      :open-on-click="openOnClick"
-      :open-on-focus="openOnFocus"
-      :clear-on-select="clearOnSelect"
-      :close-on-select="closeOnSelect"
-      :always-open="alwaysOpen"
-      :append-to-body="appendToBody"
-      :options="options"
-      :limit="3"
-      :max-height="200"
-      v-model="value"
-      />
-    <p style="margin-top: 20px">
-      <s-checkbox v-model="multiple">Multi-select</s-checkbox>
-      <s-checkbox v-model="clearable">Clearable</s-checkbox>
-      <s-checkbox v-model="searchable">Searchable</s-checkbox>
-      <s-checkbox v-model="disabled">Disabled</s-checkbox>
-    </p>
-    <p>
-      <s-checkbox v-model="openOnClick">Open on click</s-checkbox>
-      <s-checkbox v-model="openOnFocus">Open on focus</s-checkbox>
-    </p>
-    <p>
-      <s-checkbox v-model="clearOnSelect">Clear on select</s-checkbox>
-      <s-checkbox v-model="closeOnSelect">Close on select</s-checkbox>
-    </p>
-    <p>
-      <s-checkbox v-model="alwaysOpen">Always open</s-checkbox>
-      <s-checkbox v-model="appendToBody">Append to body</s-checkbox>
-    </p>
+  <div class="treeselect-container">
+    <div class="left">
+      <s-treeselect
+        name="demo"
+        :multiple="multiple"
+        :clearable="clearable"
+        :searchable="searchable"
+        :disabled="disabled"
+        :open-on-click="openOnClick"
+        :open-on-focus="openOnFocus"
+        :clear-on-select="clearOnSelect"
+        :close-on-select="closeOnSelect"
+        :always-open="alwaysOpen"
+        :append-to-body="appendToBody"
+        :options="options"
+        :limit="3"
+        :max-height="200"
+        v-model="value"
+        valueConsistsOf="ALL"
+        />
+      <p style="margin-top: 20px">
+        <s-checkbox v-model="multiple">Multi-select</s-checkbox>
+        <s-checkbox v-model="clearable">Clearable</s-checkbox>
+        <s-checkbox v-model="searchable">Searchable</s-checkbox>
+        <s-checkbox v-model="disabled">Disabled</s-checkbox>
+      </p>
+      <p>
+        <s-checkbox v-model="openOnClick">Open on click</s-checkbox>
+        <s-checkbox v-model="openOnFocus">Open on focus</s-checkbox>
+      </p>
+      <p>
+        <s-checkbox v-model="clearOnSelect">Clear on select</s-checkbox>
+        <s-checkbox v-model="closeOnSelect">Close on select</s-checkbox>
+      </p>
+      <p>
+        <s-checkbox v-model="alwaysOpen">Always open</s-checkbox>
+        <s-checkbox v-model="appendToBody">Append to body</s-checkbox>
+      </p>
+    </div>
+    <div class="right">
+      <span>绑定值：{{ typeof value === 'object' ? JSON.stringify(value, null, 2) : value }}</span>
+    </div>
   </div>
 </template>
 
 <script>
-  
   export default {
     data() {
       return {
@@ -313,6 +318,19 @@
     }
   }
 </script>
+<style>
+  .treeselect-container {
+    display: flex;
+    
+  }
+  .treeselect-container .left {
+    width: 500px;
+  }
+  .treeselect-container .right {
+    flex: 1;
+    margin-left: 20px;
+  }
+</style>
 ```
 :::
 
@@ -370,8 +388,8 @@
 | maxHeight | Number | 300 | 设置 maxHeight 菜单的样式值。 |
 | multiple | Boolean | false | 设置 true为允许选择多个选项（又名多重选择模式）。 |
 | name | String | – | input使用此字段名称为html表单生成一个隐藏标签。 |
-| noChildrenText | String | "No sub-options." | 当分支节点没有子节点时显示的文本。 |
-| noOptionsText | tring | "No options available." | 没有可用选项时显示的文本。 |
+| noChildrenText | String | "暂无数据" | 当分支节点没有子节点时显示的文本。 |
+| noOptionsText | tring | "暂无数据" | 没有可用选项时显示的文本。 |
 | noResultsText | String | "暂无数据" | 没有匹配的搜索结果时显示的文本。 |
 | normalizer | Fn(node, instanceId) 返回 node | node => node | 用于规范化源数据。 |
 | openDirection | String | "auto" | 默认情况下（"auto"），菜单将在控件下方打开。如果没有足够的空间，vue-treeselect将自动翻转菜单。可接受的值："auto", "below", "bottom", "above" 或 "top".|

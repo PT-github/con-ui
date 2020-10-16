@@ -2,12 +2,13 @@
  * @Author: PT
  * @Date: 2020-10-15 22:36:22
  * @LastEditors: PT
- * @LastEditTime: 2020-10-16 22:14:28
+ * @LastEditTime: 2020-10-16 22:43:38
  * @Description: STreeselect
  */
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import './treeselect.scss'
+import Emitter from '../../../src/utils/emitter'
 
 export default {
   name: 'STreeselect',
@@ -66,6 +67,7 @@ export default {
       default: 'large'
     }
   },
+  mixins: [ Emitter ],
   inject: {
     elForm: {
       default: ''
@@ -121,7 +123,7 @@ export default {
       return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size
     },
     treeselectDisabled () {
-      return this.disabled || (this.elForm || {}).disabled
+      return this.$attrs.disabled || (this.elForm || {}).disabled
     },
   },
   // methods: {
