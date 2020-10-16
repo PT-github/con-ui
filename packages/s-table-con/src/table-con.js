@@ -3,6 +3,7 @@ import STableColumnCon from './table-column-con'
 import SPagination from '../../s-pagination'
 import Sortable from 'sortablejs'
 import { domObserve } from '../../../src/utils/dom-helper'
+import { throttle } from 'throttle-debounce'
 import Emitter from '../../../src/utils/emitter'
 import './table-con.scss'
 
@@ -419,21 +420,34 @@ export default {
       }
     },
     // 表格高度计算
-    handleTableHeight () {
-      clearTimeout(this.timer)
-      this.timer = setTimeout(() => {
-        // let height = window.getComputedStyle(this.parentNode).height // 外部容器高度
-        let height = this.parentNode.offsetHeight
-        try {
-          let paginationHeight = this.showPagination ? this.$refs.pagination.$el.offsetHeight : 0
-          height -= paginationHeight
-          this.$refs.table.doLayout()
-        } catch (error) {
-          console.error('STableCon组件计算自适应高度发生错误', error)
-        }
-        this.tableHeight = height
-      }, 0)
-    }
+    handleTableHeight:  throttle(20, function () {
+      // let height = window.getComputedStyle(this.parentNode).height // 外部容器高度
+      let height = this.parentNode.offsetHeight
+      try {
+        let paginationHeight = this.showPagination ? this.$refs.pagination.$el.offsetHeight : 0
+        height -= paginationHeight
+        this.$refs.table.doLayout()
+      } catch (error) {
+        console.error('STableCon组件计算自适应高度发生错误', error)
+      }
+      this.tableHeight = height
+    })
+    // // 表格高度计算
+    // handleTableHeight () {
+    //   clearTimeout(this.timer)
+    //   this.timer = setTimeout(() => {
+    //     // let height = window.getComputedStyle(this.parentNode).height // 外部容器高度
+    //     let height = this.parentNode.offsetHeight
+    //     try {
+    //       let paginationHeight = this.showPagination ? this.$refs.pagination.$el.offsetHeight : 0
+    //       height -= paginationHeight
+    //       this.$refs.table.doLayout()
+    //     } catch (error) {
+    //       console.error('STableCon组件计算自适应高度发生错误', error)
+    //     }
+    //     this.tableHeight = height
+    //   }, 0)
+    // }
   },
   watch: {
     // 监听正在编辑行数据

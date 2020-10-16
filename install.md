@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-09-28 11:58:51
  * @LastEditors: PT
- * @LastEditTime: 2020-10-15 22:38:25
+ * @LastEditTime: 2020-10-16 14:51:22
  * @Description: 安装依赖
 -->
 # 项目需要的依赖
@@ -10,6 +10,7 @@
 npm i vue element-ui
 npm i async-validator // 校验
 npm i @riophae/vue-treeselect //下拉树
+npm i throttle-debounce // 函数节流/去抖
 ```
 # docs文档
 ```

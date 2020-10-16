@@ -8,6 +8,7 @@
 
 import './styles/table.scss'
 import Table from 'element-ui/lib/table'
+import { throttle } from 'throttle-debounce'
 
 export default {
   name: 'STable',
@@ -57,9 +58,9 @@ export default {
   },
 
   methods: {
-    handlerScroll () {
+    handlerScroll:  throttle(20, function () {
       this.$emit('body-scroll')
-    },
+    }),
     clearSelection () {
       return this.$refs.table.clearSelection()
     },

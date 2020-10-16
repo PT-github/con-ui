@@ -20,6 +20,7 @@
     "@vue/babel-preset-jsx": "^1.1.2",
     "element-ui": "^2.13.2",
     "sortablejs": "^1.12.0",
+    "throttle-debounce": "^2.3.0",
     "vue": "^2.6.12",
     "vue-loader": "^15.9.3"
   },

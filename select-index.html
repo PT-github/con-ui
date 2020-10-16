@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script src="./lib/index.js"></script>
+    <link rel="stylesheet" href="./lib/theme-chalk/index.css" />
+  </head>
+  <body>
+    <div
+      id="app"
+      style="width: 200px;height: 200px;margin: 0 auto;
+    border: 1px solid red;margin: 0 auto; padding: 16px;overflow: hidden;"
+    >
+      <s-treeselect
+        v-model="value"
+        :multiple="true"
+        append-to-body
+        :options="options"
+        always-open
+        style="margin-bottom: 20px"
+      ></s-treeselect>
+      <s-treeselect
+        v-model="value"
+        :multiple="true"
+        append-to-body
+        :options="options"
+        size="small" style="margin-bottom: 20px"
+      >
+      </s-treeselect>
+      <s-treeselect
+        size="mini"
+        append-to-body
+        :multiple="true"
+        :options="options2"
+        :load-options="loadOptions"
+        v-model="value2"
+      >
+      </s-treeselect>
+    </div>
+    <script>
+      const LOAD_CHILDREN_OPTIONS = 'LOAD_CHILDREN_OPTIONS'
+      const simulateAsyncOperation = fn => {
+        setTimeout(fn, 500)
+      }
+      new Vue({
+        data: function() {
+          return {
+            value: ["3"],
+            value2: null,
+            options: [
+              {
+                id: "1",
+                label: "热门城市",
+                children: [
+                  {
+                    id: "Shanghai",
+                    label: "上海",
+                  },
+                  {
+                    id: "Beijing",
+                    label: "北京",
+                  },
+                ],
+              },
+              {
+                label: "城市名",
+                id: "2",
+                children: [
+                  {
+                    id: "Chengdu",
+                    label: "成都",
+                  },
+                  {
+                    id: "Shenzhen",
+                    label: "深圳",
+                  },
+                  {
+                    id: "Guangzhou",
+                    label: "广州",
+                  },
+                  {
+                    id: "Dalian",
+                    label: "大连",
+                  },
+                ],
+              },
+            ],
+            options2: [
+              {
+                id: "success",
+                label: "With children",
+                // Declare an unloaded branch node.
+                children: null,
+              },
+              {
+                id: "no-children",
+                label: "With no children",
+                children: null,
+              },
+              {
+                id: "failure",
+                label: "Demonstrates error handling",
+                children: null,
+              },
+            ],
+          };
+        },
+        methods: {
+          loadOptions({ action, parentNode, callback }) {
+            // Typically, do the AJAX stuff here.
+            // Once the server has responded,
+            // assign children options to the parent node & call the callback.
+
+            if (action === LOAD_CHILDREN_OPTIONS) {
+              switch (parentNode.id) {
+                case "success": {
+                  simulateAsyncOperation(() => {
+                    parentNode.children = [
+                      {
+                        id: "child",
+                        label: "Child option",
+                      },
+                    ];
+                    callback();
+                  });
+                  break;
+                }
+                case "no-children": {
+                  simulateAsyncOperation(() => {
+                    parentNode.children = [];
+                    callback();
+                  });
+                  break;
+                }
+                case "failure": {
+                  simulateAsyncOperation(() => {
+                    callback(
+                      new Error("加载子节点失败")
+                    );
+                  });
+                  break;
+                }
+                default: /* empty */
+              }
+            }
+          },
+        },
+      }).$mount("#app");
+    </script>
+  </body>
+</html>
