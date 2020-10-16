@@ -3,6 +3,11 @@
   .vue-treeselect__placeholder, .vue-treeselect__single-value {
     line-height: 38px;
   }
+  .vue-treeselect__multi-value-item {
+    height: 24px;
+    height: 22px;
+    padding: 0;
+  }
   .vue-treeselect__control {
     @include background_color($color: "$0-color-1");
     @include border_color($color: "$1-color-1", $opacity: 0.15);
@@ -18,6 +23,18 @@
   .vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {
     padding-top: 6px;
   }
+  &.s-treeselect--medium {
+    font-size: 14px;
+    .vue-treeselect__control {
+      height: 36px;
+    }
+    .vue-treeselect__multi-value-item-container {
+      padding-top: 3px;
+    }
+    &.vue-treeselect--has-value .vue-treeselect__multi-value {
+      margin-bottom: 2px;
+    }
+  }
   &.s-treeselect--small {
     font-size: 14px;
     .vue-treeselect__placeholder, .vue-treeselect__single-value {
@@ -26,13 +43,13 @@
     .vue-treeselect__control {
       height: 32px;
     }
-    .vue-treeselect--has-value .vue-treeselect__multi-value {
+    &.vue-treeselect--has-value .vue-treeselect__multi-value {
       margin-bottom: 2px;
     }
     .vue-treeselect__multi-value-item-container {
-      padding-top: 3px;
+      padding-top: 2px;
     }
-    .vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {
+    &.vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {
       padding-top: 3px;
     }
   }
@@ -44,14 +61,21 @@
     .vue-treeselect__control {
       height: 28px;
     }
-    .vue-treeselect--has-value .vue-treeselect__multi-value {
+    &.vue-treeselect--has-value .vue-treeselect__multi-value {
       margin-bottom: 1px;
     }
     .vue-treeselect__multi-value-item-container {
       padding-top: 2px;
     }
-    .vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {
+    .vue-treeselect__multi-value-item {
+      height: 22px;
+      line-height: 20px;
+    }
+    &.vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {
       padding-top: 2px;
+    }
+    .vue-treeselect__multi-value-item {
+      padding: 0;
     }
   }
   .vue-treeselect__single-value {

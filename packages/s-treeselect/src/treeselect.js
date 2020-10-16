@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-15 22:36:22
  * @LastEditors: PT
- * @LastEditTime: 2020-10-16 17:17:14
+ * @LastEditTime: 2020-10-16 21:20:59
  * @Description: STreeselect
  */
 import Treeselect from '@riophae/vue-treeselect'
@@ -56,9 +56,9 @@ export default {
     size: {
       type: String,
       validator: function (value) {
-        return ['medium', 'small', 'mini'].indexOf(value) !== -1
+        return ['large', 'medium', 'small', 'mini'].indexOf(value) !== -1
       },
-      default: 'medium'
+      default: 'large'
     }
   },
   data () {
@@ -75,6 +75,7 @@ export default {
       <Treeselect class={
         {
           's-treeselect': true,
+          's-treeselect--medium': this.size === 'medium',
           's-treeselect--small': this.size === 'small',
           's-treeselect--mini': this.size === 'mini'
         }

@@ -4,7 +4,317 @@
 
 ### 基础用法
 
+适用广泛的基础单选
+:::demo `v-model`的值为当前被选中的 `id` 属性值
+```html
+<template>
+  <div style="width: 200px">
+    <s-treeselect v-model="value" :options="options" />
+  </div>
+</template>
 
+<script>
+  export default {
+    data() {
+      return {
+        value: null,
+        options: [ {
+          id: 'a',
+          label: '父节点',
+          children: [ {
+            id: 'aa',
+            label: '子节点一',
+          }, {
+            id: 'ab',
+            label: '子节点二',
+          } ],
+        }, {
+          id: 'b',
+          label: '父节点二',
+        }, {
+          id: 'c',
+          label: '父节点三',
+        } ]
+      }
+    }
+  }
+</script>
+```
+:::
+
+### 下拉多选
+
+适用广泛的基础多选
+:::demo `v-model`的值为当前被选中的的 `id` 属性值的数组
+```html
+<template>
+  <div style="width: 200px">
+    <s-treeselect
+      v-model="value"
+      :multiple="true"
+      :options="options"
+      placeholder="请选择你喜欢的"/>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: [],
+        options: [ {
+          id: 'fruits',
+          label: 'Fruits',
+          children: [ {
+            id: 'apple',
+            label: 'Apple 🍎',
+            isNew: true,
+          }, {
+            id: 'grapes',
+            label: 'Grapes 🍇',
+          }, {
+            id: 'pear',
+            label: 'Pear 🍐',
+          }, {
+            id: 'strawberry',
+            label: 'Strawberry 🍓',
+          }, {
+            id: 'watermelon',
+            label: 'Watermelon 🍉',
+          } ],
+        }, {
+          id: 'vegetables',
+          label: 'Vegetables',
+          children: [ {
+            id: 'corn',
+            label: 'Corn 🌽',
+          }, {
+            id: 'carrot',
+            label: 'Carrot 🥕',
+          }, {
+            id: 'eggplant',
+            label: 'Eggplant 🍆',
+          }, {
+            id: 'tomato',
+            label: 'Tomato 🍅',
+          } ],
+        } ]
+      }
+    }
+  }
+</script>
+```
+:::
+
+### 尺寸
+
+适用广泛的基础多选
+:::demo  可通过 `size` 属性指定输入框的尺寸，除了默认的大小外，还提供了 small 和 mini 两种尺寸。
+```html
+<template>
+  <div class="demo-size">
+    <div class="block">
+      <s-treeselect
+        v-model="value1"
+        :multiple="true"
+        :options="options"
+        placeholder="请选择你喜欢的"/>
+    </div>
+    <div class="block">
+      <s-treeselect
+        size="medium"
+        v-model="value2"
+        :multiple="true"
+        :options="options"
+        placeholder="请选择你喜欢的"/>
+    </div>
+    <div class="block">
+      <s-treeselect
+        size="small"
+        v-model="value3"
+        :multiple="true"
+        :options="options"
+        placeholder="请选择你喜欢的"/>
+    </div>
+    <div class="block">
+      <s-treeselect
+        size="mini"
+        v-model="value4"
+        :multiple="true"
+        :options="options"
+        placeholder="请选择你喜欢的"/>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value1: [ 'fruits' ],
+        value2: [ 'fruits'],
+        value3: [ 'fruits'],
+        value4: [ 'fruits'],
+        options: [ {
+          id: 'fruits',
+          label: 'Fruits',
+          children: [ {
+            id: 'apple',
+            label: 'Apple 🍎',
+            isNew: true,
+          }, {
+            id: 'grapes',
+            label: 'Grapes 🍇',
+          }, {
+            id: 'pear',
+            label: 'Pear 🍐',
+          }, {
+            id: 'strawberry',
+            label: 'Strawberry 🍓',
+          }, {
+            id: 'watermelon',
+            label: 'Watermelon 🍉',
+          } ],
+        }, {
+          id: 'vegetables',
+          label: 'Vegetables',
+          children: [ {
+            id: 'corn',
+            label: 'Corn 🌽',
+          }, {
+            id: 'carrot',
+            label: 'Carrot 🥕',
+          }, {
+            id: 'eggplant',
+            label: 'Eggplant 🍆',
+          }, {
+            id: 'tomato',
+            label: 'Tomato 🍅',
+          } ],
+        } ]
+      }
+    }
+  }
+</script>
+<style>
+  .demo-size {
+    display: flex;
+  }
+  .demo-size .block {
+    flex: 1;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 5px;
+  }
+</style>
+```
+:::
+
+### options选项配置
+>子节点
+```
+{
+  id: '<id>', // 用于标识树中的选项，因此它的值在所有选项中必须是唯一的
+  label: '<label>', // 用于显示选项
+}
+```
+>父节点
+```
+{
+  id: '<id>', // 用于标识树中的选项，因此它的值在所有选项中必须是唯一的
+  label: '<label>', // 用于显示选项
+  children: [
+    id: '<child id>',
+    label: '<child label>'
+  ]
+}
+```
+
+### 更多配置
+常用属性配置示例
+
+:::demo
+```html
+<template>
+  <div style="width: 500px">
+    <s-treeselect
+      name="demo"
+      :multiple="multiple"
+      :clearable="clearable"
+      :searchable="searchable"
+      :disabled="disabled"
+      :open-on-click="openOnClick"
+      :open-on-focus="openOnFocus"
+      :clear-on-select="clearOnSelect"
+      :close-on-select="closeOnSelect"
+      :always-open="alwaysOpen"
+      :append-to-body="appendToBody"
+      :options="options"
+      :limit="3"
+      :max-height="200"
+      v-model="value"
+      />
+    <p style="margin-top: 20px">
+      <s-checkbox v-model="multiple">Multi-select</s-checkbox>
+      <s-checkbox v-model="clearable">Clearable</s-checkbox>
+      <s-checkbox v-model="searchable">Searchable</s-checkbox>
+      <s-checkbox v-model="disabled">Disabled</s-checkbox>
+    </p>
+    <p>
+      <s-checkbox v-model="openOnClick">Open on click</s-checkbox>
+      <s-checkbox v-model="openOnFocus">Open on focus</s-checkbox>
+    </p>
+    <p>
+      <s-checkbox v-model="clearOnSelect">Clear on select</s-checkbox>
+      <s-checkbox v-model="closeOnSelect">Close on select</s-checkbox>
+    </p>
+    <p>
+      <s-checkbox v-model="alwaysOpen">Always open</s-checkbox>
+      <s-checkbox v-model="appendToBody">Append to body</s-checkbox>
+    </p>
+  </div>
+</template>
+
+<script>
+  
+  export default {
+    data() {
+      return {
+        multiple: true,
+        clearable: true,
+        searchable: true,
+        disabled: false,
+        openOnClick: true,
+        openOnFocus: false,
+        clearOnSelect: true,
+        closeOnSelect: false,
+        alwaysOpen: false,
+        appendToBody: false,
+        rtl: false,
+        value: [ ],
+        options: []
+      }
+    },
+    mounted () {
+      import('../utils').then(module => {
+        this.options = module.generateOptions(2, 3)
+      })
+    },
+    watch: {
+      multiple(newValue) {
+        if (newValue) {
+          this.value = this.value ? [ this.value ] : []
+        } else {
+          this.value = this.value[0]
+        }
+      },
+    }
+  }
+</script>
+```
+:::
 
 
 ### Node节点 Attributes
@@ -78,7 +388,7 @@
 | showCount	| Boolean | false | 在每个分支节点的标签旁边是否显示子项计数。|
 | showCountOf | String | "ALL_CHILDREN" | 与showCount一起使用，用以指定应显示的计数类型。可接受的值："ALL_CHILDREN", "ALL_DESCENDANTS", "LEAF_CHILDREN" or "LEAF_DESCENDANTS".|
 | showCountOnSearch | Boolean | – | 搜索时显示孩子数。未指定时|
-| size | String | 'medium' | 组件大小控制。可接受的值："medium", "small", "mini"|
+| size | String | 'large' | 组件大小控制。可接受的值："medium", "small", "mini"|
 | sortValueBy | String | "ORDER_SELECTED" | 所选选项应按触发顺序显示并按 value 数组排序。仅在:multiple="true"时使用。可接受的值："ORDER_SELECTED", "LEVEL" or "INDEX".|
 | tabIndex	| Number| 0 | 控件的Tab索引 |
 | value/v-model	 |  id / node / id[] / node[] |  – | 控件的值。multiple="false时应为id或node 对象；multiple="true"时应为 id or node 对象的数组。其格式取决于valueFormat。 | 
