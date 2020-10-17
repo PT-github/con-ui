@@ -7,7 +7,7 @@
  */
 
 import './select.scss'
-import Select from 'element-ui/lib/select'
+import ElSelect from './main'
 export default {
   name: 'SSelect',
   render () {
@@ -50,6 +50,6 @@ export default {
     },
   },
   components: {
-    [Select.name]: Select
+    ElSelect
   }
 }
