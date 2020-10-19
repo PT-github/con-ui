@@ -2,11 +2,11 @@
  * @Author: PT
  * @Date: 2020-09-29 22:44:55
  * @LastEditors: PT
- * @LastEditTime: 2020-09-29 22:58:13
+ * @LastEditTime: 2020-10-19 09:34:36
  * @Description: SRadioButton
  */
 import RadioButton from 'element-ui/lib/radio-button'
-import 'element-ui/lib/theme-chalk/radio-button.css'
+import './radio-button.scss'
 export default {
   name: 'SRadioButton',
   render () {

@@ -111,6 +111,7 @@ module.exports = {
             collapsable: false,
             children: [
               '/adv-component/form/select-con',
+              '/adv-component/form/radio-con',
               '/adv-component/form/treeselect',
             ]
           },{
