@@ -50,7 +50,7 @@ export default {
               ...this.$attrs,
             },
             on: {
-              'change': this.updateValue
+              change: this.updateValue
             }
           }
         }

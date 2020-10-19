@@ -26,7 +26,7 @@
           { label: '复选框 A' },
           { label: '复选框 B' },
           { label: '复选框 C' },
-          { label: '禁用' },
+          { label: '禁用', disabled: true },
           { label: '选中且禁用', disabled: true },
         ]
       };
@@ -60,7 +60,7 @@
           { label: '复选框 A' },
           { label: '复选框 B' },
           { label: '复选框 C' },
-          { label: '禁用' },
+          { label: '禁用', disabled: true },
           { label: '选中且禁用', disabled: true },
         ]
       };

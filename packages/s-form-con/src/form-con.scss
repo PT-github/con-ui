@@ -1,0 +1,19 @@
+@import "../../s-form/src/form.scss";
+@import "../../s-form/src/form-item.scss";
+
+.s-form-con {
+  &.el-form--inline {
+    .el-form-item {
+      margin-right: 0;
+      display: inline-flex;
+      .el-form-item__content {
+        flex: 1;
+      }
+    }
+  }
+  .el-form-item__content {
+    .s-select-con, .s-cascader, .s-time-select, .s-time-picker, .s-date-picker {
+      width: 100%;
+    }
+  }
+}
