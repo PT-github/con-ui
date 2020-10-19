@@ -112,6 +112,7 @@ module.exports = {
             children: [
               '/adv-component/form/select-con',
               '/adv-component/form/radio-con',
+              '/adv-component/form/checkbox-con',
               '/adv-component/form/treeselect',
             ]
           },{

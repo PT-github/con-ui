@@ -2,10 +2,10 @@
  * @Author: PT
  * @Date: 2020-09-29 23:14:44
  * @LastEditors: PT
- * @LastEditTime: 2020-09-29 23:17:48
+ * @LastEditTime: 2020-10-19 09:41:04
  * @Description: SCheckboxButton
  */
-import 'element-ui/lib/theme-chalk/checkbox-button.css'
+import './checkbox-button.scss'
 import CheckboxButton from 'element-ui/lib/checkbox-button'
 
 export default {

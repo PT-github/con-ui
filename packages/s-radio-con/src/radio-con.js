@@ -2,13 +2,13 @@
  * @Author: PT
  * @Date: 2020-10-19 08:33:25
  * @LastEditors: PT
- * @LastEditTime: 2020-10-19 09:27:01
+ * @LastEditTime: 2020-10-19 10:10:35
  * @Description: SRadioCon
  */
 import SRadioGroup from '../../s-radio-group'
 import SRadio from '../../s-radio'
 import SRadioButton from '../../s-radio-button'
-import '../../s-radio/src/radio-group.scss'
+import './radio-con.scss'
 export default {
   name: 'SRadioCon',
   props: {
@@ -22,7 +22,7 @@ export default {
       return this.options && this.options.length && this.options[0].is || ''
     },
     hasBorder () {
-      return !!(this.options && this.options.length && this.options[0].border)
+      return !!(this.options && this.options.length && this.options[0].is !== 'radio-button' && this.options[0].border)
     }
   },
   render () {
@@ -40,7 +40,9 @@ export default {
         }
       >
         {
-          this.options && this.options.length && this.options.map(option => this.renderOption(option))
+          this.options &&
+          this.options.length &&
+          this.options.map(option => this.renderOption(typeof option === 'string' ? { label: option } : option))
         }
       </s-radio-group>
     )
