@@ -27,10 +27,48 @@
           { label: '复选框 B' },
           { label: '复选框 C' },
           { label: '禁用' },
-          { label: '复选框 A', disabled: true },
           { label: '选中且禁用', disabled: true },
         ]
       };
+    }
+  };
+</script>
+```
+:::
+
+### 多选框组(绑定值为字符串)
+
+通过`delimiter`配置值的连接符（默认为`,`）
+
+:::demo 
+
+```html
+<template>
+  <s-checkbox-con
+    v-model="checkValue"
+    delimiter="-"
+    :options="options" @change="handleChange">
+  </s-checkbox-con>
+</template>
+
+<script>
+  export default {
+    data () {
+      return {
+        checkValue: '选中且禁用-复选框 A',
+        options: [
+          { label: '复选框 A' },
+          { label: '复选框 B' },
+          { label: '复选框 C' },
+          { label: '禁用' },
+          { label: '选中且禁用', disabled: true },
+        ]
+      };
+    },
+    methods: {
+      handleChange (v) {
+        console.log(v, '000')
+      }
     }
   };
 </script>
@@ -186,6 +224,7 @@
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
 | value / v-model | 绑定值 | array | — | — |
+| delimiter | 当value为string时，配置选中项值的连接符 | string | — | `,` |
 | size     | 多选框组尺寸，仅对按钮形式的 Checkbox 或带有边框的 Checkbox 有效   | string  | medium / small / mini  |    —     |
 | disabled  | 是否禁用    | boolean   | — | false   |
 | min     | 可被勾选的 checkbox 的最小数量   | number    |       —        |     —    |
