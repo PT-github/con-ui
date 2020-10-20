@@ -114,6 +114,7 @@ module.exports = {
               '/adv-component/form/radio-con',
               '/adv-component/form/checkbox-con',
               '/adv-component/form/treeselect',
+              '/adv-component/form/form-con',
             ]
           },{
             title: 'Data 组件',

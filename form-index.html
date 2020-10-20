@@ -18,6 +18,9 @@
       <s-radio label="mini">mini</s-radio>
     </s-radio-group>
     <s-form-con @change="handleChange" ref="form" :size="size" :disabled="disabled" columns="2" :rules="rules" v-model="form" :fields="fields" :model="form" label-width="80px">
+      <template v-slot:upload_default_fileList="{callback}">
+        <s-button type="primary" @click="callback().submit()">自定义上传</s-button>
+      </template>
     </s-form-con>
   </div>
   <script>
@@ -63,7 +66,29 @@
             { prop: 'name10', label: '姓名10', is: 'date-picker', attrs: { type: 'date', placeholder: '选择时间' } },
             { prop: 'name11', label: '姓名11', is: 'date-picker', attrs: { type: 'daterange', placeholder: '选择时间' } },
             { prop: 'name12', label: '姓名12', is: 'rate', attrs: { showText: true } },
-            { prop: 'name13', width: '100%', label: '姓名13', is: 'transfer', attrs: { data } },
+            // { prop: 'name13', width: '100%', label: '姓名13', is: 'transfer', attrs: { data } },
+            { prop: 'fileList', width: '100%', label: '文件', is: 'upload', attrs: { 
+              action: 'https://jsonplaceholder.typicode.com/posts/',
+              multiple: true,
+              // 文件名和文件路径对应后台接口返回字段
+              // props: {
+              //   name: 'name1',
+              //   url: 'url1'
+              // },
+              autoUpload: false,
+              // drag: true,
+              // listType: 'picture',
+              // listType: 'picture-card',
+              buttonText: '上传吧',
+              tip: 'xxxxxxx',
+              iconClass: 'el-icon-ali-edit-square',
+              onSuccess (_, file) {
+                console.log(file.name, '文件上传成功')
+              },
+              onError (_, file) {
+                console.log(file.name, '上传失败')
+              }
+             } },
           ],
           rules: {
             name: [
@@ -87,7 +112,7 @@
             name11: '',
             name12: 0,
             name13: [],
-            name14: '',
+            fileList: [{name: '文件一', url: 'http://www.baidu.com/img/flexible/logo/pc/result.png'},{name: '文件二', url: 'http://www.baidu.com/img/flexible/logo/pc/result.png'}],
             name15: '',
             name16: '',
             name17: '',
@@ -103,6 +128,9 @@
         },
         onSubmit() {
           console.log('submit!');
+        },
+        handleClick ({ callback }) {
+          console.log(callback().submit(), '0000')
         }
       }
     }).$mount('#app')

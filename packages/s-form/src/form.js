@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-09 17:29:05
  * @LastEditors: PT
- * @LastEditTime: 2020-10-09 17:31:55
+ * @LastEditTime: 2020-10-20 15:43:01
  * @Description: SForm
  */
 
@@ -12,7 +12,9 @@ export default {
   name: 'SForm',
   render () {
     return (
-      <el-form ref="form" class="s-form" {
+      <el-form ref="form" class="s-form"
+        vOn:submit_native_prevent={this.handleSubmit}
+        {
         ...{
           attrs: {
             ...this.$attrs
@@ -28,6 +30,9 @@ export default {
     )
   },
   methods: {
+    handleSubmit (e) {
+      e.preventDefault()
+    },
     validate () {
       this.$refs.form.validate()
     },

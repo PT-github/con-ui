@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-09 15:42:03
  * @LastEditors: PT
- * @LastEditTime: 2020-10-19 17:34:36
+ * @LastEditTime: 2020-10-20 08:42:31
  * @Description: SRate
  */
 import './rate.scss'
@@ -33,9 +33,8 @@ export default {
   },
   render () {
     return (
-      <el-rate ref="rate" class="s-rate" style={{
-        paddingTop: this.paddingTop
-      }} {
+      <el-rate ref="rate" class="s-rate"
+        {
         ...{
           attrs: {
             ...this.$attrs
