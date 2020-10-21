@@ -1,7 +1,7 @@
 @import "~element-ui/lib/theme-chalk/icon.css";
-@import "../../styles/font/iconfont.css";
+@import "./font/iconfont.css";
 [class*="el-icon-ali"] {
-  font-family: iconfont !important;
+  font-family: con-icons !important;
   speak: none;
   font-style: normal;
   font-weight: 400;

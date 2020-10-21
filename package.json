@@ -7,7 +7,7 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "build": "npm run build:index && npm run build:entry && npm run build:component",
-    "build:index": "webpack --config ./build/webpack.config.js",
+    "build:index": "webpack --config ./build/webpack.config.js --progress",
     "build:watch": "webpack --config ./build/webpack.config.js --watch --progress",
     "build:entry": "node entry.js",
     "build:component": "webpack --config ./build/webpack.component.js --progress",

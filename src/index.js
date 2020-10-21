@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-09-28 12:03:44
  * @LastEditors: PT
- * @LastEditTime: 2020-10-10 16:21:41
+ * @LastEditTime: 2020-10-21 15:59:43
  * @Description: 入口文件
  */
 
@@ -12,6 +12,7 @@ import SLoading from '../packages/s-loading'
 import SMessage from '../packages/s-message'
 import SMessageBox from '../packages/s-message-box'
 import SNotification from '../packages/s-notification'
+import '../packages/styles/base'
 
 const autoInjectComponents = {}
 files.keys().forEach(key => {

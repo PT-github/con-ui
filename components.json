@@ -76,5 +76,6 @@
   "s-transfer": "./packages/s-transfer/index.js",
   "s-tree": "./packages/s-tree/index.js",
   "s-treeselect": "./packages/s-treeselect/index.js",
-  "s-upload": "./packages/s-upload/index.js"
+  "s-upload": "./packages/s-upload/index.js",
+  "base": "./packages/styles/base.js"
 }

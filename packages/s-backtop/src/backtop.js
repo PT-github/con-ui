@@ -2,13 +2,12 @@
  * @Author: PT
  * @Date: 2020-10-12 15:32:34
  * @LastEditors: PT
- * @LastEditTime: 2020-10-12 17:03:06
+ * @LastEditTime: 2020-10-21 15:18:33
  * @Description: SBacktop
  */
 
 import './backtop.scss'
 import Backtop from 'element-ui/lib/backtop'
-import Icon from '../../s-icon'
 export default {
   name: 'SBacktop',
   render () {
@@ -22,12 +21,11 @@ export default {
             ...this.$listeners
           }
         }}>
-        { this.$slots.default || <s-icon name="caret-top"></s-icon>}
+        { this.$slots.default || <i class={'el-icon-caret-top'}></i>}
       </el-backtop>
     )
   },
   components: {
-    [ Backtop.name ]: Backtop,
-    [ Icon.name ]: Icon
+    [ Backtop.name ]: Backtop
   }
 }
