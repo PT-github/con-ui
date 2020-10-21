@@ -2,14 +2,15 @@
   "name": "con-ui",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "build": "webpack --config ./build/webpack.config.js",
     "build:watch": "webpack --config ./build/webpack.config.js --watch --progress",
     "build:entry": "node entry.js",
-    "build:component": "webpack --config ./build/webpack.component.js --progress"
+    "build:component": "webpack --config ./build/webpack.component.js --progress",
+    "build:comp:watch": "webpack --config ./build/webpack.component.js --progress --watch"
   },
   "keywords": [],
   "author": "",

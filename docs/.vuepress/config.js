@@ -13,7 +13,7 @@ module.exports = {
       { text: '指南', link: '/guide/' },
       { text: '基础组件', link: '/component/basic/row' },
       { text: '高级组件', link: '/adv-component/' },
-      { text: 'Github', link: 'https://github.com/PT-github/con-uim', target: '_blank' },
+      { text: 'Github', link: 'https://github.com/PT-github/con-ui', target: '_blank' },
     ],
     sidebar: {
       '/guide/': [{
