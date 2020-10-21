@@ -6,12 +6,13 @@ tagline: 常用业务组件
 actionText: 快速上手 →
 actionLink: /guide/
 features:
-- title: 简洁至上
-  details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
-- title: Vue驱动
-  details: 享受 Vue + webpack 的开发体验，在 Markdown 中使用 Vue 组件，同时可以使用 Vue 来开发自定义主题。
-- title: 高性能
-  details: VuePress 为每个页面预渲染生成静态的 HTML，同时在页面被加载的时候，将作为 SPA 运行。
-footer: MIT Licensed | Copyright © 2020-present Peng Tao
+- title: 基础组件
+  details: 块状化结构，减少css 的书写，方便扩展和维护。
+- title: 高级组件
+  details: 封装常见的业务组件，通过数据配置和渲染组件，提升开发效率。
+- title: 文档
+  details: 使用 VuePress 搭建doc文档框架，以 Markdown 为中心的文档编写语言。
+footer: |
+  Copyright © 2014-2020 Peng Tao
 ---
-[//]: # (Unknow custom element:<v-xxxxx>报错，关闭vue-devtools)
+<span></span>
