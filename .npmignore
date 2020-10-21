@@ -3,3 +3,5 @@ test
 build
 docs
 .*
+packages
+src
