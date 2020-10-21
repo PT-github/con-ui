@@ -1,4 +1,5 @@
 @import '~element-ui/lib/theme-chalk/select.css';
+@import '../../s-icon/src/icon.css';
 .s-select {
   .el-input__inner{
     @include border_color($color: '$1-color-1', $opacity:.15);
