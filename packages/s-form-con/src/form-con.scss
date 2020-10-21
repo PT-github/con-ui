@@ -12,70 +12,75 @@
     }
   }
   .el-form-item__content {
+    line-height: 0;
     .s-select-con, .s-cascader, .s-time-select, .s-time-picker, .s-date-picker {
       width: 100%;
     }
-    .s-checkbox-con {
-      line-height: 0;
+    .s-radio-group {
+      padding-top: 12px;
     }
-    .s-rate {
+    .s-radio-con_button {
+      padding: 0;
+    }
+    .s-checkbox-con {
+      padding-top: 9px;
+    }
+    .s-rate, .s-switch {
       padding-top: 10px;
+    }
+    .el-slider__runway {
+      margin: 17px 0;
     }
   }
   .el-form-item--medium {
     .el-form-item__content {
-      .s-rate {
-        padding-top: 8px;
-      }
-    }
-    .el-slider__runway {
-      margin: 14px 0;
-    }
-  }
-  .el-form-item--small {
-    .el-form-item__label {
-      line-height: 32px;
-    }
-    .el-form-item__content {
       line-height: 0;
-      .s-rate, .s-switch {
-        padding-top: 6px;
-      }
-      .s-radio-group {
-        padding-top: 8px;
+      .s-radio-group:not(.s-radio-con_button) {
+        padding-top: 10px;
       }
       .s-checkbox-con {
         padding-top: 7px;
       }
+      .s-rate, .s-switch {
+        padding-top: 8px;
+      }
+      .el-slider__runway {
+        margin: 14px 0;
+      }
     }
-    .el-cascader--small {
+  }
+  .el-form-item--small {
+    .el-form-item__content {
       line-height: 0;
-    }
-    .el-slider__runway {
-      margin: 13px 0;
+      .s-radio-group:not(.s-radio-con_button) {
+        padding-top: 6px;
+      }
+      .s-checkbox-con {
+        padding-top: 3px;
+      }
+      .s-rate, .s-switch {
+        padding-top: 6px;
+      }
+      .el-slider__runway {
+        margin: 13px 0;
+      }
     }
   }
   .el-form-item--mini {
-    .el-form-item__label {
-      line-height: 28px;
-    }
     .el-form-item__content {
       line-height: 0;
-      .s-rate, .s-switch {
-        padding-top: 4px;
-      }
-      .s-radio-group {
+      .s-radio-group:not(.s-radio-con_button) {
         padding-top: 7px;
       }
       .s-checkbox-con {
         padding-top: 5px;
       }
-    }
-    .el-cascader--mini {
-      line-height: 0;
-    }
-    .el-slider__runway {
-      margin: 11px 0;
+      .s-rate, .s-switch {
+        padding-top: 4px;
+      }
+      .el-slider__runway {
+        margin: 11px 0;
+      }
     }
   }
 }

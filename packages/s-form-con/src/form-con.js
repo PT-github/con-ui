@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-17 19:14:45
  * @LastEditors: PT
- * @LastEditTime: 2020-10-20 17:37:18
+ * @LastEditTime: 2020-10-21 10:24:28
  * @Description: SFormCon
  */
 import SForm from '../../s-form'
@@ -60,23 +60,29 @@ export default {
     }
   },
   methods: {
+    ...SForm.methods,
     /**
      * @description: 绑定组件值change的回调
      * @param {string} componentType 组件类型
      * @param {string} key 绑定值value中的key键值
      * @param {} value 改变后的数据
+     * @param {object} attrs 组件配置
      * @return {type} 
      */
-    handleChange (componentType, key, value) {
+    handleChange (componentType, key, value, attrs) {
       // this.value[key] = value
       this.$set(this.value, key, value)
       this.$emit('change', this.value, key)
+      typeof attrs.onChange === 'function' && attrs.onChange(value)
     },
     // 渲染formitem
     renderFormItem (formitem = {}) {
       return (
         <s-form-item
           style={{width: formitem.width || this.formitemWidth}}
+          class={{
+            'custome-form-item': this.$slots['field_' + formitem.prop.toLowerCase()]
+          }}
           {
             ...{
               attrs: { ...formitem }
@@ -84,6 +90,8 @@ export default {
           }
         >
           {
+            this.$slots['field_' + formitem.prop.toLowerCase()] &&
+            this.$slots['field_' + formitem.prop.toLowerCase()] ||
             formitem.is && this.renderField(formitem.is, formitem.prop, formitem.attrs)
           }
         </s-form-item>
@@ -127,7 +135,7 @@ export default {
                 },
                 on: {
                   input: (v) => {
-                    this.handleChange(componentName, key, v)
+                    this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -143,7 +151,7 @@ export default {
                 },
                 on: {
                   input: (v) => {
-                    this.handleChange(componentName, key, v)
+                    this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -159,7 +167,7 @@ export default {
                 },
                 on: {
                   change: (v) => {
-                    this.handleChange(componentName, key, v)
+                    this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -175,7 +183,7 @@ export default {
                 },
                 on: {
                   change: (v) => {
-                    this.handleChange(componentName, key, v)
+                    this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -191,7 +199,7 @@ export default {
                 },
                 on: {
                   input: (v) => {
-                    this.handleChange(componentName, key, v)
+                    this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -207,7 +215,7 @@ export default {
                 },
                 on: {
                   change: (v) => {
-                    this.handleChange(componentName, key, v)
+                    this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -223,7 +231,7 @@ export default {
                 },
                 on: {
                   change: (v) => {
-                    this.handleChange(componentName, key, v)
+                    this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -239,7 +247,7 @@ export default {
                 },
                 on: {
                   change: (v) => {
-                    this.handleChange(componentName, key, v)
+                    this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -256,7 +264,7 @@ export default {
                 },
                 on: {
                   change: (v) => {
-                    this.handleChange(componentName, key, v)
+                    this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -273,7 +281,7 @@ export default {
                 },
                 on: {
                   change: (v) => {
-                    this.handleChange(componentName, key, v)
+                    this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -291,7 +299,7 @@ export default {
                 },
                 on: {
                   change: (v) => {
-                    this.handleChange(componentName, key, v)
+                    this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -307,7 +315,7 @@ export default {
                 },
                 on: {
                   change: (v) => {
-                    this.handleChange(componentName, key, v)
+                    this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -323,7 +331,7 @@ export default {
                 },
                 on: {
                   change: (v) => {
-                    this.handleChange(componentName, key, v)
+                    this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -454,7 +462,8 @@ export default {
      * @param {array} uploadFileList 文件变更列表
      * @param {object} attrs 传入upload组件的其他属性
      */
-    handleFileChange (componentType, key, uploadFileList = [], { onFinished = () => {} } = {}) {
+    handleFileChange (componentType, key, uploadFileList = [], attrs) {
+      let onFinished = typeof attrs.onFinished === 'function' && attrs.onFinished || function () {}
       let i = 0, item, fileList = []
       while (item = uploadFileList[i], i < uploadFileList.length) {
         if (item.status === 'uploading') {
@@ -469,7 +478,7 @@ export default {
         i++
       }
       onFinished(fileList, key)
-      this.handleChange(componentType, key, fileList)
+      this.handleChange(componentType, key, fileList, attrs)
     }
   },
   component: {

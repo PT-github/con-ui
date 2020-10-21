@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-19 08:33:25
  * @LastEditors: PT
- * @LastEditTime: 2020-10-19 10:10:35
+ * @LastEditTime: 2020-10-21 08:48:34
  * @Description: SRadioCon
  */
 import SRadioGroup from '../../s-radio-group'
@@ -27,7 +27,10 @@ export default {
   },
   render () {
     return (
-      <s-radio-group class="s-radio-con"
+      <s-radio-group class={{
+        's-radio-con': true,
+        's-radio-con_button': this.optionType === 'radio-button',
+      }}
         {
           ...{
             attrs: {

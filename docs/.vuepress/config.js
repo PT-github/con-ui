@@ -11,9 +11,9 @@ module.exports = {
     smoothScroll: true,
     nav: [
       { text: '指南', link: '/guide/' },
-      { text: '组件', link: '/component/basic/row' },
-      { text: '高级', link: '/adv-component/' },
-      { text: 'Git', link: 'https://google.com', target: '_blank' },
+      { text: '基础组件', link: '/component/basic/row' },
+      { text: '高级组件', link: '/adv-component/' },
+      { text: 'Github', link: 'https://github.com/PT-github/con-uim', target: '_blank' },
     ],
     sidebar: {
       '/guide/': [{
