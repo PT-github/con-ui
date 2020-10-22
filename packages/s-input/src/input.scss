@@ -1,14 +1,23 @@
 @import '~element-ui/lib/theme-chalk/input.css';
 .s-input {
-  .el-input__inner {
+  .el-input__inner, .el-textarea__inner {
     border-radius: 2px;
     @include background_color($color: "$0-color-1");
     @include font_color($color: "$1-color-1", $opacity: .65);
     @include border_color($color: "$1-color-1", $opacity: .15);
     @include placeholder_color($color: "$1-color-1", $opacity: .25);
   }
-  &.is-disabled .el-input__inner {
-    @include background_color($color: "$1-color-1", $opacity: .04);
+  .el-input-group__append, .el-input-group__prepend {
+    border-radius: 2px;
+    padding: 0 13px;
+    @include border_color($color: "$1-color-1", $opacity: .15);
+  }
+  &.is-disabled {
+    .el-input-group__append, .el-input-group__prepend {
+      background-color: #f5f7fa;
+      border-color: #e4e7ed;
+      color: #c0c4cc;
+    }
   }
   &.is-active .el-input__inner, .el-input__inner:focus{
     @include border_color($color: "$2-color-1");
@@ -16,10 +25,5 @@
   [type="dashed"] {
     border-style: dashed;
   }
-  .s-input__icon {
-    height: 100%;
-    width: 25px;
-    text-align: center;
-    line-height: 40px;
-  }
+  
 }

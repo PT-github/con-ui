@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-13 08:41:09
  * @LastEditors: PT
- * @LastEditTime: 2020-10-13 09:52:15
+ * @LastEditTime: 2020-10-22 16:01:38
  * @Description: SAutocomplete
 -->
 
@@ -34,12 +34,14 @@ export default {
   }
 }
 </script>
-<style lang='scss' scoped>
+<style lang='scss'>
 @import '~element-ui/lib/theme-chalk/autocomplete.css';
-.s-autocomplete .s-input__icon {
-  height: 100%;
-  width: 25px;
-  text-align: center;
-  line-height: 40px;
+.s-autocomplete {
+  .el-input__inner {
+    @include border_color($color: '$1-color-1', $opacity:.15);
+    @include font_color($color: '$1-color-1', $opacity:.65);
+    @include placeholder_color($color: "$1-color-1", $opacity: .25);
+    border-radius: 2px;
+  }
 }
 </style>

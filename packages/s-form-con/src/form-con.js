@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-17 19:14:45
  * @LastEditors: PT
- * @LastEditTime: 2020-10-22 15:05:18
+ * @LastEditTime: 2020-10-22 16:43:15
  * @Description: SFormCon
  */
 import SForm from '../../s-form'
@@ -126,11 +126,15 @@ export default {
     renderField (componentName, key, attrs = {}) {
       switch(componentName) {
         case 'input':
+          console.log('===', key)
+          console.log(typeof attrs.readonly !== undefined ? attrs.readonly : attrs.icon ? true : false)
+          console.log('===', key)
           return <s-input
             {
               ...{
                 attrs: {
                   ...attrs,
+                  readonly: typeof attrs.readonly !== 'undefined' ? attrs.readonly : attrs.icon ? true : false,
                   value: this.value[key]
                 },
                 on: {
@@ -140,7 +144,15 @@ export default {
                 }
               }
             }
-            ></s-input>
+            >
+              {
+                attrs.icon && <s-button
+                  slot="append"
+                  vOn:click={typeof attrs.onClick === 'function' ? attrs.onClick : () => {}}
+                  icon={attrs.icon}>
+                </s-button>
+              }
+            </s-input>
         case 'radio':
           return <s-radio-con
             {

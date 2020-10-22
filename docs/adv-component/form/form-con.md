@@ -72,6 +72,7 @@
         disabled: false,
         form: {
           username: '',
+          username2: '',
           sex: '',
           age: '',
           hobby: '',
@@ -95,6 +96,7 @@
         },
         fields: [
           { prop: 'username', label: '姓名', is: 'input', attrs: { onChange (v) {console.log(v)},placeholder: '请输入姓名' } },
+          { prop: 'username2', label: '复合', is: 'input', attrs: { onChange (v) {console.log(v)},onClick () {alert('点击搜索')},placeholder: '请选择', icon: 'el-icon-search' } },
           { prop: 'sex', label: '性别', is: 'select', attrs: { onChange (v) {console.log(v)},  placeholder: '请选择性别',
               options: [
                 { label: '男', value: '0' },
@@ -217,10 +219,10 @@
     },
     mounted () {
       import('../utils').then(module => {
-        this.fields[6].attrs.options.push(...module.options)
+        this.fields[7].attrs.options.push(...module.options)
       })
       import('../utils').then(module => {
-        this.fields[7].attrs.options.push(...module.options2)
+        this.fields[8].attrs.options.push(...module.options2)
       })
     },
     methods: {
@@ -288,7 +290,7 @@
 #### SFormCon fields attrs Attributes
 | is      | attr针对的组件配置 |
 |---------- |-------------- |
-| input | [SInput](/component/form/input.html#input-attributes)  |
+| input | 添加icon配置时，展示复合型输入框。其他配置请参照[SInput](/component/form/input.html#input-attributes)  |
 | select | [SSelectCon](/adv-component/form/select-con.html#selectcon-attributes)  |
 | input-number | [SInputNumber](/component/form/input-number.html#inputnumber-attributes)  |
 | radio | [SRadioCon](/adv-component/form/radio-con.html#radiocon-attributes)  |
