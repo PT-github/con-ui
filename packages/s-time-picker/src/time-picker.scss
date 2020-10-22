@@ -1,43 +1,46 @@
 @import "~element-ui/lib/theme-chalk/time-picker.css";
 
 .s-time-picker {
-  .el-input__inner {
-    @include font_color($color: "$1-color-1", $opacity: 0.65);
+  &.el-input__inner {
+    @include border_color($color: '$1-color-1', $opacity:.15);
+    @include font_color($color: '$1-color-1', $opacity: .65);
+    @include placeholder_color($color: "$1-color-1", $opacity: .25);
+    border-radius: 2px;
   }
-  .el-icon-error:before {
-    @include font_color($color: "$1-color-1", $opacity: 0.45);
-  }
+  // .el-icon-error:before {
+  //   @include font_color($color: "$1-color-1", $opacity: 0.45);
+  // }
 }
 
-.s-time-picker-popper {
-  .el-time-spinner__item {
-    border-right: 1px solid rgba(0, 0, 0, 0.06);
-    &:not(.disabled) {
-      &.active {
-        @include font_color($color: "$1-color-1", $opacity: 0.85);
-        @include background_color($color: "$1-color-1", $opacity: 0.04);
-      }
-      &:hover:not(.active) {
-        @include background_color($color: "$2-color-2");
-      }
-    }
-  }
+// .s-time-picker-popper {
+//   .el-time-spinner__item {
+//     border-right: 1px solid rgba(0, 0, 0, 0.06);
+//     &:not(.disabled) {
+//       &.active {
+//         @include font_color($color: "$1-color-1", $opacity: 0.85);
+//         @include background_color($color: "$1-color-1", $opacity: 0.04);
+//       }
+//       &:hover:not(.active) {
+//         @include background_color($color: "$2-color-2");
+//       }
+//     }
+//   }
 
-  .el-scrollbar:last-child .el-time-spinner__item {
-    border-right: none;
-  }
+//   .el-scrollbar:last-child .el-time-spinner__item {
+//     border-right: none;
+//   }
 
-  .el-time-panel__content:after,
-  .el-time-panel__content:before {
-    border: none;
-  }
+//   .el-time-panel__content:after,
+//   .el-time-panel__content:before {
+//     border: none;
+//   }
 
-  .el-scrollbar__bar {
-    &.is-vertical {
-      width: 4px;
-    }
-    &.is-horizontal {
-      height: 4px;
-    }
-  }
-}
+//   .el-scrollbar__bar {
+//     &.is-vertical {
+//       width: 4px;
+//     }
+//     &.is-horizontal {
+//       height: 4px;
+//     }
+//   }
+// }

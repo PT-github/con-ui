@@ -172,7 +172,8 @@ pageClass: custom-radio
 | options  | 选项配置列表    | array   | — | —   |
 
 ### RadioCon options Attributes
->option如果为string，组件认为是label配置 即 `{label: ''}`
+>options中如果每项为string，组件认为是label配置 即 `{label: ''}`
+
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
 | is | 选项所使用的组件 | string | radio / radio-button | radio |

@@ -16,6 +16,7 @@ scp -r ./dist.zip root@39.100.82.255:/home/docs
 # 解压文件 yum install -y unzip zip
 unzip -o -d /home/docs dist.zip # -o 不提示覆盖文件 -d 指明解压到哪个目录
 # 打包文件
+zip -r test.zip ./test/
 
 # 文件重命名
 mv A B # 将目录A重命名为B

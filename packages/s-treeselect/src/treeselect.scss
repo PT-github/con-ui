@@ -24,6 +24,9 @@
   }
   &.s-treeselect--medium {
     font-size: 14px;
+    .vue-treeselect__placeholder, .vue-treeselect__single-value {
+      line-height: 34px;
+    }
     .vue-treeselect__control {
       height: 36px;
     }
@@ -37,7 +40,7 @@
   &.s-treeselect--small {
     font-size: 14px;
     .vue-treeselect__placeholder, .vue-treeselect__single-value {
-      line-height: 30px;
+      line-height: 30px !important;
     }
     .vue-treeselect__control {
       height: 32px;
@@ -55,7 +58,7 @@
   &.s-treeselect--mini {
     font-size: 12px;
     .vue-treeselect__placeholder, .vue-treeselect__single-value {
-      line-height: 26px;
+      line-height: 26px !important;
     }
     .vue-treeselect__control {
       height: 28px;

@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-17 19:14:45
  * @LastEditors: PT
- * @LastEditTime: 2020-10-21 10:24:28
+ * @LastEditTime: 2020-10-22 15:05:18
  * @Description: SFormCon
  */
 import SForm from '../../s-form'
@@ -189,6 +189,22 @@ export default {
               }
             }
             ></s-select-con>
+        case 'treeselect':
+          return <s-treeselect
+            {
+              ...{
+                attrs: {
+                  ...attrs,
+                  value: this.value[key]
+                },
+                on: {
+                  change: (v) => {
+                    this.handleChange(componentName, key, v, attrs)
+                  }
+                }
+              }
+            }
+            ></s-treeselect>
         case 'input-number':
           return <s-input-number vModel={this.value[key]}
             {

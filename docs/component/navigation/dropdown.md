@@ -41,7 +41,7 @@
 :::demo 设置`split-button`属性来让触发下拉元素呈现为按钮组，左边是功能按钮，右边是触发下拉菜单的按钮，设置为`true`即可。
 
 ```html
-<s-dropdown>
+<s-dropdown class="dropdown-demo">
   <s-button type="primary">
     更多菜单<i class="el-icon-arrow-down el-icon--right"></i>
   </s-button>
@@ -53,7 +53,7 @@
     <s-dropdown-item>蚵仔煎</s-dropdown-item>
   </s-dropdown-menu>
 </s-dropdown>
-<s-dropdown split-button type="primary" @click="handleClick">
+<s-dropdown class="dropdown-demo" split-button type="primary" @click="handleClick">
   更多菜单
   <s-dropdown-menu slot="dropdown">
     <s-dropdown-item>黄金糕</s-dropdown-item>
@@ -65,10 +65,10 @@
 </s-dropdown>
 
 <style>
-  .s-dropdown {
+  .dropdown-demo {
     vertical-align: top;
   }
-  .s-dropdown + .s-dropdown {
+  .dropdown-demo + .dropdown-demo {
     margin-left: 15px;
   }
   .el-icon-arrow-down {

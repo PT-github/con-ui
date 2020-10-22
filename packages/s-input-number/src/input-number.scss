@@ -6,4 +6,10 @@
   &.is-controls-right .el-input__inner{
     text-align: left
   }
+  .el-input__inner {
+    @include border_color($color: '$1-color-1', $opacity:.15);
+    @include font_color($color: '$1-color-1', $opacity:.65);
+    @include placeholder_color($color: "$1-color-1", $opacity: .25);
+    border-radius: 2px;
+  }
 }

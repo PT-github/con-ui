@@ -77,6 +77,7 @@
           hobby: '',
           organization: '',
           subject: [],
+          subject2: null,
           slider: 97,
           time: '',
           time2: '',
@@ -109,6 +110,7 @@
           },
           { prop: 'organization', width: '100%', label: '党员', is: 'switch' },
           { prop: 'subject', label: '科目', is: 'cascader', attrs: { options: [], clearable: true } },
+          { prop: 'subject2', label: '科目', is: 'treeselect', attrs: { options: [], alwaysOpen: false, zIndex: 1002, multiple: true } },
           { prop: 'slider', width: '100%', label: '信息完成度', is: 'slider' },
           { prop: 'time', label: '时间', is: 'time-select', attrs: {
             pickerOptions: {
@@ -217,6 +219,9 @@
       import('../utils').then(module => {
         this.fields[6].attrs.options.push(...module.options)
       })
+      import('../utils').then(module => {
+        this.fields[7].attrs.options.push(...module.options2)
+      })
     },
     methods: {
       handlePictureCardPreview () {},
@@ -284,11 +289,12 @@
 | is      | attr针对的组件配置 |
 |---------- |-------------- |
 | input | [SInput](/component/form/input.html#input-attributes)  |
-| select | [SSelect](/component/form/select.html#select-attributes)  |
+| select | [SSelectCon](/adv-component/form/select-con.html#selectcon-attributes)  |
 | input-number | [SInputNumber](/component/form/input-number.html#inputnumber-attributes)  |
-| radio | [SRadio](/component/form/radio.html#radio-attributes)  |
-| checkbox | [SCheckbox](/component/form/checkbox.html#checkbox-attributes)  |
+| radio | [SRadioCon](/adv-component/form/radio-con.html#radiocon-attributes)  |
+| checkbox | [SCheckboxCon](/adv-component/form/checkbox-con.html#checkboxcon-attributes)  |
 | switch | [Switch](/component/form/switch.html#switch-attributes)  |
+| treeselect | [STreeselect](/adv-component/form/treeselect.html#treeselect-attributes)  |
 | cascader | [SCascader](/component/form/cascader.html#cascader-attributes)  |
 | slider | [SSlider](/component/form/slider.html#slider-attributes)  |
 | time-select | [STimeSelect](/component/form/time-picker.html#time-select-options)  |

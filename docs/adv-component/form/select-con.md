@@ -464,10 +464,10 @@
 :::
 
 :::tip
-如果 Select 的绑定值为对象类型，请务必指定 `value-key` 作为它的唯一性标识。
+如果 SelectCon 的绑定值为对象类型，请务必指定 `value-key` 作为它的唯一性标识。
 :::
 
-### Select Attributes
+### SelectCon Attributes
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | value / v-model | 绑定值 | boolean / string / number | — | — |
@@ -491,13 +491,13 @@
 | loading-text | 远程加载时显示的文字 | string | — | 加载中 |
 | no-match-text | 搜索条件无匹配时显示的文字，也可以使用`slot="empty"`设置 | string | — | 无匹配数据 |
 | no-data-text | 选项为空时显示的文字，也可以使用`slot="empty"`设置 | string | — | 无数据 |
-| popper-class | Select 下拉框的类名 | string | — | — |
+| popper-class | SelectCon 下拉框的类名 | string | — | — |
 | reserve-keyword | 多选且可搜索时，是否在选中一个选项后保留当前的搜索关键词 | boolean | — | false |
 | default-first-option | 在输入框按下回车，选择第一个匹配项。需配合 `filterable` 或 `remote` 使用 | boolean | - | false |
 | popper-append-to-body | 是否将弹出框插入至 body 元素。在弹出框的定位出现问题时，可将该属性设置为 false | boolean | - | true |
-| automatic-dropdown | 对于不可搜索的 Select，是否在输入框获得焦点后自动弹出选项菜单 | boolean | - | false |
+| automatic-dropdown | 对于不可搜索的 SelectCon，是否在输入框获得焦点后自动弹出选项菜单 | boolean | - | false |
 
-### Select Events
+### SelectCon Events
 | 事件名称 | 说明 | 回调参数 |
 |---------|---------|---------|
 | change | 选中值发生变化时触发 | 目前的选中值 |
@@ -507,11 +507,11 @@
 | blur | 当 input 失去焦点时触发 | (event: Event) |
 | focus | 当 input 获得焦点时触发 | (event: Event) |
 
-### Select Slots
+### SelectCon Slots
 |   name  | 说明     |
 |---------|---------|
 |    —    | Option 组件列表 |
-| prefix  | Select 组件头部内容 |
+| prefix  | SelectCon 组件头部内容 |
 | empty | 无选项时的列表 |
 | options`新增` | 自定义下拉模板 |
 

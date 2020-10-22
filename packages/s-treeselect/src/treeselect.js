@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-15 22:36:22
  * @LastEditors: PT
- * @LastEditTime: 2020-10-16 22:43:38
+ * @LastEditTime: 2020-10-22 15:34:24
  * @Description: STreeselect
  */
 import Treeselect from '@riophae/vue-treeselect'
@@ -60,11 +60,7 @@ export default {
     },
     // 大小控制
     size: {
-      type: String,
-      validator: function (value) {
-        return ['large', 'medium', 'small', 'mini'].indexOf(value) !== -1
-      },
-      default: 'large'
+      type: String
     }
   },
   mixins: [ Emitter ],
