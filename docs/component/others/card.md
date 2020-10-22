@@ -23,7 +23,7 @@
     font-size: 14px;
   }
 
-  .item {
+  .box-card .item {
     margin-bottom: 18px;
   }
 
@@ -58,10 +58,6 @@
 <style>
   .text {
     font-size: 14px;
-  }
-
-  .item {
-    padding: 18px 0;
   }
 
   .box-card {
