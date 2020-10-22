@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-17 19:14:45
  * @LastEditors: PT
- * @LastEditTime: 2020-10-22 16:43:15
+ * @LastEditTime: 2020-10-22 16:54:13
  * @Description: SFormCon
  */
 import SForm from '../../s-form'
@@ -126,9 +126,6 @@ export default {
     renderField (componentName, key, attrs = {}) {
       switch(componentName) {
         case 'input':
-          console.log('===', key)
-          console.log(typeof attrs.readonly !== undefined ? attrs.readonly : attrs.icon ? true : false)
-          console.log('===', key)
           return <s-input
             {
               ...{
