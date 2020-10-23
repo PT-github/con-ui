@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-17 19:14:45
  * @LastEditors: PT
- * @LastEditTime: 2020-10-22 16:54:13
+ * @LastEditTime: 2020-10-23 16:21:13
  * @Description: SFormCon
  */
 import SForm from '../../s-form'
@@ -17,9 +17,7 @@ export default {
       default: () => []
     },
     // form绑定的值
-    value: {
-
-    },
+    model: Object,
     // 默认行内表单模式
     inline: {
       type: Boolean,
@@ -29,23 +27,58 @@ export default {
     columns: {
       type: Number | String,
       default: 1
-    }
+    },
+    // 带查询按钮模式
+    isQueryForm: {
+      type: Boolean,
+      default: false
+    },
+    // 重置查询条件时，需要排除的props集合
+    resetExcludeProps: {
+      type: Array,
+      default: () => []
+    },
+    // 重置查询条件时，需要重置的props集合
+    resetIncludeProps: {
+      type: Array,
+      default: () => []
+    },
   },
   render () {
+    let formItems = this.fields &&
+      this.fields.length > 0 &&
+      this.fields.map((formitem, index) => this.renderFormItem(formitem, index))
     return (
       <s-form
-        vModel={this.value}
         class="s-form-con"
         {
           ...{
-            attrs: { ...this.$attrs, inline: this.inline },
+            attrs: {
+              ...this.$attrs,
+              inline: this.inline,
+              model: this.model
+            },
             on: { ...this.$listeners }
           }
         }
       >
-        { this.fields && this.fields.length > 0 && this.fields.map(formitem => this.renderFormItem(formitem)) }
+        { 
+          this.showFoldButton && (
+          <transition-group name="query-form" >
+            { formItems }
+          </transition-group>
+          ) || formItems
+        }
+        {
+          this.isQueryForm && (this.$slots.button || this.renderQueryBtn())
+        }
       </s-form>
     )
+  },
+  data () {
+    return {
+      isfold: true, // 不在第一行的formitem是否被收起
+    }
   },
   computed: {
     formitemWidth () {
@@ -57,32 +90,100 @@ export default {
         ret = 100
       }
       return ret + '%'
+    },
+    showFoldButton () {
+      return this.isQueryForm && this.fields.length >= this.columns
+    },
+    // 需要重置的props集合
+    _resetIncludeProps () {
+      if (this.resetIncludeProps.length) {
+        return this.resetIncludeProps
+      } else {
+        let arry = []
+        for (let props in this.model) {
+          if (this.resetExcludeProps.indexOf(props) !== -1) {
+            continue
+          }
+          arry.push(props)
+        }
+        return arry
+      }
     }
   },
   methods: {
     ...SForm.methods,
+    // 点击查询按钮
+    handleQuery () {
+      this.$emit('query', this.model)
+    },
+    // 重置查询条件
+    handleReset () {
+      this._resetIncludeProps.forEach(prop => {
+        switch(typeof this.model[prop]) {
+          case 'string':
+            this.$set(this.model, prop, '')
+            break
+          case 'number':
+            this.$set(this.model, prop, 0)
+            break
+          default:
+            this.$set(this.model, prop, null)
+        }
+      })
+      this.$emit('reset', this.model)
+    },
+    handleFold () {
+      this.isfold = !this.isfold
+      this.$emit('fold', this.isfold)
+    },
+    /**
+     * @description: 渲染查询、重置、展开/收起 按钮
+     * @return {} JSX
+     */    
+    renderQueryBtn () {
+      return (
+        <s-form-item
+          style={{width: this.formitemWidth}}
+          class='form-item-query-btn'
+        >
+          <s-button type="primary" vOn:click={this.handleQuery}>查询</s-button>
+          <s-button vOn:click={this.handleReset}>重置</s-button>
+          {
+            this.showFoldButton && (
+              <s-button type="text" vOn:click={this.handleFold}>
+                { this.isfold ? '展开' : '收起' }
+                <i class={this.isfold ? 'el-icon-arrow-down' : 'el-icon-arrow-up'}></i>
+              </s-button>
+            )
+          }
+          
+        </s-form-item>
+      )
+    },
     /**
      * @description: 绑定组件值change的回调
      * @param {string} componentType 组件类型
      * @param {string} key 绑定值value中的key键值
      * @param {} value 改变后的数据
      * @param {object} attrs 组件配置
-     * @return {type} 
      */
     handleChange (componentType, key, value, attrs) {
-      // this.value[key] = value
-      this.$set(this.value, key, value)
-      this.$emit('change', this.value, key)
+      console.log(componentType, key, value, attrs)
+      // this.model[key] = value
+      this.$set(this.model, key, value)
+      this.$emit('change', this.model, key)
       typeof attrs.onChange === 'function' && attrs.onChange(value)
     },
     // 渲染formitem
-    renderFormItem (formitem = {}) {
+    renderFormItem (formitem = {}, index) {
       return (
         <s-form-item
+          key={'formitem_' + index}
           style={{width: formitem.width || this.formitemWidth}}
           class={{
-            'custome-form-item': this.$slots['field_' + formitem.prop.toLowerCase()]
+            'custome-form-item': this.$slots['field_' + formitem.prop.toLowerCase()],
           }}
+          vShow={!this.isQueryForm || (this.isQueryForm && (this.isfold && index < this.columns - 1) || !this.isfold)}
           {
             ...{
               attrs: { ...formitem }
@@ -126,37 +227,41 @@ export default {
     renderField (componentName, key, attrs = {}) {
       switch(componentName) {
         case 'input':
-          return <s-input
-            {
-              ...{
-                attrs: {
-                  ...attrs,
-                  readonly: typeof attrs.readonly !== 'undefined' ? attrs.readonly : attrs.icon ? true : false,
-                  value: this.value[key]
-                },
-                on: {
-                  input: (v) => {
-                    this.handleChange(componentName, key, v, attrs)
+          return (
+            <s-input
+              {
+                ...{
+                  attrs: {
+                    ...attrs,
+                    readonly: typeof attrs.readonly !== 'undefined' ? attrs.readonly : attrs.icon ? true : false,
+                    value: this.model[key]
+                  },
+                  on: {
+                    input: (v) => {
+                      this.handleChange(componentName, key, v, attrs)
+                    }
                   }
                 }
               }
-            }
             >
               {
-                attrs.icon && <s-button
-                  slot="append"
-                  vOn:click={typeof attrs.onClick === 'function' ? attrs.onClick : () => {}}
-                  icon={attrs.icon}>
-                </s-button>
+                attrs.icon && <s-button icon={attrs.icon} slot="append" {...{
+                  on: {
+                    click: () => {
+                      typeof attrs.onClick !== 'function' && attrs.onClick()
+                    }
+                  }
+                }}></s-button>
               }
             </s-input>
+          )
         case 'radio':
           return <s-radio-con
             {
               ...{
                 attrs: {
                   ...attrs,
-                  value: this.value[key]
+                  value: this.model[key]
                 },
                 on: {
                   input: (v) => {
@@ -172,7 +277,7 @@ export default {
               ...{
                 attrs: {
                   ...attrs,
-                  value: this.value[key]
+                  value: this.model[key]
                 },
                 on: {
                   change: (v) => {
@@ -188,7 +293,7 @@ export default {
               ...{
                 attrs: {
                   ...attrs,
-                  value: this.value[key]
+                  value: this.model[key]
                 },
                 on: {
                   change: (v) => {
@@ -204,10 +309,11 @@ export default {
               ...{
                 attrs: {
                   ...attrs,
-                  value: this.value[key]
+                  value: this.model[key]
                 },
                 on: {
-                  change: (v) => {
+                  input: (v) => {
+                    console.log('vvvvv', v)
                     this.handleChange(componentName, key, v, attrs)
                   }
                 }
@@ -215,12 +321,12 @@ export default {
             }
             ></s-treeselect>
         case 'input-number':
-          return <s-input-number vModel={this.value[key]}
+          return <s-input-number
             {
               ...{
                 attrs: {
                   ...attrs,
-                  value: this.value[key]
+                  value: this.model[key]
                 },
                 on: {
                   input: (v) => {
@@ -236,7 +342,7 @@ export default {
               ...{
                 attrs: {
                   ...attrs,
-                  value: this.value[key]
+                  value: this.model[key]
                 },
                 on: {
                   change: (v) => {
@@ -252,7 +358,7 @@ export default {
               ...{
                 attrs: {
                   ...attrs,
-                  value: this.value[key]
+                  value: this.model[key]
                 },
                 on: {
                   change: (v) => {
@@ -263,50 +369,50 @@ export default {
             }
             ></s-switch>
         case 'slider':
-          return <s-slider vModel={this.value[key]}
+          return <s-slider
             {
               ...{
                 attrs: {
                   ...attrs,
-                  value: this.value[key]
+                  value: this.model[key]
                 },
                 on: {
-                  change: (v) => {
-                    this.handleChange(componentName, key, v, attrs)
+                  input: (v) => {
+                    this.model[key] !== v && this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
             }
             ></s-slider>
         case 'time-select':
-          return <s-time-select vModel={this.value[key]}
+          return <s-time-select
             {
               ...{
                 attrs: {
                   ...attrs,
                   valueFormat: attrs.valueFormat || 'HH:mm:ss',
-                  value: this.value[key]
+                  value: this.model[key]
                 },
                 on: {
-                  change: (v) => {
-                    this.handleChange(componentName, key, v, attrs)
+                  input: (v) => {
+                    this.model[key] !== v && this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
             }
             ></s-time-select>
         case 'time-picker':
-          return <s-time-picker vModel={this.value[key]}
+          return <s-time-picker
             {
               ...{
                 attrs: {
                   ...attrs,
                   valueFormat: attrs.valueFormat || 'HH:mm:ss',
-                  value: this.value[key]
+                  value: this.model[key]
                 },
                 on: {
-                  change: (v) => {
-                    this.handleChange(componentName, key, v, attrs)
+                  input: (v) => {
+                    this.model[key] !== v && this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -314,49 +420,49 @@ export default {
             ></s-time-picker>
         case 'date-picker':
 
-          return <s-date-picker vModel={this.value[key]}
+          return <s-date-picker
             {
               ...{
                 attrs: {
                   ...attrs,
                   valueFormat: this.getDateFormat(attrs.type),
-                  value: this.value[key]
+                  value: this.model[key]
                 },
                 on: {
-                  change: (v) => {
-                    this.handleChange(componentName, key, v, attrs)
+                  input: (v) => {
+                    this.model[key] !== v && this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
             }
             ></s-date-picker>
         case 'rate':
-          return <s-rate vModel={this.value[key]}
+          return <s-rate
             {
               ...{
                 attrs: {
                   ...attrs,
-                  value: this.value[key]
+                  value: this.model[key]
                 },
                 on: {
-                  change: (v) => {
-                    this.handleChange(componentName, key, v, attrs)
+                  input: (v) => {
+                    this.model[key] !== v && this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
             }
             ></s-rate>
         case 'transfer':
-          return <s-transfer vModel={this.value[key]}
+          return <s-transfer
             {
               ...{
                 attrs: {
                   ...attrs,
-                  value: this.value[key]
+                  value: this.model[key]
                 },
                 on: {
-                  change: (v) => {
-                    this.handleChange(componentName, key, v, attrs)
+                  input: (v) => {
+                    this.model[key] !== v && this.handleChange(componentName, key, v, attrs)
                   }
                 }
               }
@@ -379,7 +485,7 @@ export default {
           // console.log('listType, buttonText, buttonText2, iconClass, drag, autoUpload')
           // console.log(listType, buttonText, buttonText2, iconClass, drag, autoUpload)
 
-          let fileList = this.setFileValue(this.value[key], props)
+          let fileList = this.setFileValue(this.model[key], props)
           let uploadScopedSlots = this.$scopedSlots['upload_default_' + key.toLowerCase()]
 
           let fileSlots = this.$scopedSlots['upload_file_' + key.toLowerCase()]

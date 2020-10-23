@@ -10,11 +10,11 @@
 
 :::demo 在 FormCon 组件中，表单域中可以放置各种类型的表单控件，包括 Input、Select、Checkbox、Radio、Switch、DatePicker、TimePicker
 ```html
-<s-form-con class="control-form" size="small" v-model="controlForm" columns="2" :fields="confields" label-width="80px"></s-form-con>
+<s-form-con class="control-form" size="small" :model="controlForm" columns="2" :fields="confields" label-width="80px"></s-form-con>
 
 <s-form-con
   ref="form"
-  v-model="form"
+  :model="form"
   columns="2"
   :fields="fields"
   :disabled="controlForm.disabled"
@@ -85,12 +85,12 @@
           date: '',
           rate: 1,
           fileList: [
-            {name: '文件一', url: 'http://localhost:8080/logo.png'},
-            {name: '文件二', url: 'http://localhost:8080/logo.png'}
+            {name: '文件一', url: 'https://cn.vuejs.org/images/logo.png'},
+            {name: '文件二', url: 'https://cn.vuejs.org/images/logo.png'}
           ],
           fileList2: [
-            {name1: '文件一', url1: 'http://localhost:8080/logo.png'},
-            {name1: '文件二', url1: 'http://localhost:8080/logo.png'}
+            {name1: '文件一', url1: 'https://cn.vuejs.org/images/logo.png'},
+            {name1: '文件二', url1: 'https://cn.vuejs.org/images/logo.png'}
           ],
           custome: ''
         },
@@ -129,7 +129,8 @@
           { prop: 'date', label: '日期', is: 'date-picker', attrs: { type: 'date', placeholder: '选择时间' } },
           { prop: 'daterange', label: '日期区间', is: 'date-picker', attrs: { type: 'daterange', placeholder: '选择时间' } },
           { prop: 'rate', label: '评分', is: 'rate', attrs: { showText: true } },
-          { prop: 'fileList', width: '100%', label: '文件', is: 'upload', attrs: { 
+          { prop: 'transfer', width: '100%', label: '姓名13', is: 'transfer', attrs: { data: [] } },
+          { prop: 'fileList', width: '100%', label: '文件', is: 'upload', attrs: {
               action: 'https://jsonplaceholder.typicode.com/posts/',
               multiple: true,
               // 文件名和文件路径对应后台接口返回字段
@@ -220,9 +221,8 @@
     mounted () {
       import('../utils').then(module => {
         this.fields[7].attrs.options.push(...module.options)
-      })
-      import('../utils').then(module => {
         this.fields[8].attrs.options.push(...module.options2)
+        this.fields[15].attrs.data.push(...module.generateData())
       })
     },
     methods: {
@@ -248,12 +248,136 @@
 ```
 :::
 
+### 带查询/展开按钮表单
+
+包括各种表单项，比如输入框、选择器、开关、单选框、多选框等。
+
+:::demo 在 FormCon 组件中，表单域中可以放置各种类型的表单控件，包括 Input、Select、Checkbox、Radio、Switch、DatePicker、TimePicker
+```html
+<s-form-con class="control-form" size="small" :model="controlForm" columns="2" :fields="confields" label-width="80px"></s-form-con>
+
+<s-form-con
+  ref="form"
+  :model="form"
+  :columns="controlForm.columns"
+  is-query-form
+  :fields="fields"
+  :disabled="controlForm.disabled"
+  :size="controlForm.size"
+  :rules="rules"
+  label-width="80px"
+  style="margin-top: 20px;">
+</s-form-con>
+<script>
+  export default {
+    data() {
+      return {
+        disabled: false,
+        form: {
+          username: '',
+          username2: '',
+          sex: '',
+          age: '',
+          subject: [],
+          subject2: null,
+          time: '',
+          time2: '',
+          date: ''
+        },
+        fields: [
+          { prop: 'username', label: '姓名', is: 'input', attrs: { onChange (v) {console.log(v)},placeholder: '请输入姓名' } },
+          { prop: 'username2', label: '复合', is: 'input', attrs: { onChange (v) {console.log(v)},onClick () {alert('点击搜索')},placeholder: '请选择', icon: 'el-icon-search' } },
+          { prop: 'sex', label: '性别', is: 'select', attrs: { onChange (v) {console.log(v)},  placeholder: '请选择性别',
+              options: [
+                { label: '男', value: '0' },
+                { label: '女', value: '1' },
+              ]
+            }
+          },
+          { prop: 'age', label: '年龄', is: 'input-number', attrs: { controlsPosition:"right" } },
+          { prop: 'subject', label: '科目', is: 'cascader', attrs: { options: [], clearable: true } },
+          { prop: 'subject2', label: '科目', is: 'treeselect', attrs: { options: [], alwaysOpen: false, zIndex: 1002, multiple: true } },
+          { prop: 'time', label: '时间', is: 'time-select', attrs: {
+            pickerOptions: {
+              start: '08:30',
+              step: '00:15',
+              end: '18:30'
+            },  placeholder: '选择时间' },
+          },
+          { prop: 'time2', label: '时间2', is: 'time-picker', attrs: {
+            isRange: true,
+            pickerOptions: {
+              selectableRange: '18:30:00 - 20:30:00'
+            }, placeholder: '选择时间' } },
+          { prop: 'date', label: '日期', is: 'date-picker', attrs: { type: 'date', placeholder: '选择时间' } },
+          { prop: 'daterange', label: '日期区间', is: 'date-picker', attrs: { type: 'daterange', placeholder: '选择时间' } },
+        ],
+        rules: {
+          username: [
+            { required: true, message: '请输入姓名', trigger: 'change' }
+          ]
+        },
+        controlForm: {
+          disabled: false,
+          size: '',
+          columns: 3
+        },
+        confields: [
+          {
+            prop: 'disabled',
+            label: '是否禁用',
+            is: 'radio',
+            width: '200px',
+            attrs: {
+              options: [
+                { is: 'radio-button', label: true,  content: '是'},
+                { label: false,  content: '否'},
+              ]
+            }
+          },
+          {
+            prop: 'size',
+            label: '尺寸大小',
+            is: 'radio',
+            attrs: {
+              options: [
+                { is: 'radio-button', label: '',  content: '默认'},
+                { label: 'medium',  content: 'medium'},
+                { label: 'small',  content: 'small'},
+                { label: 'mini',  content: 'mini'},
+              ]
+            }
+          },
+          { prop: 'columns', width: '26%', label: '列数', is: 'input-number', attrs: { controlsPosition:"right" } },
+        ]
+      }
+    },
+    mounted () {
+      import('../utils').then(module => {
+        this.fields[4].attrs.options.push(...module.options)
+      })
+      import('../utils').then(module => {
+        this.fields[5].attrs.options.push(...module.options2)
+      })
+    },
+    methods: {
+      handlePictureCardPreview () {},
+      handleDownload () {},
+      handleRemove () {},
+      onSubmit() {
+        console.log('submit!');
+      }
+    }
+  }
+</script>
+```
+:::
 
 ### SFormCon Attributes
 
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| value/ v-model   | 表单数据对象 | object      |                  —                |  — |
+| model   | 表单数据对象 | object      |                  —                |  — |
 | columns   | 每行显示多少列 | number      |                  —                |  1 |
 | fields   | 每个formitem配置[详见下表](/adv-component/form/form-con.html#sformcon-fields-attributes) | array      |                  —                |  — |
 | rules    | 表单验证规则 | object | — | — |

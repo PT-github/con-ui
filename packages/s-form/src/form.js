@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-09 17:29:05
  * @LastEditors: PT
- * @LastEditTime: 2020-10-20 15:43:01
+ * @LastEditTime: 2020-10-23 15:53:26
  * @Description: SForm
  */
 
@@ -10,6 +10,7 @@ import './form.scss'
 import Form from 'element-ui/lib/form'
 export default {
   name: 'SForm',
+  props: {},
   render () {
     return (
       <el-form ref="form" class="s-form"

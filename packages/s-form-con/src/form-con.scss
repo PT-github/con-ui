@@ -9,11 +9,20 @@
       .el-form-item__content {
         flex: 1;
       }
+      &.form-item-query-btn {
+        float: right;
+        text-align: right;
+      }
+    }
+    &:after {
+      display: table;
+      content: "";
+      clear: both;
     }
   }
   .el-form-item__content {
     line-height: 0;
-    .s-select-con, .s-cascader, .s-time-select, .s-time-picker, .s-date-picker {
+    .el-input-number, .s-select-con, .s-cascader, .s-time-select, .s-time-picker, .s-date-picker {
       width: 100%;
     }
     .s-radio-group {
@@ -82,5 +91,11 @@
         margin: 11px 0;
       }
     }
+  }
+  .query-form-enter-active, .query-form-leave-active {
+    transition: opacity .3s;
+  }
+  .query-form-enter, .query-form-leave-to /* .query-form-leave-active below version 2.1.8 */ {
+    opacity: 0;
   }
 }
