@@ -250,9 +250,7 @@
 
 ### 带查询/展开按钮表单
 
-包括各种表单项，比如输入框、选择器、开关、单选框、多选框等。
-
-:::demo 在 FormCon 组件中，表单域中可以放置各种类型的表单控件，包括 Input、Select、Checkbox、Radio、Switch、DatePicker、TimePicker
+:::demo 在 FormCon 组件中，传递`is-query-form`可展示查询和重置按钮，当fields长度超过columns数值，默认会展示展开/收起按钮，也可通过设置`showFold`为`false`隐藏。通过Slot插槽`button`来自定义展示按钮
 ```html
 <s-form-con class="control-form" size="small" :model="controlForm" columns="2" :fields="confields" label-width="80px"></s-form-con>
 
@@ -262,6 +260,7 @@
   :columns="controlForm.columns"
   is-query-form
   :fields="fields"
+  :resetExcludeProps="[ 'username' ]"
   :disabled="controlForm.disabled"
   :size="controlForm.size"
   :rules="rules"
@@ -392,6 +391,10 @@
 | validate-on-rule-change  | 是否在 `rules` 属性改变后立即触发一次验证 | boolean | — | true |
 | size  | 用于控制该表单内组件的尺寸 | string | medium / small / mini | — |
 | disabled | 是否禁用该表单内的所有组件。若设置为 true，则表单内组件上的 disabled 属性不再生效 | boolean | — | false |
+| is-query-form | 带查询按钮的一种展现形式。 | boolean | — | false |
+| showFold | 带查询按钮形式是否显示展开/收起按钮。 | boolean | — | true |
+| resetIncludeProps | 重置查询条件时，需要重置的props集合。 | array | — | [] |
+| resetExcludeProps | 重置查询条件时，需要排除的props集合。 | array | — | [] |
 
 ### SFormCon fields Attributes
 
@@ -445,12 +448,16 @@
 | 事件名称 | 说明    | 回调参数  |
 |--------- |-------- |---------- |
 | change | 任一表单项数据发生变化后触发 | 改变后form绑定的对象，被改变的表单项 prop 值 |
+| query | queryform展现形式，点击查询按钮触发 | 表单 model 值 |
+| reset | queryform展现形式，点击重置按钮触发 | 被重置的表单 model 值 |
+| fold | queryform展现形式，是否被收起 | true / false |
 
 ### SFormCon Slots
 | name | 说明 |
 |------|--------|
 | field_ + fields中props | is未配置时，自定义field内容显示 |
 | upload_default_ + fields中props | is是upload时，对应upload的default插槽 |
+| button | queryform展现形式，自定义查询按钮展现 |
 
 
 ### SFormCon scopedSlots

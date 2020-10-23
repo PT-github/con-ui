@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script src="./lib/index.js"></script>
+    <link rel="stylesheet" href="./lib/theme-chalk/index.css" />
+  </head>
+  <body>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      #app {
+        font-size: 0;
+      }
+      .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+      }
+      .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+      }
+      /* .fade-move {
+        transition: transform 1s;
+      } */
+      .item {
+        border: 1px solid blue;
+        width: 33.333%;
+        display: inline-flex;
+        font-size: 14px;
+      }
+      /* .hide {
+        animation: hide .5s;
+      } */
+    </style>
+    <!-- <s-button @click="show = !show" type="primary" size="small">按钮</s-button> -->
+
+    <div id="app">
+      <s-button @click="isfold = !isfold">默认按钮</s-button>
+      <div
+        style="width: 500px;margin: 0 auto;
+      border: 1px solid red;margin: 0 auto; overflow: hidden;"
+      >
+        <transition-group name="fade" >
+          <div
+            class="item"
+            :key="'item__' + index"
+            v-for="(item, index) in fields.split(',')"
+            v-show="index <= 1 || (!isfold) || index === fields.split(',').length - 1"
+          >
+            item=== {{ index }}
+          </div>
+        </transition-group>
+      </div>
+    </div>
+    <script>
+      new Vue({
+        data: function() {
+          return {
+            isfold: true,
+            fields: "1,2,3,4,5,6,7,8",
+          };
+        },
+        methods: {},
+      }).$mount("#app");
+    </script>
+  </body>
+</html>

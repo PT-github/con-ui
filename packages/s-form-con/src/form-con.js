@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-17 19:14:45
  * @LastEditors: PT
- * @LastEditTime: 2020-10-23 16:21:13
+ * @LastEditTime: 2020-10-23 16:50:39
  * @Description: SFormCon
  */
 import SForm from '../../s-form'
@@ -43,8 +43,16 @@ export default {
       type: Array,
       default: () => []
     },
+    // 是否显示展开/收起按钮 默认显示
+    showFold: {
+      type: Boolean,
+      default: true
+    }
   },
   render () {
+    // 不显示展开和收起按钮时或者button自定义插槽存在 默认不收起formitem
+    (this.showFold === false || this.$slots.button) && (this.isfold = false)
+
     let formItems = this.fields &&
       this.fields.length > 0 &&
       this.fields.map((formitem, index) => this.renderFormItem(formitem, index))
@@ -149,7 +157,7 @@ export default {
           <s-button type="primary" vOn:click={this.handleQuery}>查询</s-button>
           <s-button vOn:click={this.handleReset}>重置</s-button>
           {
-            this.showFoldButton && (
+            this.showFoldButton && this.showFold && (
               <s-button type="text" vOn:click={this.handleFold}>
                 { this.isfold ? '展开' : '收起' }
                 <i class={this.isfold ? 'el-icon-arrow-down' : 'el-icon-arrow-up'}></i>
