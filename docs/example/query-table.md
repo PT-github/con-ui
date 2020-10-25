@@ -1,49 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script src="./node_modules/vue/dist/vue.js"></script>
-  <script src="./lib/index.js"></script>
-  <link rel="stylesheet" href="./lib/theme-chalk/index.css">
-</head>
-<body>
-  <style>
-    html, body {width: 100%;height: 100%;margin: 0;}
-    #app {
-      height: 100%;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-  </style>
-  <div id="app">
-    <s-form-con
-      ref="form"
-      :model="form"
-      :columns="3"
-      is-query-form
-      :fields="fields"
-      size="small"
-      label-width="80px"
-      style="margin-top: 20px;">
-    </s-form-con>
-    <div style="flex: 1">
-      <s-table-con
-        :data="tableData"
-        :columns="columns"
-        observe-selector="#app"
-        show-pagination
-        auto-height
-        table-header-dragable
-        border>
-      </s-table-con>
-    </div>
-  </div>
-  <script>
+---
+pageClass: custom-querytable
+---
 
-    new Vue({
+## 查询表格
+根据STableCon、SQueryForm组合的一个示例
+
+:::demo
+```html
+  <template>
+    <div class="service-page">
+      <s-form-con
+        ref="form"
+        :model="form"
+        :columns="3"
+        is-query-form
+        :fields="fields"
+        size="small"
+        label-width="80px"
+        @query="handleQuery"
+        @reset="handleReset"
+        style="margin-top: 20px;">
+      </s-form-con>
+      <div style="flex: 1">
+        <s-table-con
+          ref="table"
+          :data="tableData"
+          :columns="columns"
+          observe-selector=".service-page"
+          show-pagination
+          auto-height
+          table-header-dragable
+          border>
+        </s-table-con>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    export default {
       data() {
         const tempData = {
           '1': {
@@ -91,7 +85,7 @@
             }
           ],
           tableData: params => {
-            console.log('分页参数', params) // params会自动添加对应的分页参数【表格其他参数也可在此处添加】
+            console.log('分页参数', Object.assign({},params, this.form)) // params会自动添加对应的分页参数【表格其他参数也可在此处添加】
             return new Promise(resolve => {
               setTimeout(() => {
                 resolve(tempData[params.pageNo])
@@ -102,12 +96,8 @@
             username: '',
             username2: '',
             sex: '',
-            age: '',
-            subject: [],
-            subject2: null,
-            time: '',
-            time2: '',
-            date: ''
+            subject: null,
+            time: ''
           },
           fields: [
             { prop: 'username', label: '姓名', is: 'input', attrs: { onChange (v) {console.log(v)},placeholder: '请输入姓名' } },
@@ -119,35 +109,34 @@
                 ]
               }
             },
-            { prop: 'age', label: '年龄', is: 'input-number', attrs: { controlsPosition:"right" } },
-            { prop: 'subject', label: '科目', is: 'cascader', attrs: { options: [], clearable: true } },
-            { prop: 'subject2', label: '科目', is: 'treeselect', attrs: { options: [], alwaysOpen: false, zIndex: 1002, multiple: true } },
+            { prop: 'subject', label: '科目', is: 'treeselect', attrs: { options: [], alwaysOpen: false, zIndex: 1002, multiple: true } },
             { prop: 'time', label: '时间', is: 'time-select', attrs: {
               pickerOptions: {
                 start: '08:30',
                 step: '00:15',
                 end: '18:30'
               },  placeholder: '选择时间' },
-            },
-            { prop: 'time2', label: '时间2', is: 'time-picker', attrs: {
-              isRange: true,
-              pickerOptions: {
-                selectableRange: '18:30:00 - 20:30:00'
-              }, placeholder: '选择时间' } },
-            { prop: 'date', label: '日期', is: 'date-picker', attrs: { type: 'date', placeholder: '选择时间' } },
-            { prop: 'daterange', label: '日期区间', is: 'date-picker', attrs: { type: 'daterange', placeholder: '选择时间' } },
+            }
           ],
         }
       },
+      mounted () {
+        import('../adv-component/utils').then(module => {
+          this.fields[3].attrs.options.push(...module.options2)
+        })
+      },
       methods: {
-        handlePictureCardPreview () {},
-        handleDownload () {},
-        handleRemove () {},
-        onSubmit() {
-          console.log('submit!');
-        }
+        handleQuery() {
+          // alert('点击了查询按钮')
+          this.$refs.table.refresh(true)
+          this.$refs.form.setFold(true)
+        },
+        handleReset () {
+          // alert('点击了重置按钮')
+          this.$refs.table.refresh(true)
+        },
       }
-    }).$mount('#app')
+    }
   </script>
-</body>
-</html>
+```
+:::

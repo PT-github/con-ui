@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-17 19:14:45
  * @LastEditors: PT
- * @LastEditTime: 2020-10-23 16:50:39
+ * @LastEditTime: 2020-10-25 23:15:22
  * @Description: SFormCon
  */
 import SForm from '../../s-form'
@@ -143,6 +143,13 @@ export default {
     handleFold () {
       this.isfold = !this.isfold
       this.$emit('fold', this.isfold)
+    },
+    /**
+     * @description: 供外部调用设置是否展开和收起
+     * @param {*} isfold
+     */
+    setFold (isfold) {
+      this.isfold = !!isfold
     },
     /**
      * @description: 渲染查询、重置、展开/收起 按钮

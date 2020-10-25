@@ -13,6 +13,7 @@ module.exports = {
       { text: '指南', link: '/guide/' },
       { text: '基础组件', link: '/component/basic/row' },
       { text: '高级组件', link: '/adv-component/form/select-con' },
+      { text: '示例', link: '/example/query-table' },
       { text: 'Github', link: 'https://github.com/PT-github/con-ui', target: '_blank' },
     ],
     sidebar: {
@@ -104,7 +105,7 @@ module.exports = {
       }],
       '/adv-component/': [{
         title: '高级组件',
-        collapsable: false,
+        collapsable: true,
         children: [
           {
             title: 'Form 组件',
@@ -116,7 +117,7 @@ module.exports = {
               '/adv-component/form/treeselect',
               '/adv-component/form/form-con',
             ]
-          },{
+          }, {
             title: 'Data 组件',
             collapsable: false,
             children: [
@@ -125,6 +126,21 @@ module.exports = {
           }
         ]
       }],
+      '/example/': [
+        {
+          title: '组合示例',
+          collapsable: false,
+          children: [
+            {
+              title: '查询表格',
+              path: '/example/query-table'
+              // children: [
+              //   '/example/query-table'
+              // ]
+            }
+          ]
+        }
+      ]
     }
   },
   alias: {

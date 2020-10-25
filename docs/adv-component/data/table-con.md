@@ -769,6 +769,7 @@
 | data | 显示的数据 | array/function(当为function时，必须返回promise) | — | — |
 | show-pagination | 是否显示分页组件 | boolean | — | false |
 | auto-height | 是否根据父容器自适应高度 | boolean | — | false |
+| observe-selector | 当设定auto-height时，允许表格高度根据设置会变化的节点进行高度自适应 | string | — | — |
 | props | 分页参数配置（针对`data`为`function`时） | object | — | `{ pageSize: 'pageSize', total: 'total', pageNo: 'pageNo', list: 'list'}` |
 | columns | 表格列配置，详见下表 | array | — | [] |
 

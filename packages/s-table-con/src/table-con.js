@@ -32,7 +32,7 @@ export default {
       type: [Function, Array]
     },
     // 高度自适应时，被监听的容器dom节点
-    parentSelector: String,
+    observeSelector: String,
     // 是否显示分页组件
     showPagination: {
       type: Boolean,
@@ -291,6 +291,14 @@ export default {
       this.loadData({ pageNo })
     },
     /**
+     * @description: 供外部调用的加载表格数据
+     * @param {boolean}} bool 是否从第一页开始加载
+     */    
+    refresh (bool) {
+      bool && (this.pageNo = 1)
+      this.loadData()
+    },
+    /**
      * @description: 表格加载数据
      * @param {Object} { pageNo, pageSize } 
      */
@@ -405,7 +413,7 @@ export default {
         // 父容器
         this.parentNode = this.$el.parentNode
         // 被监听的父节点
-        let observeDom = this.parentSelector ? (document.querySelector(this.parentSelector) || this.parentNode) : this.parentNode
+        let observeDom = this.observeSelector ? (document.querySelector(this.observeSelector) || this.parentNode) : this.parentNode
         // 设置父容器溢出隐藏
         this.parentNode.style.overflow = 'hidden'
         // 监听高度变化的容器class和style属性变化
@@ -422,6 +430,7 @@ export default {
     // 表格高度计算
     handleTableHeight:  throttle(20, function () {
       // let height = window.getComputedStyle(this.parentNode).height // 外部容器高度
+      // console.log('===',this.parentNode, this.parentNode.offsetHeight, window.getComputedStyle(this.parentNode).height)
       let height = this.parentNode.offsetHeight
       try {
         let paginationHeight = this.showPagination ? this.$refs.pagination.$el.offsetHeight : 0
