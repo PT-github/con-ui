@@ -2,11 +2,18 @@
  * @Author: PT
  * @Date: 2020-09-29 17:23:03
  * @LastEditors: PT
- * @LastEditTime: 2020-10-26 16:28:47
+ * @LastEditTime: 2020-10-26 17:27:20
  * @Description: SLayout
  */
 import './layout.scss'
-import { generateUUID } from '../../../src/utils/index'
+
+const generateId = (() => {
+  let i = 0
+  return (prefix = '') => {
+    i += 1
+    return `${prefix}${i}`
+  }
+})()
 
 export const BasicProps = {
   prefixCls: {
@@ -31,7 +38,7 @@ function generator ({ suffixCls, tagName, name }, isSider = false) {
         siderHook: { default: () => ({}) }
       },
       created () {
-        this.uniqueId = generateUUID()
+        this.uniqueId = generateId()
       },
       data () {
         return {
