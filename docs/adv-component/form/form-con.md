@@ -403,7 +403,7 @@
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | prop    | 表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的 | string    | 传入 Form 组件的 `value` 中的字段 | — |
-| is | 需要显示的组件类型(未设置，可自定义插槽传入组件) | string | input / select / input-number / radio / checkbox / switch / cascader / slider / time-select / time-picker / date-picker / upload | — |
+| is | 需要显示的组件类型(未设置，可自定义插槽传入组件) | string | text / input / select / input-number / radio / checkbox / switch / cascader / slider / time-select / time-picker / date-picker / upload | — |
 | attrs | 针对is配置的组件类型，对应组件的配置 | object | — | {} |
 | label | 标签文本 | string | — | — |
 | label-width | 表单域标签的的宽度，例如 '50px'。支持 `auto`。 | string |       —       | — |
