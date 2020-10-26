@@ -22,6 +22,9 @@
   }
   .el-form-item__content {
     line-height: 0;
+    .field_text {
+      line-height: 40px;
+    }
     .el-input-number, .s-select-con, .s-cascader, .s-time-select, .s-time-picker, .s-date-picker {
       width: 100%;
     }
@@ -44,6 +47,9 @@
   .el-form-item--medium {
     .el-form-item__content {
       line-height: 0;
+      .field_text {
+        line-height: 36px;
+      }
       .s-radio-group:not(.s-radio-con_button) {
         padding-top: 10px;
       }
@@ -61,6 +67,9 @@
   .el-form-item--small {
     .el-form-item__content {
       line-height: 0;
+      .field_text {
+        line-height: 32px;
+      }
       .s-radio-group:not(.s-radio-con_button) {
         padding-top: 6px;
       }
@@ -78,6 +87,9 @@
   .el-form-item--mini {
     .el-form-item__content {
       line-height: 0;
+      .field_text {
+        line-height: 28px;
+      }
       .s-radio-group:not(.s-radio-con_button) {
         padding-top: 7px;
       }

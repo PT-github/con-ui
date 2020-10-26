@@ -56,7 +56,7 @@
         <i class="el-icon-download"></i>
       </span>
       <span
-        v-if="!disabled"
+        v-if="!controlForm.disabled"
         class="el-upload-list__item-delete"
         @click="handleRemove(file)"
       >
@@ -92,6 +92,7 @@
             {name1: '文件一', url1: 'https://cn.vuejs.org/images/logo.png'},
             {name1: '文件二', url1: 'https://cn.vuejs.org/images/logo.png'}
           ],
+          text: '文本展现形式',
           custome: ''
         },
         fields: [
@@ -140,7 +141,7 @@
               // },
               // autoUpload: false,
               // drag: true,
-              listType: 'picture',
+              // listType: 'picture',
               // listType: 'picture-card',
               buttonText: '选择文件',
               buttonText2: '开始上传',
@@ -178,6 +179,7 @@
               }
             }
           },
+          { prop: 'text', label: '文本', is: 'text'},
           { prop: 'custome', label: '自定义'},
         ],
         rules: {

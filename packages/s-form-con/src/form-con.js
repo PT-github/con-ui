@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-17 19:14:45
  * @LastEditors: PT
- * @LastEditTime: 2020-10-25 23:15:22
+ * @LastEditTime: 2020-10-26 08:28:47
  * @Description: SFormCon
  */
 import SForm from '../../s-form'
@@ -241,6 +241,12 @@ export default {
      */
     renderField (componentName, key, attrs = {}) {
       switch(componentName) {
+        case 'text':
+          return (
+            <div class="field_text">
+              { this.model[key] }
+            </div>
+          )
         case 'input':
           return (
             <s-input
