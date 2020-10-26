@@ -43,6 +43,14 @@
   }
 }
 
+//boxshadow
+@mixin boxShadow($position, $color, $insert: null, $opacity: null) {
+  @include themeify {
+    box-shadow: $position + ' ' + themed($color, $opacity) $insert;
+  }
+}
+
+
 //获取边框颜色
 @mixin border_color($color, $opacity:null) {
   @include themeify {

@@ -29,6 +29,7 @@ module.exports = {
         collapsable: false,
         children: [
           '/component/basic/row',
+          '/component/basic/layout',
           '/component/basic/icon',
           '/component/basic/button',
         ]

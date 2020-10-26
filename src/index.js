@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-09-28 12:03:44
  * @LastEditors: PT
- * @LastEditTime: 2020-10-22 10:50:05
+ * @LastEditTime: 2020-10-26 09:31:53
  * @Description: 入口文件
  */
 
@@ -21,14 +21,15 @@ files.keys().forEach(key => {
 })
 // 全局注入组件
 const install = function (Vue, opts = {}) { // , opts = {}
-  // opts.theme && window.document.documentElement.setAttribute( 'data-theme', opts.theme)
+  opts.theme && window.document.documentElement.setAttribute( 'data-theme', opts.theme)
   for (let componentName in autoInjectComponents) {
     Vue.component(componentName, autoInjectComponents[componentName])
   }
 
   Vue.prototype.$ELEMENT = {
     size: opts.size || '',
-    zIndex: opts.zIndex || 2000
+    zIndex: opts.zIndex || 2000,
+    theme: opts.theme || 'light'
   }
 
   Vue.use(SLoading.directive)
