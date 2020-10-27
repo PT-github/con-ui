@@ -2,12 +2,16 @@
  * @Author: PT
  * @Date: 2020-10-14 14:55:23
  * @LastEditors: PT
- * @LastEditTime: 2020-10-14 15:47:33
+ * @LastEditTime: 2020-10-27 16:24:46
  * @Description: SSelectCon
  */
 import SSelect from '../../s-select'
 import SOption from '../../s-option'
 import SOptionGroup from '../../s-option-group'
+import '../../s-select/src/select.scss'
+import '../../s-select/src/option.scss'
+import '../../s-select/src/option-group.scss'
+
 export default {
   name: 'SSelectCon',
   props: {
