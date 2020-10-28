@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-14 14:55:23
  * @LastEditors: PT
- * @LastEditTime: 2020-10-28 08:48:22
+ * @LastEditTime: 2020-10-28 09:40:29
  * @Description: SSelectCon
  */
 // import SSelect from '../../s-select'
@@ -10,7 +10,7 @@
 // import SOptionGroup from '../../s-option-group'
 // import '../../s-select/src/select.scss'
 // import '../../s-select/src/option.scss'
-// import '../../s-select/src/option-group.scss'
+import './select-con.scss'
 
 export default {
   name: 'SSelectCon',
