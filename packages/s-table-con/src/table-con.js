@@ -1,6 +1,6 @@
 import STable from '../../s-table'
 import STableColumnCon from './table-column-con'
-import SPagination from '../../s-pagination'
+// import SPagination from '../../s-pagination'
 import Sortable from 'sortablejs'
 import { domObserve } from '../../../src/utils/dom-helper'
 import { throttle } from 'throttle-debounce'
@@ -469,8 +469,8 @@ export default {
     this.observe && this.observe.disconnect()
   },
   components: {
-    STable,
+    // STable,
     STableColumnCon,
-    SPagination
+    // SPagination
   }
 }

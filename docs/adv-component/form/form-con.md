@@ -3,6 +3,16 @@
 由数据配置输入框、选择器、单选框、多选框等控件。
 组件在SForm功能的基础上新加fields配置，通过数据配置动态渲染SForm下的SFormItem
 
+:::warning 注意
+该组件依赖 `SForm` 、 `SFormItem` 组件
+
+按需引入时，需要引入依赖的组件
+`import { SForm, SFormItem } from 'con-ui'`
+
+针对配置fields的is类型不同，也需要引入对应的依赖
+例如：`is`为`input`，需要引入`SInput`
+:::
+
 
 ### 完整表单
 

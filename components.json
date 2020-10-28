@@ -42,6 +42,7 @@
   "s-layout-sider": "./packages/s-layout-sider/index.js",
   "s-loading": "./packages/s-loading/index.js",
   "s-menu": "./packages/s-menu/index.js",
+  "s-menu-con": "./packages/s-menu-con/index.js",
   "s-menu-item": "./packages/s-menu-item/index.js",
   "s-menu-item-group": "./packages/s-menu-item-group/index.js",
   "s-message": "./packages/s-message/index.js",

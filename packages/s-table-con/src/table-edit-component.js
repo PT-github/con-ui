@@ -1,7 +1,7 @@
-import SInput from '../../s-input'
-import SSelectCon from '../../s-select-con'
+// import SInput from '../../s-input'
+// import SSelectCon from '../../s-select-con'
 import AsyncValidator from 'async-validator'
-import SPopoper from '../../s-popover'
+// import SPopoper from '../../s-popover'
 import { generateUUID } from '../../../src/utils'
 export default {
   name: 'STableEditComponent',
@@ -325,8 +325,8 @@ export default {
   //   }
   // },
   component: {
-    SInput,
-    SSelectCon,
-    SPopoper
+    // SInput,
+    // SSelectCon,
+    // SPopoper
   }
 }

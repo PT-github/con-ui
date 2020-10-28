@@ -1,6 +1,13 @@
 ## TableCon 表格
 根据STable、STableColumn、SPagination组合，在原表格拥有功能的基础上，新加翻页显示控制、表头拖拽、表格编辑、列配置和高度自适应
 
+:::warning 注意
+该组件依赖 `STable` 、 `STableColumn` 、 `SPagination` 、 `SInput`  `SSelectCon` 、`SPopoper` 组件
+
+按需引入时，需要引入依赖的组件
+`import { STable, STableColumn, SPagination, SInput, SSelectCon, SPopoper } from 'con-ui'`
+:::
+
 ### 基础表格
 
 基础的表格展示用法。

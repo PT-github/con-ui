@@ -2,10 +2,19 @@
 pageClass: custom-radio
 ---
 ## RadioCon 单选框组
+通过数据配置选项列
+
+:::warning 注意
+该组件依赖 `SRadio` 、 `SRadioButton` 、 `SRadioGroup` 组件
+
+按需引入时，需要引入依赖的组件
+`import { SRadio, SRadioButton, SRadioGroup } from 'con-ui'`
+:::
 
 ### 单选框组
 
 适用于在多个互斥的选项中选择的场景，通过`options`配置来渲染选项列表
+
 
 :::demo 结合`s-radio-con`元素，并配置`options`可以实现单选组，在`s-radio-con`中绑定`v-model`，在`options`中设置好`label`即可。
 

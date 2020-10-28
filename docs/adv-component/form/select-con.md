@@ -1,6 +1,12 @@
 ## SelectCon 选择器
-
 通过数据配置显示下拉列表
+
+:::warning 注意
+该组件依赖 `SSelect` 、 `SOption` 、 `SOptionGroup` 组件
+
+按需引入时，需要引入依赖的组件
+`import { SSelect, SOption, SOptionGroup } from 'con-ui'`
+:::
 
 ### 基础用法
 

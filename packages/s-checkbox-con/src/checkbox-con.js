@@ -1,6 +1,6 @@
-import SCheckboxGroup from '../../s-checkbox-group'
-import SCheckbox from '../../s-checkbox'
-import SCheckboxButton from '../../s-checkbox-button'
+// import SCheckboxGroup from '../../s-checkbox-group'
+// import SCheckbox from '../../s-checkbox'
+// import SCheckboxButton from '../../s-checkbox-button'
 import './checkbox-con.scss'
 export default {
   name: 'SCheckboxCon',
@@ -94,8 +94,8 @@ export default {
     }
   },
   components: {
-    SCheckboxGroup,
-    SCheckboxButton,
-    SCheckbox
+    // SCheckboxGroup,
+    // SCheckboxButton,
+    // SCheckbox
   }
 }

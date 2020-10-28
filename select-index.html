@@ -14,6 +14,10 @@
       style="width: 200px;height: 200px;margin: 0 auto;
     border: 1px solid red;margin: 0 auto; padding: 16px;overflow: hidden;"
     >
+    <s-radio-con
+      v-model="radio"
+      :options="options22">
+    </s-radio-con>
       <s-treeselect
         v-model="value"
         :multiple="true"
@@ -48,6 +52,21 @@
       new Vue({
         data: function() {
           return {
+            radio: 3,
+            options22: [
+              {
+                label: 3,
+                content: '备选项3'
+              },
+              {
+                label: 6,
+                content: '备选项6'
+              },
+              {
+                label: 9,
+                content: '备选项9'
+              },
+            ],
             value: ["3"],
             value2: null,
             options: [

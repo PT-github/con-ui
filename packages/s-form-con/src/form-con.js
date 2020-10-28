@@ -2,11 +2,11 @@
  * @Author: PT
  * @Date: 2020-10-17 19:14:45
  * @LastEditors: PT
- * @LastEditTime: 2020-10-26 08:28:47
+ * @LastEditTime: 2020-10-28 08:55:32
  * @Description: SFormCon
  */
 import SForm from '../../s-form'
-import SFormItem from '../../s-form-item'
+// import SFormItem from '../../s-form-item'
 import './form-con.scss'
 export default {
   name: 'SFormCon',
@@ -634,7 +634,7 @@ export default {
     }
   },
   component: {
-    SForm,
-    SFormItem
+    // SForm,
+    // SFormItem
   }
 }

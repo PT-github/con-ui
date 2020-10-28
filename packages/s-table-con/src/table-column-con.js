@@ -1,4 +1,4 @@
-import STableColumn from '../../s-table/src/table-column'
+// import STableColumn from '../../s-table/src/table-column'
 import STableEditComponent from './table-edit-component'
 
 export default {
@@ -79,7 +79,7 @@ export default {
     }
   },
   components: {
-    STableColumn,
+    // STableColumn,
     STableEditComponent
   }
 }

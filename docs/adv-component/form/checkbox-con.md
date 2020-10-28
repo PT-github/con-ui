@@ -1,11 +1,18 @@
 ## CheckboxCon 多选框组
 一组备选项中进行多选
 
+:::warning 注意
+该组件依赖 `SCheckbox` 、 `SCheckboxButton` 、 `SCheckboxGroup` 组件
+
+按需引入时，需要引入依赖的组件
+`import { SCheckbox, SCheckboxButton, SCheckboxGroup } from 'con-ui'`
+:::
 
 ### 多选框组
 
 适用于多个勾选框绑定到同一个数组的情景，通过是否勾选来表示这一组选项中选中的项。
 通过`options`配置来渲染选项列表
+
 
 :::demo `s-checkbox-con`元素能把多个 checkbox 管理为一组，只需要在组件中使用`v-model`绑定`Array`类型的变量即可。 `options` 中每项的 `label`属性是该 checkbox 对应的值，若该标签中无内容，则该属性也充当 checkbox 按钮后的介绍。`label`与数组中的元素值相对应，如果存在指定的值则为选中状态，否则为不选中。
 

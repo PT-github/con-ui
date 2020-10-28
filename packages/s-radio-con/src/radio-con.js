@@ -2,12 +2,12 @@
  * @Author: PT
  * @Date: 2020-10-19 08:33:25
  * @LastEditors: PT
- * @LastEditTime: 2020-10-21 08:48:34
+ * @LastEditTime: 2020-10-28 08:46:48
  * @Description: SRadioCon
  */
-import SRadioGroup from '../../s-radio-group'
-import SRadio from '../../s-radio'
-import SRadioButton from '../../s-radio-button'
+// import SRadioGroup from '../../s-radio-group'
+// import SRadio from '../../s-radio'
+// import SRadioButton from '../../s-radio-button'
 import './radio-con.scss'
 export default {
   name: 'SRadioCon',
@@ -74,8 +74,8 @@ export default {
     }
   },
   components: {
-    SRadioGroup,
-    SRadioButton,
-    SRadio
+    // SRadioGroup,
+    // SRadioButton,
+    // SRadio
   }
 }
