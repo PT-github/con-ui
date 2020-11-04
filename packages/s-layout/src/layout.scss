@@ -22,10 +22,10 @@
   z-index: 1;
   @include background_color($color: '$0-color-1');
   @include themeify {
-    box-shadow: 0px 1px 4px 0px themed($key: '$1-color-2', $opacity: .12);
+    box-shadow: 0px 1px 4px 0px themed($key: '$2-color-5', $opacity: .12);
   }
   &.s-layout-header-dark {
-    @include background_color($color: '$1-color-2');
+    @include background_color($color: '$2-color-5');
     @include font_color($color: '$0-color-1');
   }
 }
@@ -36,7 +36,7 @@
   @include background_color($color: '$0-color-1');
   &.s-layout-sider-dark {
     @include font_color($color: '$0-color-1');
-    @include background_color($color: '$1-color-2');
+    @include background_color($color: '$2-color-5');
   }
 }
 .s-layout-content {
@@ -49,10 +49,10 @@
   padding: 24px 50px;
   z-index: 1;
   @include themeify {
-    box-shadow: 0px -1px 4px 0px themed($key: '$1-color-2', $opacity: .12);
+    box-shadow: 0px -1px 4px 0px themed($key: '$2-color-5', $opacity: .12);
   }
   &.s-layout-footer-dark {
-    @include background_color($color: '$1-color-2');
+    @include background_color($color: '$2-color-5');
     @include font_color($color: '$0-color-1');
   }
 }

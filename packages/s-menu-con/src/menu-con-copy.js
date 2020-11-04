@@ -2,10 +2,10 @@
  * @Author: PT
  * @Date: 2020-10-27 15:42:29
  * @LastEditors: PT
- * @LastEditTime: 2020-11-04 09:11:09
+ * @LastEditTime: 2020-11-03 16:16:42
  * @Description: SMenuCon 菜单导航封装 最多支持5级导航
  */
-import HorizontalPanel from './horizontal-panel'
+import HorizontalNav from './horizontal-nav'
 import './menu-con.scss'
 export default {
   name: 'SMenuCon',
@@ -18,8 +18,6 @@ export default {
     },
     // 是否启用vue-router的模式
     router: Boolean,
-    // 隐藏popper延迟时间 单位为毫秒
-    closeDelay: Number,
     // 水平布局时，三级以上菜单
     popperWidth: [ Number, String ],
     /**
@@ -48,9 +46,13 @@ export default {
   render () {
     console.log('====', this)
     return (
-      <div class={ ['s-menu-con', `s-menu-con--${this.mode}`] }>
+      <div class={{
+        's-menu-con': true,
+        [`s-menu-con--${this.mode}`]: true
+      }}>
         {
-          this.mode === 'horizontal' && <HorizontalPanel closeDelay={this.closeDelay} options={this.options} popperWidth={this.popperWidth}></HorizontalPanel>
+          this.mode === 'horizontal' &&
+          this.options.map(item => <HorizontalNav item={item} popperWidth={this.popperWidth}></HorizontalNav>)
         }
       </div>
     )
@@ -101,6 +103,6 @@ export default {
     },
   },
   components: {
-    HorizontalPanel
+    HorizontalNav
   }
 }

@@ -13,3 +13,22 @@ export function generateUUID () {
   })
   return uuid
 }
+
+/**
+ * @description: 找出数据层级
+ * @param {object} data 数据源
+ * @param {string} childKey 对应自节点的key值
+ * @param {number} deep 默认层级为1
+ * @return {number} 返回数据的层级数
+ */
+export function findDeep (data, childKey = 'children', deep = 1) {
+  if (data && data[childKey] && data[childKey].length) {
+    let max = 1, temp
+    for (let i = 0, j = data[childKey].length; i < j; i++) {
+      temp = findDeep(data[childKey][i], childKey)
+      max = max < temp ? temp : max
+    }
+    return max + deep
+  }
+  return deep
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script src="./lib/index.js"></script>
+  <link rel="stylesheet" href="./lib/theme-chalk/index.css" />
+  <style>
+    #app {width: 800px;border: 1px solid red;margin: 20px auto;}
+    .el-popper[x-placement^=bottom] {margin: 0;left: 0 !important}
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <s-popover
+    ref="popover"
+    placement="bottom"
+    title="标题"
+    :width="width"
+    trigger="hover"
+    :close-delay="closeDelay"
+    content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+  </s-popover>
+  <!-- <s-button v-popover:popover>focus1 激活</s-button> -->
+  <s-button v-popover:popover>focus2 激活</s-button>
+  </div>
+  <script>
+    new Vue({
+      data: function () {
+        return {
+          closeDelay: 1000000,
+          width: document.documentElement.offsetWidth,
+          options: [
+            {
+              icon: 'el-icon-menu',
+              name: '菜单1',
+              children: [
+                {
+                  icon: 'el-icon-s-data',
+                  name: '菜单1-1'
+                },
+              ]
+            },
+            {
+              icon: 'el-icon-s-opportunity',
+              name: '菜单2'
+            },
+            {
+              name: '菜单3',
+              children: []
+            },
+            {
+              name: '菜单4'
+            },
+
+          ]
+        };
+      },
+      methods: {
+
+      },
+    }).$mount("#app");
+  </script>
+</body>
+
+</html>
