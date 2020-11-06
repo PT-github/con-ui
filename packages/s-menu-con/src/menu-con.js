@@ -1,27 +1,57 @@
 /*
  * @Author: PT
- * @Date: 2020-10-27 15:42:29
+ * @Date: 2020-11-05 09:57:48
  * @LastEditors: PT
- * @LastEditTime: 2020-11-04 09:11:09
- * @Description: SMenuCon 菜单导航封装 最多支持5级导航
+ * @LastEditTime: 2020-11-06 17:17:51
+ * @Description: SMenuCon 多级菜单组件
  */
-import HorizontalPanel from './horizontal-panel'
+// import SMenu from '../../s-menu'
+// import SMenuItem from '../../s-menu-item'
+// import SSubmenu from '../../s-submenu'
+import Vue from 'vue'
+import SSubmenuCon from './submenu-con'
+import VerticalNav from './vertical-nav'
+import NavSearch from './nav-search'
 import './menu-con.scss'
+import { PopupManager } from 'element-ui/src/utils/popup'
+const PopperJS = Vue.prototype.$isServer ? function () {} : require('element-ui/src/utils/popper')
+const stop = e => e.stopPropagation()
+
 export default {
   name: 'SMenuCon',
   componentName: 'SMenuCon',
   props: {
-    // 模式 vertical 垂直 horizontal 水平
     mode: {
       type: String,
       default: 'vertical'
     },
-    // 是否启用vue-router的模式
+    defaultActive: {
+      type: String,
+      default: ''
+    },
+    defaultOpeneds: Array,
+    uniqueOpened: Boolean,
     router: Boolean,
-    // 隐藏popper延迟时间 单位为毫秒
-    closeDelay: Number,
-    // 水平布局时，三级以上菜单
-    popperWidth: [ Number, String ],
+    menuTrigger: {
+      type: String,
+      default: 'hover'
+    },
+    collapse: Boolean,
+    backgroundColor: String,
+    textColor: String,
+    activeTextColor: String,
+    collapseTransition: {
+      type: Boolean,
+      default: true
+    },
+    showTimeout: {
+      type: Number,
+      default: 300
+    },
+    hideTimeout: {
+      type: Number,
+      default: 300
+    },
     /**
      * [
      *  {
@@ -38,69 +68,220 @@ export default {
     options: {
       type: Array,
       default: () => []
-    }
+    },
   },
   provide () {
     return {
       menuCon: this
     }
   },
-  render () {
-    console.log('====', this)
-    return (
-      <div class={ ['s-menu-con', `s-menu-con--${this.mode}`] }>
-        {
-          this.mode === 'horizontal' && <HorizontalPanel closeDelay={this.closeDelay} options={this.options} popperWidth={this.popperWidth}></HorizontalPanel>
+  data () {
+    return {
+      // 三级菜单数据
+      popupMenuitem3Data: [],
+      item3Hover: false,
+      timeoutMenuItem: null,
+      // 四/五级菜单数据
+      popupMenuitem4Data: [],
+      item4Hover: false,
+      // 弹窗实例数据 依赖数据
+      popperJS: {
+        item3: {
+          instance: null,
+          reference: null,
+          popperElm: null
         }
+      }
+    }
+  },
+  computed: {
+    menuTransitionName () {
+      return this.collapse ? 'el-zoom-in-left' : 'el-zoom-in-top'
+    },
+  },
+  watch: {
+    item3Hover (val) {
+      if (val) {
+        this.$nextTick(() => {
+          this.updateMenuItemPopper('item3')
+        })
+      }
+    },
+    item4Hover (val) {
+      if (val) {
+        this.$nextTick(() => {
+          this.updateMenuItemPopper('item4')
+        })
+      }
+    }
+  },
+  render () {
+    const popupMenuitem3 = this.getPopup3()
+    const popupMenuitem4 = this.getPopup4()
+    return (
+      <div class='s-menu-con'>
+        <s-menu
+          class={`s-menu-${this.mode}`}
+          {...{
+            attrs: {
+              ...this.$props
+            },
+            on: {
+              ...this.$listeners
+            }
+          }
+        }>
+          { popupMenuitem3 }
+          { popupMenuitem4 }
+          {
+            this.options &&
+            this.options.length > 0 &&
+            this.options.map(submenu => {
+              if (submenu.children) {
+                return <s-submenu-con {...{
+                    attrs: { ...submenu },
+                    on: {
+                      'show-popup': (popupMenuitem3Data) => {
+                        this.popupMenuitem3Data = popupMenuitem3Data
+                        this.$nextTick(() => {
+                          this.item3Hover = true
+                        })
+                      },
+                      'hide-popup': () => {
+                        this.popupMenuitem3Data.splice(0, this.popupMenuitem3Data.length)
+                        this.$nextTick(() => {
+                          this.item3Hover = false
+                        })
+                      }
+                    }
+                  }
+                } option={submenu} >
+                </s-submenu-con>
+              }
+              return <s-menu-item
+                {
+                  ...{
+                    attrs: { ...submenu }
+                  }
+                }
+              >
+                { submenu.icon && <i class={ submenu.icon }></i>}
+                <span slot="title">{ submenu.name }</span>
+              </s-menu-item>
+            })
+          }
+        </s-menu>
       </div>
     )
   },
   methods: {
-    /**
-     * @description: popover内容
-     * @param {array} list 子菜单列表
-     * @return {JSX}
-     */
-    renderPopoverContent (list) {
-      console.log(list)
-      return '内容内容'
+    getPopup4 () {
+      return (
+        <transition name={this.menuTransitionName}>
+          <div
+            ref="popup_item4"
+            v-show={this.item4Hover}
+            class='submenu-level-4'
+            >
+            <NavSearch options={ this.popupMenuitem4Data }></NavSearch>
+          </div>
+        </transition>
+      )
     },
-    /**
-     * @description: 渲染第一层菜单
-     * @param {object} item
-     * @return {jsx}
-     */
-    // renderFirstItem (item = {}) {
-    //   if (this.mode === 'horizontal') {
-    //     // 水平布局
-    //     if (item.children && item.children.length) {
-    //       let arry = []
-    //       return <s-popover width={document.documentElement.offsetWidth} popper-class="menu-con-popover--horizontal menu-con-popover--horizontal--full" placement="bottom" trigger="hover" closeDelay={10000000} visibleArrow={false}>
-    //         <s-menu-con-item attrs={{...(item || {})}} slot="reference"></s-menu-con-item>
-    //         { this.renderPopoverContent(item.children) }
-    //       </s-popover>
-    //     } else {
-    //       return <s-menu-con-item attrs={{...(item || {})}}></s-menu-con-item>
-    //     }
-    //   } else {
-    //     // 垂直
-    //     // if (item.children && item.children.length) {
-    //     //   return <div class="menu-con-group">
-    //     //     <s-menu-con-item attrs={{...(item || {})}}></s-menu-con-item>
-    //     //     {
-    //     //       item.children.map(child => )
-    //     //     }
-    //     //   </div>
-    //     // } else {
-    //     //   return <s-menu-con-item attrs={{...(item || {})}}></s-menu-con-item>
-    //     // }
-    //   }
-    // },
-    renderSubMenu (item) {
-      if (item.children) {}
+    /*
+    handleMenuItemMouseenter (event, showTimeout = this.showTimeout, popupMenuitem4Data) {
+      clearTimeout(this.timeoutMenuItem)
+      this.timeoutMenuItem = setTimeout(() => {
+        console.log(event, popupMenuitem4Data)
+        this.popupMenuitem4Data = popupMenuitem4Data
+        this.$nextTick(() => {
+          this.item4Hover = true
+        })
+      }, showTimeout)
     },
+    handleMenuItemMouseleave () {
+      clearTimeout(this.timeoutMenuItem)
+      this.timeoutMenuItem = setTimeout(() => {
+        this.popupMenuitem4Data.splice(0, this.popupMenuitem4Data.length)
+        this.$nextTick(() => {
+          this.item4Hover = false
+        })
+      }, 10000000000000) // this.hideTimeout
+    },
+    */
+    getPopup3 () {
+      return (
+        <transition name={this.menuTransitionName}>
+          <div
+            ref="popup_item3"
+            v-show={this.item3Hover}
+            class='submenu-level-3'
+            >
+            <VerticalNav options={ this.popupMenuitem3Data } on={
+              {
+                'nav-change': (popupData = []) => {
+                  this.popupMenuitem4Data.splice(0, this.popupMenuitem4Data.length)
+                  this.popupMenuitem4Data.push(...popupData)
+                  this.item4Hover = !!popupData.length
+                }
+              }
+            }></VerticalNav>
+          </div>
+        </transition>
+      )
+    },
+    updateMenuItemPopper (popKey) {
+      const popperJS = this.popperJS[popKey] ? this.popperJS[popKey].instance : null
+      if (popperJS) {
+        popperJS.update()
+        if (popperJS._popper) {
+          popperJS._popper.style.zIndex = PopupManager.nextZIndex()
+        }
+      } else {
+        this.createMenuItemPopper(popKey)
+      }
+    },
+    createMenuItemPopper (popKey) {
+      if (this.$isServer) return
+      this.popperJS[popKey] = this.popperJS[popKey] || { instance: null, reference: null, popperElm: null }
+      const options = {
+        placement: 'right-start'
+      }
+      const popper = this.popperJS[popKey].popperElm = this.popperJS[popKey].popperElm || this.$refs['popup_' + popKey]
+      let reference = this.popperJS[popKey].reference = this.popperJS[popKey].reference || popKey === 'item3' ? this.$el : this.$refs['popup_item3']
+      
+      if (!popper || !reference) return
+
+      if (this.popperJS[popKey].instance && this.popperJS[popKey].instance.destroy) {
+        this.popperJS[popKey].instance.destroy()
+      }
+
+      this.popperJS[popKey].instance = new PopperJS(reference, popper, options)
+      this.popperJS[popKey].instance.onCreate(() => {
+        this.$emit('created', this)
+        this.resetMenuItemTransformOrigin(this.popperJS[popKey].instance)
+        this.$nextTick(() => this.updateMenuItemPopper(popKey))
+      })
+      this.popperJS[popKey].instance._popper.style.zIndex = PopupManager.nextZIndex()
+      this.popperJS[popKey].popperElm.addEventListener('click', stop)
+    },
+    resetMenuItemTransformOrigin (instance) {
+      let placementMap = {
+        top: 'bottom',
+        bottom: 'top',
+        left: 'right',
+        right: 'left'
+      }
+      let placement = instance._popper.getAttribute('x-placement').split('-')[0]
+      let origin = placementMap[placement]
+      instance._popper.style.transformOrigin = ['top', 'bottom'].indexOf(placement) > -1 ?
+        `center ${ origin }` : `${ origin } center`
+    }
   },
   components: {
-    HorizontalPanel
+    SSubmenuCon,
+    VerticalNav,
+    NavSearch
+    // SSubmenu
   }
 }

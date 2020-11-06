@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script src="./lib/index.js"></script>
+  <link rel="stylesheet" href="./lib/theme-chalk/index.css" />
+  <style>
+    #app {width: 800px;margin: 20px auto;}
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <mixin>你好</mixin>
+  </div>
+  <script>
+    const mixin = {
+      functional: true,
+      render (createElement, context) {
+        return createElement('button', context.data, context.children)
+      }
+    }
+    new Vue({
+      // mixins: [mixin],
+      created () {
+        console.log('self created')
+      },
+      mounted () {console.log(this, 'mounted', this.value)},
+      render (h) {
+        console.log(this.value, 'ddddd')
+        this.value = '1111'
+        return h('div', 'helloworld', )
+      },
+      data: function () {
+        return {
+          value: '',
+          };
+      },
+      watch: {
+        value (v) {
+          console.log('self--', v)
+        }
+      },
+      components: {
+        mixin
+      }
+    }).$mount("#app");
+  </script>
+</body>
+
+</html>

@@ -9,19 +9,17 @@
   <script src="./lib/index.js"></script>
   <link rel="stylesheet" href="./lib/theme-chalk/index.css" />
   <style>
-    #app {width: 800px;margin: 20px auto;}
-    .s-menu-con {width: 800px; outline: 1px solid red;}
-    .s-menu-popup--5 {
+    /* #app {width: 800px;margin: 20px auto;} */
+    .s-menu-con {outline: 1px solid red;}
+    /* .s-menu-popup--5 {
       width: 80% !important;
-    }
+    } */
   </style>
 </head>
 
 <body>
   <div id="app">
-    <s-input v-model="value"></s-input>
-    <!--  :popper-width="1000"  mode="horizontal" -->
-    <s-menu-con popper-width="90%" mode="horizontal" :options="options"> </s-menu-con>
+    <s-menu-con popper-width="90%" :options="options"> </s-menu-con>
   </div>
   <script>
     new Vue({
@@ -35,6 +33,7 @@
               index: '1'
             },
             {
+              icon: 'el-icon-s-data',
               name: '一级菜单2',
               index: '2',
               children: [
@@ -139,6 +138,7 @@
               ]
             },
             {
+              icon: 'el-icon-s-data',
               name: '一级菜单4',
               index: '4',
               children: [
@@ -211,6 +211,7 @@
               ]
             },
             {
+              icon: 'el-icon-s-data',
               name: '一级菜单5',
               index: '5',
               children: [

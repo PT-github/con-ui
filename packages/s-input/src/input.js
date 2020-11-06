@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-09-28 16:11:54
  * @LastEditors: PT
- * @LastEditTime: 2020-10-09 17:17:12
+ * @LastEditTime: 2020-11-05 15:10:21
  * @Description: SInput组件
  */
 import './input.scss'
