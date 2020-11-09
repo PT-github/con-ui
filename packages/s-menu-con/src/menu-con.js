@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-11-05 09:57:48
  * @LastEditors: PT
- * @LastEditTime: 2020-11-09 11:26:43
+ * @LastEditTime: 2020-11-09 17:01:15
  * @Description: SMenuCon 多级菜单组件
  */
 // import SMenu from '../../s-menu'
@@ -143,16 +143,10 @@ export default {
                     attrs: { ...submenu },
                     on: {
                       'show-popup': (popupMenuitem3Data) => {
-                        this.popupMenuitem3Data = popupMenuitem3Data
-                        this.$nextTick(() => {
-                          this.item3Hover = true
-                        })
+                        this.showItem3Pop(popupMenuitem3Data)
                       },
                       'hide-popup': () => {
-                        this.popupMenuitem3Data.splice(0, this.popupMenuitem3Data.length)
-                        this.$nextTick(() => {
-                          this.item3Hover = false
-                        })
+                        this.hideItem3Pop()
                       }
                     }
                   }
@@ -183,33 +177,15 @@ export default {
             ref="popup_item4"
             v-show={this.item4Hover}
             class='s-menu-popup submenu-level-4'
+            on-mouseenter={() => this.handleItem4PopMouseenter()}
+            on-mouseleave={() => this.handleItem4PopMouseleave()}
+            on-focus={() => this.handleItem3PopMouseenter()}
             >
             <NavSearch options={ this.popupMenuitem4Data }></NavSearch>
           </div>
         </transition>
       )
     },
-    /*
-    handleMenuItemMouseenter (event, showTimeout = this.showTimeout, popupMenuitem4Data) {
-      clearTimeout(this.timeoutMenuItem)
-      this.timeoutMenuItem = setTimeout(() => {
-        console.log(event, popupMenuitem4Data)
-        this.popupMenuitem4Data = popupMenuitem4Data
-        this.$nextTick(() => {
-          this.item4Hover = true
-        })
-      }, showTimeout)
-    },
-    handleMenuItemMouseleave () {
-      clearTimeout(this.timeoutMenuItem)
-      this.timeoutMenuItem = setTimeout(() => {
-        this.popupMenuitem4Data.splice(0, this.popupMenuitem4Data.length)
-        this.$nextTick(() => {
-          this.item4Hover = false
-        })
-      }, 10000000000000) // this.hideTimeout
-    },
-    */
     getPopup3 () {
       return (
         <transition name={this.menuTransitionName}>
@@ -217,13 +193,17 @@ export default {
             ref="popup_item3"
             v-show={this.item3Hover}
             class='s-menu-popup submenu-level-3'
+            on-mouseenter={() => this.handleItem3PopMouseenter()}
+            on-mouseleave={() => this.handleItem3PopMouseleave()}
+            on-focus={() => this.handleItem3PopMouseenter()}
             >
             <VerticalNav options={ this.popupMenuitem3Data } on={
               {
                 'nav-change': (popupData = []) => {
-                  this.popupMenuitem4Data.splice(0, this.popupMenuitem4Data.length)
-                  this.popupMenuitem4Data.push(...popupData)
-                  this.item4Hover = !!popupData.length
+                  this.showItem4Pop(popupData)
+                },
+                'hide-popup': () => {
+                  this.hideItem4Pop()
                 }
               }
             }></VerticalNav>
@@ -231,6 +211,77 @@ export default {
         </transition>
       )
     },
+    // 3 显示
+    showItem3Pop (popupData = []) {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        this.popupMenuitem3Data = popupData
+        this.$nextTick(() => {
+          this.item3Hover = true
+        })
+      }, this.showTimeout)
+    },
+    // 3 隐藏
+    hideItem3Pop () {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        this.popupMenuitem3Data.splice(0, this.popupMenuitem3Data.length)
+        this.item3Hover = false
+        this.item4Hover = false
+      }, this.hideTimeout)
+    },
+    // 3 pop mouseenter
+    handleItem3PopMouseenter () {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        this.item3Hover = true
+      }, this.showTimeout)
+    },
+    // 3 pop mouseleave
+    handleItem3PopMouseleave () {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        this.item3Hover = false
+        this.item4Hover = false
+      }, this.hideTimeout)
+    },
+
+    // 4 显示
+    showItem4Pop (popupData = []) {
+      clearTimeout(this.timeout)
+      if (popupData && popupData.length > 0) {
+        this.timeout = setTimeout(() => {
+          this.popupMenuitem4Data.splice(0, this.popupMenuitem4Data.length)
+          this.popupMenuitem4Data.push(...popupData)
+          this.item4Hover = true
+        }, this.showTimeout)
+      } else {
+        this.hideItem4Pop()
+      }
+    },
+    // 4-5 隐藏
+    hideItem4Pop () {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        this.item4Hover = false
+      }, this.hideTimeout)
+    },
+    // 4-5 pop mouseenter
+    handleItem4PopMouseenter () {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        this.item4Hover = true
+      }, this.showTimeout)
+    },
+    // 4-5 pop mouseleave
+    handleItem4PopMouseleave () {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        this.item4Hover = false
+        this.item3Hover = false
+      }, this.hideTimeout)
+    },
+
     updateMenuItemPopper (popKey) {
       const popperJS = this.popperJS[popKey] ? this.popperJS[popKey].instance : null
       if (popperJS) {

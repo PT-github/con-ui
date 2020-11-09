@@ -18,6 +18,11 @@ export default {
     },
     cls: String
   },
+  inject: {
+    menuCon: {
+      default: ''
+    }
+  },
   data () {
     return {
       activeIndex: null
@@ -27,37 +32,38 @@ export default {
     let { options } = this
     return <div class={['vertical-nav', this.cls]}>
       {
-        options.map(item => (
+        options.map((item, index) => (
           <s-menu-item
+            class={{active: this.activeIndex === index}}
             {
               ...{
                 attrs: { ...item },
               }
             }
-            vOn:mouseenter_native={($event) => this.handleMenuItemMouseenter($event, 100, item.children)}
+            vOn:mouseenter_native={() => this.handleMenuItemMouseenter(item.children)}
             vOn:mouseleave_native={() => this.handleMenuItemMouseleave(true)}
-            vOn:hover_native={($event) => this.handleMenuItemMouseenter($event, 100)}
+            vOn:hover_native={() => this.handleMenuItemMouseenter()}
           >
             { item.icon && <i class={ item.icon }></i>}
             { item.name }
             { item.children && <i class='el-icon-arrow-right el-submenu__icon-arrow'></i>}
-            {/* { item.children && popupMenuitem } */}
           </s-menu-item>)
         )
       }
     </div>
   },
   methods: {
-    handleMenuItemMouseenter (event, showTimeout = this.showTimeout, popupData) {
-      clearTimeout(this.timeoutMenuItem)
-      this.timeoutMenuItem = setTimeout(() => {
+    handleMenuItemMouseenter (popupData) {
+      // clearTimeout(this.timeoutMenuItem)
+      // this.timeoutMenuItem = setTimeout(() => {
         this.$emit('nav-change', popupData)
-      }, showTimeout)
+      // }, showTimeout)
     },
     handleMenuItemMouseleave () {
-      clearTimeout(this.timeoutMenuItem)
-      this.timeoutMenuItem = setTimeout(() => {
-      }, this.hideTimeout) // this.hideTimeout
+      this.$emit('hide-popup')
+      // clearTimeout(this.timeoutMenuItem)
+      // this.timeoutMenuItem = setTimeout(() => {
+      // }, this.hideTimeout) // this.hideTimeout
     },
     // setActive () {
     //   for (let i = 0, j = this.options.length; i < j; i++) {
@@ -72,16 +78,22 @@ export default {
     //   this.$emit('nav-change', item)
     // }
   },
-  // watch: {
-  //   options: {
-  //     handler: function () {
-  //       this.activeIndex = null
-  //     },
-  //     deep: true,
-  //     immediate: true
-  //   }
-  // },
-  components: {
-    // Navitem
+  watch: {
+    options: {
+      handler: function (v) {
+        if (this.menuCon && this.menuCon.mode === 'horizontal') {
+          this.activeIndex = null
+          if (v && v.length > 0) {
+            let defaultActiveItems = v.filter(item => item.children && item.children.length > 0)
+            if (defaultActiveItems && defaultActiveItems.length > 0) {
+              this.$emit('nav-change', defaultActiveItems[0].children)
+              this.activeIndex = v.indexOf(defaultActiveItems[0])
+            }
+          }
+        }
+      },
+      deep: true,
+      immediate: true
+    }
   }
 }

@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-11-05 10:08:26
  * @LastEditors: PT
- * @LastEditTime: 2020-11-06 17:23:21
+ * @LastEditTime: 2020-11-09 15:37:12
  * @Description: SubmenuCon
  */
 import SSubmenu from '../../s-submenu'
@@ -20,10 +20,9 @@ export default {
   name: 'SubmenuCon',
   inject: ['rootMenu'],
   props: {
-    // TODO
     hideTimeout: {
       type: Number,
-      default: 300000000
+      default: 300
     },
     // 节点数据
     option: {
@@ -79,9 +78,9 @@ export default {
                     attrs: { ...item }
                   }
                 }
-                vOn:mouseenter_native={($event) => this.handleMenuItemMouseenter($event, 100, item.children)}
+                vOn:mouseenter_native={() => this.handleMenuItemMouseenter(item.children)}
                 vOn:mouseleave_native={() => this.handleMenuItemMouseleave(true)}
-                vOn:focus_native={($event) => this.handleMenuItemMouseenter($event, 100)}
+                vOn:focus_native={() => this.handleMenuItemMouseenter(item.children)}
               >
                 { item.icon && <i class={ item.icon }></i>}
                 <span slot="title">{ item.name }</span>
@@ -163,13 +162,13 @@ export default {
             options={option.children}
             cls='blue'
             on={
-              { 'nav-change': (navs) => this.currentShowNavs = navs }
+              { 'nav-change': (navs) => navs && navs.length > 0 && (this.currentShowNavs = navs) }
             }
           ></VerticalNav>)
           popupMenuContent.push(<VerticalNav
             options={this.currentShowNavs}
             on={
-              { 'nav-change': (navs) => this.searchShowNavs = navs }
+              { 'nav-change': (navs) => navs && navs.length > 0 && (this.searchShowNavs = navs) }
             }
           ></VerticalNav>)
           popupMenuContent.push(<NavSearch options={this.searchShowNavs}></NavSearch>)
@@ -178,11 +177,10 @@ export default {
           popupMenuContent.push(<VerticalNav
             options={option.children}
             on={
-              { 'nav-change': (navs) => this.currentShowNavs = navs }
+              { 'nav-change': (navs) => navs && navs.length > 0 && (this.currentShowNavs = navs) }
             }
           ></VerticalNav>)
           popupMenuContent.push(<NavSearch options={this.currentShowNavs}></NavSearch>)
-          // popupMenuContent.push(<NavRightPanel options={this.currentShowNavs}></NavRightPanel>)
           break
         case 3:
           popupMenuContent = option.children.map(item => {
@@ -280,25 +278,27 @@ export default {
     updatePlacement () {
       this.currentPlacement = this.mode === 'horizontal' ? (this.deep > 2 ? 'bottom' : 'bottom-start') : 'right-start'
     },
-    handleMenuItemMouseenter (event, showTimeout = this.showTimeout, children) {
-      clearTimeout(this.timeoutMenuItem)
-      this.timeoutMenuItem = setTimeout(() => {
-        this.$emit('show-popup', children)
-        // this.popupMenuitemData = children
-        // this.$nextTick(() => {
-        //   this.itemHover = true
-        // })
-      }, showTimeout)
+    handleMenuItemMouseenter (children = []) {
+      this.$emit('show-popup', children.slice())
+      // clearTimeout(this.timeoutMenuItem)
+      // this.timeoutMenuItem = setTimeout(() => {
+      //   this.$emit('show-popup', children.slice())
+      //   // this.popupMenuitemData = children
+      //   // this.$nextTick(() => {
+      //   //   this.itemHover = true
+      //   // })
+      // }, showTimeout)
     },
     handleMenuItemMouseleave () {
-      clearTimeout(this.timeoutMenuItem)
-      this.timeoutMenuItem = setTimeout(() => {
-        this.$emit('hide-popup')
-        // this.popupMenuitemData.splice(0, this.popupMenuitemData.length)
-        // this.$nextTick(() => {
-        //   this.itemHover = false
-        // })
-      }, 10000000000000) // this.hideTimeout
+      this.$emit('hide-popup')
+      // clearTimeout(this.timeoutMenuItem)
+      // this.timeoutMenuItem = setTimeout(() => {
+      //   this.$emit('hide-popup')
+      //   // this.popupMenuitemData.splice(0, this.popupMenuitemData.length)
+      //   // this.$nextTick(() => {
+      //   //   this.itemHover = false
+      //   // })
+      // }, this.hideTimeout)
     },
     
     

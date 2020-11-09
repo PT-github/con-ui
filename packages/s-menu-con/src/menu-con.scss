@@ -115,14 +115,25 @@ $maxHeight: 300px;
     @include background_color($color: '$0-color-1');
     @include font_color($color: '$1-color-1', $opacity: .65);
   }
-  &.el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
-  &.el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
-    @include font_color($color: '$2-color-1');
-    @include background_color($color: '$2-color-2');
-    i {
-      @include font_color($color: '$2-color-1');
+  &.el-menu--horizontal .el-menu-item {
+    &:not(.is-disabled) {
+      &:focus, &:hover, &.active {
+        @include font_color($color: '$2-color-1');
+        @include background_color($color: '$2-color-2');
+        i {
+          @include font_color($color: '$2-color-1');
+        }
+      }
     }
   }
+  // &.el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
+  // &.el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
+  //   @include font_color($color: '$2-color-1');
+  //   @include background_color($color: '$2-color-2');
+  //   i {
+  //     @include font_color($color: '$2-color-1');
+  //   }
+  // }
   &.s-menu-popup--3 {
     max-height: $maxHeight;
     min-height: $mixHeight;
@@ -221,7 +232,8 @@ $maxHeight: 300px;
             @include font_color($color: '$0-color-1');
           }
           &:focus,
-          &:hover {
+          &:hover,
+          &.active {
             @include font_color($color: '$1-color-1', $opacity: .65);
             @include background_color($color: '$0-color-1');
             i {
