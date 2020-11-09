@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-11-05 09:57:48
  * @LastEditors: PT
- * @LastEditTime: 2020-11-06 17:17:51
+ * @LastEditTime: 2020-11-09 11:26:43
  * @Description: SMenuCon 多级菜单组件
  */
 // import SMenu from '../../s-menu'
@@ -121,6 +121,7 @@ export default {
     return (
       <div class='s-menu-con'>
         <s-menu
+          ref="elMenu"
           class={`s-menu-${this.mode}`}
           {...{
             attrs: {
@@ -181,7 +182,7 @@ export default {
           <div
             ref="popup_item4"
             v-show={this.item4Hover}
-            class='submenu-level-4'
+            class='s-menu-popup submenu-level-4'
             >
             <NavSearch options={ this.popupMenuitem4Data }></NavSearch>
           </div>
@@ -215,7 +216,7 @@ export default {
           <div
             ref="popup_item3"
             v-show={this.item3Hover}
-            class='submenu-level-3'
+            class='s-menu-popup submenu-level-3'
             >
             <VerticalNav options={ this.popupMenuitem3Data } on={
               {
@@ -245,10 +246,11 @@ export default {
       if (this.$isServer) return
       this.popperJS[popKey] = this.popperJS[popKey] || { instance: null, reference: null, popperElm: null }
       const options = {
-        placement: 'right-start'
+        placement: 'right-start',
+        boundariesPadding: 0
       }
       const popper = this.popperJS[popKey].popperElm = this.popperJS[popKey].popperElm || this.$refs['popup_' + popKey]
-      let reference = this.popperJS[popKey].reference = this.popperJS[popKey].reference || popKey === 'item3' ? this.$el : this.$refs['popup_item3']
+      let reference = this.popperJS[popKey].reference = this.popperJS[popKey].reference || popKey === 'item3' ? this.$refs.elMenu.$el : this.$refs['popup_item3']
       
       if (!popper || !reference) return
 

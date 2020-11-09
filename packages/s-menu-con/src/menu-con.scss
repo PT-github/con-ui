@@ -24,7 +24,7 @@ $maxHeight: 300px;
         @include font_color($color: '$1-color-1', $opacity: .65);
       }
       .el-submenu__icon-arrow {
-        font-size: 18px;
+        font-size: 12px;
       }
     }
     .el-menu-item:not(.is-disabled):focus, .el-menu-item:not(.is-disabled):hover {
@@ -54,6 +54,14 @@ $maxHeight: 300px;
       padding: 0 18px 0 26px;
       font-size: 16px;
       transition: color .2s;
+      height: 56px;
+      line-height: 56px;
+      i {
+        vertical-align: baseline;
+      }
+      span {
+        vertical-align: baseline;
+      }
       &:hover, &:focus {
         @include font_color($color: '$2-color-1');
         @include background_color($color: '$2-color-2');
@@ -83,6 +91,9 @@ $maxHeight: 300px;
   }
 }
 .s-menu-popup {
+  .el-menu-item .el-submenu__icon-arrow {
+    font-size: 12px;
+  }
   .el-menu-item i {
     @include font_color($color: '$1-color-1', $opacity: .65);
   }
@@ -199,7 +210,7 @@ $maxHeight: 300px;
       min-height: $mixHeight;
       overflow-y: auto;
       .el-submenu__icon-arrow {
-        margin-top: -9px;
+        margin-top: -6px;
       }
       &.blue {
         @include background_color($color: '$2-color-6');
@@ -219,6 +230,61 @@ $maxHeight: 300px;
           }
         }
         
+      }
+    }
+  }
+  &.submenu-level-3 {
+    width: 240px;
+    overflow-y: auto;
+    height: 100%;
+  }
+  &.submenu-level-4 {
+    height: 100%;
+    width: calc(100vw - 500px);
+    @include background_color($color: '$1-color-8');
+    padding: 16px;
+    box-sizing: border-box;
+    .nav-search {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      .s-input {
+        margin-bottom: 16px;
+      }
+      .search-content {
+        flex: 1;
+        overflow-y: auto;
+        .nav-group {
+          .nav-item {
+            @include font_color($color: '$1-color-1', $opacity: .65);
+            font-size: 14px;
+            line-height: 40px;
+            .menu-icon {
+              &:first-child {
+                margin-right: 5px;
+              }
+            }
+          }
+          > .nav-item {
+            font-size: 16px;
+            border-style: solid;
+            border-width: 0 0 1px;
+            @include border_color($color: '$1-color-7');
+            width: 33.33%;
+          }
+          .nav-group_sub {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            .nav-item {
+              cursor: pointer;
+              width: 33.333%;
+              &:hover, &.active {
+                @include font_color($color: '$2-color-1');
+              }
+            }
+          }
+        }
       }
     }
   }
