@@ -2,13 +2,14 @@
  * @Author: PT
  * @Date: 2020-11-05 10:08:26
  * @LastEditors: PT
- * @LastEditTime: 2020-11-09 15:37:12
+ * @LastEditTime: 2020-11-10 09:35:43
  * @Description: SubmenuCon
  */
 import SSubmenu from '../../s-submenu'
 import VerticalNav from './vertical-nav'
 import NavRightPanel from './nav-right-panel'
 import NavSearch from './nav-search'
+import MenuitemCon from './menuitem-con'
 
 import SCollapseTransition from './s-collapse-transition'
 import { findDeep } from '../../../src/utils'
@@ -35,17 +36,14 @@ export default {
     VerticalNav,
     SCollapseTransition,
     NavRightPanel,
-    NavSearch
+    NavSearch,
+    MenuitemCon
   },
   data () {
     return {
       deep: 2,
-      timeoutMenuItem: null,
       currentShowNavs: [],
-      searchShowNavs: [],
-      // itemHover: false, // 子菜单focus
-      // popupMenuitemData: [], // 三级菜单数据
-      // menuItemPopperJS: null // menuitem子菜单弹出层
+      searchShowNavs: []
     }
   },
   render () {
@@ -71,7 +69,7 @@ export default {
             this.option.children &&
             this.option.children.length > 0 &&
             this.option.children.map((item, idx) => {
-              return <s-menu-item
+              return <MenuitemCon
                 ref={'s-menuitem_' + idx}
                 {
                   ...{
@@ -84,7 +82,7 @@ export default {
               >
                 { item.icon && <i class={ item.icon }></i>}
                 <span slot="title">{ item.name }</span>
-              </s-menu-item>
+              </MenuitemCon>
             })
           }
         </ul>
@@ -140,7 +138,7 @@ export default {
           style={[paddingStyle, titleStyle, { backgroundColor }]}
         >
           { this.option.icon && <i class={this.option.icon}></i> }
-          {this.option.name}
+          <span>{this.option.name}</span>
           <i class={[ 'el-submenu__icon-arrow', submenuTitleIcon ]}></i>
         </div>
         {this.isMenuPopup ? popupMenu : inlineMenu}
@@ -185,7 +183,7 @@ export default {
         case 3:
           popupMenuContent = option.children.map(item => {
             return <div class="nav-group">
-              <s-menu-item
+              <MenuitemCon
                 {
                   ...{
                     attrs: { ...item }
@@ -194,12 +192,12 @@ export default {
               >
                 { item.icon && <i class={ item.icon }></i>}
                 <span slot="title">{ item.name }</span>
-              </s-menu-item>
+              </MenuitemCon>
               <div class='nav-group-sub'>
                 {
                   item.children &&
                   item.children.length &&
-                  item.children.map(submenu => <s-menu-item
+                  item.children.map(submenu => <MenuitemCon
                     {
                       ...{
                         attrs: { ...submenu }
@@ -208,14 +206,14 @@ export default {
                   >
                     { submenu.icon && <i class={ submenu.icon }></i>}
                     <span slot="title">{ submenu.name }</span>
-                  </s-menu-item>)
+                  </MenuitemCon>)
                 }
               </div>
             </div>
           })
           break
         default:
-          popupMenuContent = option.children.map(submenu => <s-menu-item
+          popupMenuContent = option.children.map(submenu => <MenuitemCon
             {
               ...{
                 attrs: { ...submenu }
@@ -224,7 +222,7 @@ export default {
           >
             { submenu.icon && <i class={ submenu.icon }></i>}
             <span slot="title">{ submenu.name }</span>
-          </s-menu-item>)
+          </MenuitemCon>)
       }
       return popupMenuContent
     },
@@ -247,62 +245,14 @@ export default {
       this.popperElm = popperElm
       this.updatePlacement()
     },
-    /*
-    createPopper () {
-      if (this.$isServer) return
-      if (!/^(top|bottom|left|right)(-start|-end)?$/g.test(this.currentPlacement)) {
-        return
-      }
-
-      const options = {}
-      const popper = this.popperElm
-      let reference = this.referenceElm
-
-      if (!popper || !reference) return
-
-      if (this.popperJS && this.popperJS.destroy) {
-        this.popperJS.destroy()
-      }
-
-      options.placement = this.currentPlacement
-      this.popperJS = new PopperJS(reference, popper, options)
-      this.popperJS.onCreate(() => {
-        this.$emit('created', this)
-        this.resetTransformOrigin()
-        this.$nextTick(this.updatePopper)
-      })
-      this.popperJS._popper.style.zIndex = PopupManager.nextZIndex()
-      this.popperElm.addEventListener('click', stop)
-    },
-    */
     updatePlacement () {
       this.currentPlacement = this.mode === 'horizontal' ? (this.deep > 2 ? 'bottom' : 'bottom-start') : 'right-start'
     },
     handleMenuItemMouseenter (children = []) {
       this.$emit('show-popup', children.slice())
-      // clearTimeout(this.timeoutMenuItem)
-      // this.timeoutMenuItem = setTimeout(() => {
-      //   this.$emit('show-popup', children.slice())
-      //   // this.popupMenuitemData = children
-      //   // this.$nextTick(() => {
-      //   //   this.itemHover = true
-      //   // })
-      // }, showTimeout)
     },
     handleMenuItemMouseleave () {
       this.$emit('hide-popup')
-      // clearTimeout(this.timeoutMenuItem)
-      // this.timeoutMenuItem = setTimeout(() => {
-      //   this.$emit('hide-popup')
-      //   // this.popupMenuitemData.splice(0, this.popupMenuitemData.length)
-      //   // this.$nextTick(() => {
-      //   //   this.itemHover = false
-      //   // })
-      // }, this.hideTimeout)
     },
-    
-    
-    
-  },
-  
+  }
 }

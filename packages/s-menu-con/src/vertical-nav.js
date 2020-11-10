@@ -1,6 +1,6 @@
 
 
-// import Navitem from './navitem'
+import MenuitemCon from './menuitem-con'
 export default {
   name: 'VerticalNav',
   props: {
@@ -33,7 +33,7 @@ export default {
     return <div class={['vertical-nav', this.cls]}>
       {
         options.map((item, index) => (
-          <s-menu-item
+          <MenuitemCon
             class={{active: this.activeIndex === index}}
             {
               ...{
@@ -47,7 +47,7 @@ export default {
             { item.icon && <i class={ item.icon }></i>}
             { item.name }
             { item.children && <i class='el-icon-arrow-right el-submenu__icon-arrow'></i>}
-          </s-menu-item>)
+          </MenuitemCon>)
         )
       }
     </div>
@@ -95,5 +95,8 @@ export default {
       deep: true,
       immediate: true
     }
+  },
+  components: {
+    MenuitemCon
   }
 }

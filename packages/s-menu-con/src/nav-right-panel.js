@@ -1,3 +1,4 @@
+import MenuitemCon from './menuitem-con'
 export default {
   name: 'Navitem',
   functional: true,
@@ -14,7 +15,7 @@ export default {
           context.props.options &&
           context.props.options.length > 0 &&
           context.props.options.map(item => <div class="nav-group">
-              <s-menu-item
+              <MenuitemCon
                 {
                   ...{
                     attrs: { ...item }
@@ -23,12 +24,12 @@ export default {
               >
                 { item.icon && <i class={ item.icon }></i>}
                 <span slot="title">{ item.name }</span>
-              </s-menu-item>
+              </MenuitemCon>
               <div className="nav-group-sub">
                 {
                   item.children &&
                   item.children.length > 0 &&
-                  item.children.map(submenu => <s-menu-item
+                  item.children.map(submenu => <MenuitemCon
                     {
                       ...{
                         attrs: { ...submenu }
@@ -37,7 +38,7 @@ export default {
                   >
                     { submenu.icon && <i class={ submenu.icon }></i>}
                     <span slot="title">{ submenu.name }</span>
-                  </s-menu-item>)
+                  </MenuitemCon>)
                 }
               </div>
             </div>)
@@ -45,5 +46,8 @@ export default {
         
       </div>
     )
+  },
+  components: {
+    MenuitemCon
   }
 }

@@ -2,14 +2,12 @@
  * @Author: PT
  * @Date: 2020-11-05 09:57:48
  * @LastEditors: PT
- * @LastEditTime: 2020-11-09 17:01:15
+ * @LastEditTime: 2020-11-10 10:30:00
  * @Description: SMenuCon 多级菜单组件
  */
-// import SMenu from '../../s-menu'
-// import SMenuItem from '../../s-menu-item'
-// import SSubmenu from '../../s-submenu'
 import Vue from 'vue'
 import SSubmenuCon from './submenu-con'
+import MenuitemCon from './menuitem-con'
 import VerticalNav from './vertical-nav'
 import NavSearch from './nav-search'
 import './menu-con.scss'
@@ -153,7 +151,7 @@ export default {
                 } option={submenu} >
                 </s-submenu-con>
               }
-              return <s-menu-item
+              return <MenuitemCon
                 {
                   ...{
                     attrs: { ...submenu }
@@ -162,7 +160,7 @@ export default {
               >
                 { submenu.icon && <i class={ submenu.icon }></i>}
                 <span slot="title">{ submenu.name }</span>
-              </s-menu-item>
+              </MenuitemCon>
             })
           }
         </s-menu>
@@ -213,13 +211,18 @@ export default {
     },
     // 3 显示
     showItem3Pop (popupData = []) {
-      clearTimeout(this.timeout)
-      this.timeout = setTimeout(() => {
-        this.popupMenuitem3Data = popupData
-        this.$nextTick(() => {
-          this.item3Hover = true
-        })
-      }, this.showTimeout)
+      if (popupData.length) {
+        clearTimeout(this.timeout)
+        this.timeout = setTimeout(() => {
+          this.popupMenuitem3Data = popupData
+          this.$nextTick(() => {
+            this.item3Hover = true
+            this.item4Hover = false
+          })
+        }, this.showTimeout)
+      } else {
+        this.hideItem3Pop()
+      }
     },
     // 3 隐藏
     hideItem3Pop () {
@@ -334,7 +337,7 @@ export default {
   components: {
     SSubmenuCon,
     VerticalNav,
-    NavSearch
-    // SSubmenu
+    NavSearch,
+    MenuitemCon
   }
 }

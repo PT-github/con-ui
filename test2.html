@@ -12,8 +12,9 @@
     body {
       margin: 0;
     }
+    #app {background: #CCCCCC;}
     /* #app {width: 800px;margin: 20px auto;} */
-    .s-menu-con {outline: 1px solid red;display: inline-block;}
+    /* .s-menu-con {outline: 1px solid red;display: inline-block;} */
     /* .s-menu-popup--5 {
       width: 80% !important;
     } */
@@ -22,12 +23,28 @@
 
 <body>
   <div id="app">
-    <s-menu-con popper-width="90%" :options="options"> </s-menu-con>
+    <!-- mode="horizontal" -->
+    <div><s-radio-con
+      v-model="isCollapse"
+      :options="options2">
+    </s-radio-con></div>
+    <s-menu-con popper-width="90%" :collapse="isCollapse" :options="options"> </s-menu-con>
   </div>
   <script>
     new Vue({
       data: function () {
         return {
+          options2: [
+            {
+              label: true,
+              content: '收起'
+            },
+            {
+              label: false,
+              content: '展开'
+            }
+          ],
+          isCollapse: true,
           value: '',
           options: [
             {
