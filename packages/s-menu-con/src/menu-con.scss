@@ -316,4 +316,40 @@ $maxHeight: 300px;
       box-shadow: 0px 1px 4px 0px themed($key: '$1-color-6', $opacity: .24);
     }
   }
+  .el-menu--popup-right-start {
+    border-radius: 0 4px 4px 0;
+  }
+  .submenu-navpop {
+    .el-menu {
+      border-right: 0;
+    }
+    .el-menu-item {
+      font-size: 16px;
+      @include font_color($color: '$1-color-1', $opacity: .65);
+      i {
+        font-size: 14px;
+        vertical-align: baseline;
+        @include font_color($color: '$1-color-1', $opacity: .65);
+      }
+      &:hover, &:hover i {
+        @include font_color($color: '$2-color-1');
+        @include background_color($color: '$2-color-2');
+      }
+    }
+    .el-submenu__title {
+      font-size: 16px;
+      @include font_color($color: '$1-color-1', $opacity: .65);
+      i[class^=el-icon] {
+        margin-right: 5px;
+        @include font_color($color: '$1-color-1', $opacity: .65);
+      }
+      &:focus, &:hover, &.active {
+        @include font_color($color: '$1-color-1', $opacity: .65);
+        @include background_color($color: '$0-color-1');
+        // i {
+        //   @include font_color($color: '$2-color-1');
+        // }
+      }
+    }
+  }
 }

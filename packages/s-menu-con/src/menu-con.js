@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-11-05 09:57:48
  * @LastEditors: PT
- * @LastEditTime: 2020-11-10 10:30:00
+ * @LastEditTime: 2020-11-10 17:15:21
  * @Description: SMenuCon 多级菜单组件
  */
 import Vue from 'vue'
@@ -15,13 +15,21 @@ import { PopupManager } from 'element-ui/src/utils/popup'
 const PopperJS = Vue.prototype.$isServer ? function () {} : require('element-ui/src/utils/popper')
 const stop = e => e.stopPropagation()
 
+import emitter from 'element-ui/src/mixins/emitter'
+
 export default {
   name: 'SMenuCon',
   componentName: 'SMenuCon',
+  mixins: [ emitter ],
   props: {
     mode: {
       type: String,
       default: 'vertical'
+    },
+    // 菜单宽度
+    width: {
+      type: Number,
+      default: 256
     },
     defaultActive: {
       type: String,
@@ -73,6 +81,15 @@ export default {
       menuCon: this
     }
   },
+  created () {
+    this.$on('submenu-mouseenter', () => {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        this.item3Hover = false
+        this.item4Hover = false
+      }, this.hideTimeout)
+    })
+  },
   data () {
     return {
       // 三级菜单数据
@@ -95,7 +112,7 @@ export default {
   computed: {
     menuTransitionName () {
       return this.collapse ? 'el-zoom-in-left' : 'el-zoom-in-top'
-    },
+    }
   },
   watch: {
     item3Hover (val) {
@@ -190,14 +207,23 @@ export default {
           <div
             ref="popup_item3"
             v-show={this.item3Hover}
-            class='s-menu-popup submenu-level-3'
+            class={
+              {
+                's-menu-popup': true,
+                'submenu-level-3': true,
+                's-menu-popup-collapse': this.collapse
+              }
+            }
+            style={
+              { marginLeft: this.mode === 'vertical' && this.collapse ? (this.width - 64) + 'px' : 0 }
+            }
             on-mouseenter={() => this.handleItem3PopMouseenter()}
             on-mouseleave={() => this.handleItem3PopMouseleave()}
             on-focus={() => this.handleItem3PopMouseenter()}
             >
             <VerticalNav options={ this.popupMenuitem3Data } on={
               {
-                'nav-change': (popupData = []) => {
+                'show-popup': (popupData = []) => {
                   this.showItem4Pop(popupData)
                 },
                 'hide-popup': () => {
@@ -214,7 +240,7 @@ export default {
       if (popupData.length) {
         clearTimeout(this.timeout)
         this.timeout = setTimeout(() => {
-          this.popupMenuitem3Data = popupData
+          this.popupMenuitem3Data = popupData.slice()
           this.$nextTick(() => {
             this.item3Hover = true
             this.item4Hover = false
@@ -235,6 +261,9 @@ export default {
     },
     // 3 pop mouseenter
     handleItem3PopMouseenter () {
+      if (this.mode === 'vertical' && this.collapse) {
+        this.broadcast('SubmenuCon', 'pop3-mouseenter')
+      }
       clearTimeout(this.timeout)
       this.timeout = setTimeout(() => {
         this.item3Hover = true
@@ -246,6 +275,9 @@ export default {
       this.timeout = setTimeout(() => {
         this.item3Hover = false
         this.item4Hover = false
+        if (this.mode === 'vertical' && this.collapse) {
+          this.broadcast('SubmenuCon', 'pop3-mouseleave')
+        }
       }, this.hideTimeout)
     },
 
@@ -282,6 +314,9 @@ export default {
       this.timeout = setTimeout(() => {
         this.item4Hover = false
         this.item3Hover = false
+        if (this.mode === 'vertical' && this.collapse) {
+          this.broadcast('SubmenuCon', 'pop3-mouseleave')
+        }
       }, this.hideTimeout)
     },
 

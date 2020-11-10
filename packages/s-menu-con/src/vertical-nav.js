@@ -56,7 +56,7 @@ export default {
     handleMenuItemMouseenter (popupData) {
       // clearTimeout(this.timeoutMenuItem)
       // this.timeoutMenuItem = setTimeout(() => {
-        this.$emit('nav-change', popupData)
+        this.$emit('show-popup', popupData)
       // }, showTimeout)
     },
     handleMenuItemMouseleave () {
@@ -75,7 +75,7 @@ export default {
     // },
     // handleMouseMover (item, index) {
     //   this.activeIndex = index
-    //   this.$emit('nav-change', item)
+    //   this.$emit('show-popup', item)
     // }
   },
   watch: {
@@ -86,7 +86,7 @@ export default {
           if (v && v.length > 0) {
             let defaultActiveItems = v.filter(item => item.children && item.children.length > 0)
             if (defaultActiveItems && defaultActiveItems.length > 0) {
-              this.$emit('nav-change', defaultActiveItems[0].children)
+              this.$emit('show-popup', defaultActiveItems[0].children)
               this.activeIndex = v.indexOf(defaultActiveItems[0])
             }
           }

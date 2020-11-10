@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-11-05 10:08:26
  * @LastEditors: PT
- * @LastEditTime: 2020-11-10 09:35:43
+ * @LastEditTime: 2020-11-10 17:28:31
  * @Description: SubmenuCon
  */
 import SSubmenu from '../../s-submenu'
@@ -19,7 +19,8 @@ import { addClass } from 'element-ui/src/utils/dom'
 
 export default {
   name: 'SubmenuCon',
-  inject: ['rootMenu'],
+  componentName: 'SubmenuCon',
+  inject: ['rootMenu', 'menuCon'],
   props: {
     hideTimeout: {
       type: Number,
@@ -37,7 +38,15 @@ export default {
     SCollapseTransition,
     NavRightPanel,
     NavSearch,
-    MenuitemCon
+    MenuitemCon,
+  },
+  created () {
+    this.$on('pop3-mouseenter', () => {
+      clearTimeout(this.timeout)
+    })
+    this.$on('pop3-mouseleave', () => {
+      this.handleMouseleave()
+    })
   },
   data () {
     return {
@@ -93,6 +102,11 @@ export default {
         <div
           ref="menu"
           v-show={this.opened}
+          style={
+            {
+              
+            }
+          }
           class={[`el-menu--${this.mode}`, this.popperClass, 's-menu-popup']}
           on-mouseenter={($event) => this.handleMouseenter($event, 100)}
           on-mouseleave={() => this.handleMouseleave(true)}
@@ -100,9 +114,12 @@ export default {
           <ul
             role="menu"
             class={['el-menu el-menu--popup', `el-menu--popup-${this.currentPlacement}`]}
-            style={{ backgroundColor: this.rootMenu.backgroundColor || '' }}>
+            style={{
+              backgroundColor: this.rootMenu.backgroundColor || '',
+              minWidth: this.menuCon.collapse && this.menuCon.mode === 'vertical' && (this.menuCon.width - (64 + 10)) + 'px' || ''
+            }}>
             {
-              this.getHorizontalPopup(this.option)
+              this.getPopup(this.option)
             }
           </ul>
         </div>
@@ -125,9 +142,9 @@ export default {
         role="menuitem"
         aria-haspopup="true"
         aria-expanded={opened}
-        on-mouseenter={this.handleMouseenter}
+        on-mouseenter={this.handleMouseenter2}
         on-mouseleave={() => this.handleMouseleave(false)}
-        on-focus={this.handleMouseenter}
+        on-focus={this.handleMouseenter2}
       >
         <div
           class="el-submenu__title"
@@ -146,6 +163,61 @@ export default {
     )
   },
   methods: {
+    handleMouseenter2 (e) {
+      this.dispatch('SMenuCon', 'submenu-mouseenter')
+      // console.log(this.dispatch, '===')
+      this.handleMouseenter(e)
+    },
+    getPopup (option = {}) {
+      if (this.mode === 'vertical') {
+        return this.getVerticalPopup(option)
+      }
+      return this.getHorizontalPopup(option)
+    },
+    getVerticalPopup (option = {}) {
+      return <div class="submenu-navpop">
+        <div
+          class="el-submenu__title"
+          ref="submenu-title"
+        >
+          { option.icon && <i class={option.icon}></i> }
+          {option.name}
+          <i class={[ 'el-submenu__icon-arrow el-icon-arrow-down' ]}></i>
+        </div>
+        <ul
+          role="menu"
+          class="el-menu el-menu--inline">
+          {
+            option.children &&
+            option.children.length > 0 &&
+            option.children.map((item, idx) => {
+              return <MenuitemCon
+                ref={'s-menuitem_' + idx}
+                {
+                  ...{
+                    attrs: { ...item }
+                  }
+                }
+                // on-click={this.handleClick}
+                vOn:mouseenter_native={() => {
+                  this.handlePopTitleMouseenter(item)
+                }}
+                vOn:mouseleave={this.handlePopTitleMouseleave}
+              >
+                { item.icon && <i class={ item.icon }></i>}
+                { item.name }
+              </MenuitemCon>
+            })
+          }
+        </ul>
+      </div>
+    },
+    handlePopTitleMouseleave () {
+      this.$emit('hide-popup')
+    },
+    handlePopTitleMouseenter (item = {}) {
+      this.$emit('show-popup', item.children)
+    },
     /**
      * @description: 根据菜单数据 设置popup
      * @param {object} option 菜单数据
