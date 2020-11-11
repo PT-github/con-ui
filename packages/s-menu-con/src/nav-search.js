@@ -1,5 +1,5 @@
 export default {
-  name: 'LeafNavs',
+  name: 'NavSearch',
   props: {
     options: {
       type: Array,

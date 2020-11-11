@@ -256,7 +256,7 @@ $maxHeight: 300px;
   }
   &.submenu-level-4 {
     height: 100%;
-    width: calc(100vw - 500px);
+    // width: calc(100vw - 500px);
     @include background_color($color: '$1-color-8');
     padding: 16px;
     box-sizing: border-box;

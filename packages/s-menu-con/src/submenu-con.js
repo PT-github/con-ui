@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-11-05 10:08:26
  * @LastEditors: PT
- * @LastEditTime: 2020-11-10 17:28:31
+ * @LastEditTime: 2020-11-11 17:23:59
  * @Description: SubmenuCon
  */
 import SSubmenu from '../../s-submenu'
@@ -14,7 +14,7 @@ import MenuitemCon from './menuitem-con'
 import SCollapseTransition from './s-collapse-transition'
 import { findDeep } from '../../../src/utils'
 
-import { addClass } from 'element-ui/src/utils/dom'
+// import { addClass } from 'element-ui/src/utils/dom'
 
 
 export default {
@@ -66,6 +66,7 @@ export default {
       disabled,
       isFirstLevel
     } = this
+    this.deep = findDeep(this.option)
 
     const inlineMenu = (
       <s-collapse-transition>
@@ -102,12 +103,13 @@ export default {
         <div
           ref="menu"
           v-show={this.opened}
-          style={
+          class={
             {
-              
+              [`el-menu--${this.mode}`]: true,
+              's-menu-popup': true,
+              [`s-menu-popup--${this.deep}`]: rootMenu.mode === 'horizontal'
             }
           }
-          class={[`el-menu--${this.mode}`, this.popperClass, 's-menu-popup']}
           on-mouseenter={($event) => this.handleMouseenter($event, 100)}
           on-mouseleave={() => this.handleMouseleave(true)}
           on-focus={($event) => this.handleMouseenter($event, 100)}>
@@ -165,7 +167,6 @@ export default {
   methods: {
     handleMouseenter2 (e) {
       this.dispatch('SMenuCon', 'submenu-mouseenter')
-      // console.log(this.dispatch, '===')
       this.handleMouseenter(e)
     },
     getPopup (option = {}) {
@@ -224,7 +225,6 @@ export default {
      * @return {jsx}
      */    
     getHorizontalPopup (option = {}) {
-      this.deep = findDeep(option)
       let popupMenuContent = []
       switch (this.deep) {
         case 5:
@@ -232,13 +232,13 @@ export default {
             options={option.children}
             cls='blue'
             on={
-              { 'nav-change': (navs) => navs && navs.length > 0 && (this.currentShowNavs = navs) }
+              { 'show-popup': (navs) => navs && navs.length > 0 && (this.currentShowNavs = navs) }
             }
           ></VerticalNav>)
           popupMenuContent.push(<VerticalNav
             options={this.currentShowNavs}
             on={
-              { 'nav-change': (navs) => navs && navs.length > 0 && (this.searchShowNavs = navs) }
+              { 'show-popup': (navs) => navs && navs.length > 0 && (this.searchShowNavs = navs) }
             }
           ></VerticalNav>)
           popupMenuContent.push(<NavSearch options={this.searchShowNavs}></NavSearch>)
@@ -247,7 +247,7 @@ export default {
           popupMenuContent.push(<VerticalNav
             options={option.children}
             on={
-              { 'nav-change': (navs) => navs && navs.length > 0 && (this.currentShowNavs = navs) }
+              { 'show-popup': (navs) => navs && navs.length > 0 && (this.currentShowNavs = navs) }
             }
           ></VerticalNav>)
           popupMenuContent.push(<NavSearch options={this.currentShowNavs}></NavSearch>)
@@ -307,7 +307,6 @@ export default {
           referenceElm = this.rootMenu.$el
           popperElm = this.$refs.menu
           popperElm && (popperElm.style.width = this.rootMenu.$el.offsetWidth + 'px')
-          addClass(popperElm, `s-menu-popup--${this.deep}`)
           break
         default: // 2
           referenceElm = this.$el

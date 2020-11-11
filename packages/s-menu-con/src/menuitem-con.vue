@@ -36,7 +36,19 @@
 import SMenuItem from '../../s-menu-item'
 export default {
   name: 'MenuitemCon',
+  props: {
+    // 是否存在与弹窗中
+    inpop: {
+      type: Boolean,
+      default: false
+    }
+  },
   mixins: [SMenuItem],
+  computed: {
+    itemStyle () {
+      return {}
+    }
+  }
 }
 </script>
 <style lang='scss' scoped>

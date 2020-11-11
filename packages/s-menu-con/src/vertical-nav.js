@@ -34,6 +34,7 @@ export default {
       {
         options.map((item, index) => (
           <MenuitemCon
+            inpop={true}
             class={{active: this.activeIndex === index}}
             {
               ...{

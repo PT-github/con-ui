@@ -38,6 +38,17 @@
           <s-menu-item index="0-4-1">选项1</s-menu-item>
         </s-submenu>
       </s-submenu>
+      <s-submenu index="5">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span slot="title">导航一</span>
+        </template>
+        <s-menu-item-group>
+          <span slot="title">分组一</span>
+          <s-menu-item index="5-1">选项1</s-menu-item>
+          <s-menu-item index="5-2">选项2</s-menu-item>
+        </s-menu-item-group>
+      </s-submenu>
       <s-menu-item index="2">
         <i class="el-icon-menu"></i>
         <span slot="title">导航二</span>
@@ -62,7 +73,7 @@
     new Vue({
       data() {
         return {
-          isCollapse: true
+          isCollapse: false
         };
       },
       methods: {

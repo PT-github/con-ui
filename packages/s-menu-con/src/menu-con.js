@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-11-05 09:57:48
  * @LastEditors: PT
- * @LastEditTime: 2020-11-10 17:15:21
+ * @LastEditTime: 2020-11-11 15:56:16
  * @Description: SMenuCon 多级菜单组件
  */
 import Vue from 'vue'
@@ -25,11 +25,6 @@ export default {
     mode: {
       type: String,
       default: 'vertical'
-    },
-    // 菜单宽度
-    width: {
-      type: Number,
-      default: 256
     },
     defaultActive: {
       type: String,
@@ -92,6 +87,7 @@ export default {
   },
   data () {
     return {
+      width: 256,
       // 三级菜单数据
       popupMenuitem3Data: [],
       item3Hover: false,
@@ -114,6 +110,11 @@ export default {
       return this.collapse ? 'el-zoom-in-left' : 'el-zoom-in-top'
     }
   },
+  mounted () {
+    // if (this.mode === 'vertical' && !this.collapse) {
+    //   this.width = this.$refs.elMenu.$el.offsetWidth
+    // }
+  },
   watch: {
     item3Hover (val) {
       if (val) {
@@ -128,6 +129,17 @@ export default {
           this.updateMenuItemPopper('item4')
         })
       }
+    },
+    collapse (v) {
+      this.item3Hover = false
+      this.item4Hover = false
+      clearTimeout(this.timeout)
+      this.doDestroy()
+      if (!v) {
+        this.$nextTick(() => {
+          this.width = parseInt(this.$refs.elMenu.$el.dataset.scrollWidth)
+        })
+      }
     }
   },
   render () {
@@ -138,15 +150,17 @@ export default {
         <s-menu
           ref="elMenu"
           class={`s-menu-${this.mode}`}
-          {...{
-            attrs: {
-              ...this.$props
-            },
-            on: {
-              ...this.$listeners
+          {
+            ...{
+              attrs: {
+                ...this.$props
+              },
+              on: {
+                ...this.$listeners
+              }
             }
           }
-        }>
+        >
           { popupMenuitem3 }
           { popupMenuitem4 }
           {
@@ -185,6 +199,16 @@ export default {
     )
   },
   methods: {
+    doDestroy () {
+      if (this.popperJS) {
+        for (let prop in this.popperJS) {
+          if (this.popperJS[prop] && this.popperJS[prop].instance) {
+            this.popperJS[prop].instance.destroy()
+            this.popperJS[prop] = null
+          }
+        }
+      }
+    },
     getPopup4 () {
       return (
         <transition name={this.menuTransitionName}>
@@ -192,6 +216,7 @@ export default {
             ref="popup_item4"
             v-show={this.item4Hover}
             class='s-menu-popup submenu-level-4'
+            style={{width: `calc(100vw - ${this.width + 240}px)`}}
             on-mouseenter={() => this.handleItem4PopMouseenter()}
             on-mouseleave={() => this.handleItem4PopMouseleave()}
             on-focus={() => this.handleItem3PopMouseenter()}
