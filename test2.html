@@ -31,7 +31,7 @@
       v-model="isCollapse"
       :options="options2">
     </s-radio-con></div>
-    <s-menu-con popper-width="90%" :collapse="isCollapse" :options="options"> </s-menu-con>
+    <s-menu-con popper-width="90%" :unique-opened="true" default-active="3-1-1" :collapse="isCollapse" :options="options"> </s-menu-con>
   </div>
   <script>
     new Vue({
@@ -47,7 +47,7 @@
               content: '展开'
             }
           ],
-          isCollapse: true,
+          isCollapse: false,
           value: '',
           options: [
             {

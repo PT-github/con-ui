@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-11-05 09:57:48
  * @LastEditors: PT
- * @LastEditTime: 2020-11-12 08:42:16
+ * @LastEditTime: 2020-11-12 17:08:30
  * @Description: SMenuCon 多级菜单组件
  */
 import Vue from 'vue'
@@ -77,13 +77,8 @@ export default {
     }
   },
   created () {
-    this.$on('submenu-mouseenter', () => {
-      clearTimeout(this.timeout)
-      this.timeout = setTimeout(() => {
-        this.item3Hover = false
-        this.item4Hover = false
-      }, this.hideTimeout)
-    })
+    this.$on('submenu-mouseenter', this.hidePop)
+    this.$on('item-click', this.hidePop)
   },
   data () {
     return {
@@ -111,9 +106,7 @@ export default {
     }
   },
   mounted () {
-    // if (this.mode === 'vertical' && !this.collapse) {
-    //   this.width = this.$refs.elMenu.$el.offsetWidth
-    // }
+    this.handleWidth()
   },
   watch: {
     item3Hover (val) {
@@ -130,16 +123,12 @@ export default {
         })
       }
     },
-    collapse (v) {
+    collapse () {
       this.item3Hover = false
       this.item4Hover = false
       clearTimeout(this.timeout)
       this.doDestroy()
-      if (!v) {
-        this.$nextTick(() => {
-          this.width = parseInt(this.$refs.elMenu.$el.dataset.scrollWidth)
-        })
-      }
+      this.$nextTick(this.handleWidth)
     }
   },
   render () {
@@ -199,13 +188,28 @@ export default {
     )
   },
   methods: {
+    hidePop () {
+      clearTimeout(this.timeout)
+      this.item3Hover = false
+      this.item4Hover = false
+      // this.timeout = setTimeout(() => {
+      //   this.item3Hover = false
+      //   this.item4Hover = false
+      // }, this.hideTimeout)
+    },
+    handleWidth () {
+      if (this.mode === 'vertical' && !this.collapse) {
+        let elMenu = this.$refs.elMenu.$el
+        this.width = parseInt(elMenu.dataset.scrollWidth || elMenu.offsetWidth)
+      }
+    },
     doDestroy () {
       if (this.popperJS) {
         for (let prop in this.popperJS) {
           if (this.popperJS[prop] && this.popperJS[prop].instance) {
             this.popperJS[prop].instance.destroy()
-            this.popperJS[prop] = null
           }
+          this.popperJS[prop] = null
         }
       }
     },

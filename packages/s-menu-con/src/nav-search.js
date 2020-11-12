@@ -8,6 +8,7 @@ export default {
     }
   },
   mixins: [ emitter ],
+  inject: ['rootMenu'],
   data () {
     return {
       input: ''
@@ -42,12 +43,21 @@ export default {
         {
           this.filterOptions.map(item => {
             return <div class="nav-group">
-              <Navitem attrs={{...(item || {})}} on={{ click: this.handleClick }}></Navitem>
+              <Navitem
+                class={{ 'is-active': this.rootMenu.activeIndex === item.index }}
+                attrs={{...(item || {})}} on={{ click: this.handleClick }}>
+              </Navitem>
               <div class="nav-group_sub">
                 {
                   item.children &&
                   item.children.length > 0 &&
-                  item.children.map(nav => <Navitem attrs={{...(nav || {})}} on={{ click: this.handleClick }}></Navitem>)
+                  item.children.map(nav => (
+                    <Navitem
+                      class={{ 'is-active': this.rootMenu.activeIndex === nav.index }}
+                      attrs={{...nav}}
+                      on={{ click: this.handleClick }}>
+                    </Navitem>
+                  ))
                 }
               </div>
             </div>
@@ -62,13 +72,13 @@ export default {
         return
       }
       this.dispatch('ElMenu', 'item-click', item)
+      this.dispatch('SMenuCon', 'item-click', item)
       this.$emit('click', item)
     }
   },
   components: {
     Navitem: {
       functional: true,
-      inject: ['rootMenu'],
       props: {
         icon: String,
         suffixIcon: String,
@@ -82,28 +92,32 @@ export default {
         children: {
           type: Array,
           default: () => []
-        }
+        },
+        cls: String
       },
       render (h, context) {
-        return <div class="nav-item" class={{
-          'nav-item': true,
-          'is-active': context.props.index === context.injections.rootMenu.activeIndex
-          }
-        }
-        on={
-          {
-            click: () => {
-              context.listeners &&
-              typeof context.listeners.click === 'function' &&
-              context.listeners.click(context.props)
+        return (
+          <div
+            class={
+              {
+                'nav-item': true,
+                ...context.data.class
+              }
             }
-          }
-        }
-        >
-          { context.props.icon && <i class={ ['menu-icon', context.props.icon] }></i> }
-          { context.props.name }
-          { context.props.suffixIcon && <i class={ ['menu-icon', context.props.suffixIcon] }></i> }
-        </div>
+            on={
+              {
+                click: () => {
+                  context.listeners &&
+                  typeof context.listeners.click === 'function' &&
+                  context.listeners.click(context.props)
+                }
+              }
+            }>
+            { context.props.icon && <i class={ ['menu-icon', context.props.icon] }></i> }
+            { context.props.name }
+            { context.props.suffixIcon && <i class={ ['menu-icon', context.props.suffixIcon] }></i> }
+          </div>
+        )
       }
     }
   }

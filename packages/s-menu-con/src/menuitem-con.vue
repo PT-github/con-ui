@@ -55,6 +55,7 @@ export default {
         return
       }
       this.dispatch('ElMenu', 'item-click', this)
+      this.dispatch('SMenuCon', 'item-click', this)
       this.$emit('click', this)
     }
   }

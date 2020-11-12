@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-11-05 10:08:26
  * @LastEditors: PT
- * @LastEditTime: 2020-11-12 11:04:15
+ * @LastEditTime: 2020-11-12 15:41:27
  * @Description: SubmenuCon
  */
 import SSubmenu from '../../s-submenu'
@@ -301,17 +301,22 @@ export default {
     },
     initPopper () {
       let referenceElm, popperElm
-      switch (this.deep) {
-        case 5:
-        case 4:
-        case 3:
-          referenceElm = this.rootMenu.$el
-          popperElm = this.$refs.menu
-          popperElm && (popperElm.style.width = this.rootMenu.$el.offsetWidth + 'px')
-          break
-        default: // 2
-          referenceElm = this.$el
-          popperElm = this.$refs.menu
+      if (this.menuCon.mode === 'horizontal') {
+        switch (this.deep) {
+          case 5:
+          case 4:
+          case 3:
+            referenceElm = this.menuCon.$refs.elMenu.$el
+            popperElm = this.$refs.menu
+            popperElm && (popperElm.style.width = referenceElm.offsetWidth + 'px')
+            break
+          default: // 2
+            referenceElm = this.$el
+            popperElm = this.$refs.menu
+        }
+      } else {
+        referenceElm = this.$el
+        popperElm = this.$refs.menu
       }
       this.referenceElm = referenceElm
       this.popperElm = popperElm

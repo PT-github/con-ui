@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-10 16:46:47
  * @LastEditors: PT
- * @LastEditTime: 2020-11-12 08:41:16
+ * @LastEditTime: 2020-11-12 17:07:06
  * @Description: SMenu
  */
 import './styles/menu.scss'
@@ -12,7 +12,41 @@ const mixins = {
   methods: {
     addItem (item) {
       !item.inpop && this.$set(this.items, item.index, item)
-    }
+    },
+    updateActiveIndex: function updateActiveIndex (val) {
+      var item = this.items[val] || this.items[this.activeIndex] || this.items[this.defaultActive]
+      if (item) {
+        this.activeIndex = item.index
+        this.initOpenedMenu()
+      }
+    },
+    handleItemClick (item) {
+      const { index, indexPath } = item
+      const oldActiveIndex = this.activeIndex
+      const hasIndex = item.index !== null
+
+      if (hasIndex) {
+        this.activeIndex = item.index
+      }
+
+      this.$emit('select', index, item, indexPath)
+
+      if (this.mode === 'horizontal' || this.collapse) {
+        this.openedMenus = []
+      }
+
+      if (this.router && hasIndex) {
+        this.routeToItem(item, (error) => {
+          this.activeIndex = oldActiveIndex
+          if (error) {
+            // vue-router 3.1.0+ push/replace cause NavigationDuplicated error 
+            // https://github.com/ElemeFE/element/issues/17044
+            if (error.name === 'NavigationDuplicated') return
+            console.error(error)
+          }
+        })
+      }
+    },
   }
 }
 

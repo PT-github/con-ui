@@ -70,13 +70,15 @@ $maxHeight: 300px;
       span {
         vertical-align: baseline;
       }
-      &:hover, &:focus {
+      &:focus {
+        background: none;
+      }
+      &:hover, &.is-active {
         @include font_color($color: '$2-color-1');
         @include background_color($color: '$2-color-2');
         i {
           transition: color .2s;
           @include font_color($color: '$2-color-1');
-          @include background_color($color: '$2-color-2');
         }
       }
     }
@@ -277,6 +279,11 @@ $maxHeight: 300px;
     overflow-y: auto;
     height: 100%;
     @include background_color($color: '$0-color-1');
+    .el-menu-item {
+      &.is-active {
+        background: none;
+      }
+    }
   }
   &.submenu-level-4 {
     height: 100%;
@@ -299,6 +306,10 @@ $maxHeight: 300px;
             @include font_color($color: '$1-color-1', $opacity: .65);
             font-size: 14px;
             line-height: 40px;
+            cursor: pointer;
+            &:hover, &.is-active {
+              @include font_color($color: '$2-color-1');
+            }
             .menu-icon {
               &:first-child {
                 margin-right: 5px;
@@ -317,11 +328,7 @@ $maxHeight: 300px;
             flex-wrap: wrap;
             margin-top: 8px;
             .nav-item {
-              cursor: pointer;
               width: 33.333%;
-              &:hover, &.active {
-                @include font_color($color: '$2-color-1');
-              }
             }
           }
         }
