@@ -48,6 +48,15 @@ export default {
     itemStyle () {
       return {}
     }
+  },
+  methods: {
+    handleClick () {
+      if (this.$attrs.children && this.$attrs.children.length > 0 || this.disabled) {
+        return
+      }
+      this.dispatch('ElMenu', 'item-click', this)
+      this.$emit('click', this)
+    }
   }
 }
 </script>

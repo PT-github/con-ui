@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-10 16:46:47
  * @LastEditors: PT
- * @LastEditTime: 2020-11-11 15:27:27
+ * @LastEditTime: 2020-11-12 08:41:16
  * @Description: SMenu
  */
 import './styles/menu.scss'
@@ -18,12 +18,16 @@ const mixins = {
 
 export default {
   name: 'SMenu',
+  props: {
+    ...Menu.props
+  },
   render () {
     return (
       <el-menu ref="menu" class="s-menu" {
         ...{
           attrs: {
-            ...this.$attrs
+            ...this.$attrs,
+            ...this.$props,
           },
           on: {
             ...this.$listeners

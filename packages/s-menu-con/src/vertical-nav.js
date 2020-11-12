@@ -16,32 +16,43 @@ export default {
       type: Number,
       default: 300
     },
+    defaultActive: {
+      type: String,
+      default: ''
+    },
     cls: String
   },
   inject: {
     menuCon: {
       default: ''
+    },
+    rootMenu: {
+      default: ''
     }
   },
   data () {
     return {
-      activeIndex: null
+      hoverActive: null
     }
   },
   render () {
     let { options } = this
     return <div class={['vertical-nav', this.cls]}>
       {
-        options.map((item, index) => (
+        options.map(item => (
           <MenuitemCon
             inpop={true}
-            class={{active: this.activeIndex === index}}
+            class={{
+              'is-active': this.defaultActive === item.index,
+              'hover-active': this.hoverActive === item.index
+              }
+            }
             {
               ...{
                 attrs: { ...item },
               }
             }
-            vOn:mouseenter_native={() => this.handleMenuItemMouseenter(item.children)}
+            vOn:mouseenter_native={() => this.handleMenuItemMouseenter(item.children, item)}
             vOn:mouseleave_native={() => this.handleMenuItemMouseleave(true)}
             vOn:hover_native={() => this.handleMenuItemMouseenter()}
           >
@@ -54,42 +65,28 @@ export default {
     </div>
   },
   methods: {
-    handleMenuItemMouseenter (popupData) {
-      // clearTimeout(this.timeoutMenuItem)
-      // this.timeoutMenuItem = setTimeout(() => {
-        this.$emit('show-popup', popupData)
-      // }, showTimeout)
+    handleMenuItemMouseenter (popupData, item) {
+      this.rootMenu.mode === 'vertical' && (this.hoverActive = item.index)
+      this.$emit('show-popup', popupData)
     },
     handleMenuItemMouseleave () {
       this.$emit('hide-popup')
-      // clearTimeout(this.timeoutMenuItem)
-      // this.timeoutMenuItem = setTimeout(() => {
-      // }, this.hideTimeout) // this.hideTimeout
     },
-    // setActive () {
-    //   for (let i = 0, j = this.options.length; i < j; i++) {
-    //     if (this.options[i].children && this.options[i].children.length) {
-    //       this.handleMouseMover(this.options[i], i)
-    //       break
-    //     }
-    //   }
-    // },
-    // handleMouseMover (item, index) {
-    //   this.activeIndex = index
-    //   this.$emit('show-popup', item)
-    // }
   },
   watch: {
     options: {
       handler: function (v) {
         if (this.menuCon && this.menuCon.mode === 'horizontal') {
-          this.activeIndex = null
           if (v && v.length > 0) {
-            let defaultActiveItems = v.filter(item => item.children && item.children.length > 0)
-            if (defaultActiveItems && defaultActiveItems.length > 0) {
-              this.$emit('show-popup', defaultActiveItems[0].children)
-              this.activeIndex = v.indexOf(defaultActiveItems[0])
-            }
+            let defaultActiveItems = []
+            defaultActiveItems = v.filter(item => item.children && item.children.length > 0)
+
+            let activeItems = defaultActiveItems.filter(item => item.index === this.defaultActive)
+
+            let activeItem = activeItems.length > 0 ? activeItems[0] : defaultActiveItems[0]
+            this.$emit('show-popup', activeItem.children)
+            this.hoverActive = activeItem.index
+
           }
         }
       },

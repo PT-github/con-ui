@@ -21,7 +21,7 @@
   <div id="app">
     <s-input v-model="value"></s-input>
     <!--  :popper-width="1000"  mode="horizontal" -->
-    <s-menu-con popper-width="90%" mode="horizontal" :options="options"> </s-menu-con>
+    <s-menu-con default-active="4-2" popper-width="90%" mode="horizontal" :options="options"> </s-menu-con>
   </div>
   <script>
     new Vue({
@@ -40,13 +40,13 @@
               children: [
                 {
                   icon: 'el-icon-s-data',
-                  name: '二级菜单1-1',
-                  index: '1-1',
+                  name: '二级菜单2-1',
+                  index: '2-1',
                 },
                 {
                   icon: 'el-icon-s-data',
-                  name: '二级菜单1-2',
-                  index: '1-2',
+                  name: '二级菜单2-2',
+                  index: '2-2',
                 },
               ]
             },
@@ -56,85 +56,89 @@
               icon: 'el-icon-s-data',
               children: [
                 {
-                  name: '二级菜单1-1',
-                  index: '1-1',
+                  name: '二级菜单3-1',
+                  index: '3-1',
                   children: [
                     {
-                      name: '三级菜单1-1-1',
-                      index: '1-1-1',
+                      name: '三级菜单3-1-1',
+                      index: '3-1-1',
                     },
                     {
-                      name: '三级菜单1-1-2',
-                      index: '1-1-2',
+                      name: '三级菜单3-1-2',
+                      index: '3-1-2',
                     },
                     {
-                      name: '三级菜单1-1-3',
-                      index: '1-1-3',
+                      name: '三级菜单3-1-3',
+                      index: '3-1-3',
                     },
                   ]
                 },
                 {
-                  name: '二级菜单1-2',
-                  index: '1-2',
+                  name: '二级菜单3-2',
+                  index: '3-2',
                   children: [
                     {
-                      name: '三级菜单1-2-1',
-                      index: '1-2-1',
+                      name: '三级菜单3-2-1',
+                      index: '3-2-1',
                     },
                     {
-                      name: '三级菜单1-2-2',
-                      index: '1-2-2',
+                      name: '三级菜单3-2-2',
+                      index: '3-2-2',
                     },
                     {
-                      name: '三级菜单1-2-3',
-                      index: '1-2-3',
+                      name: '三级菜单3-2-3',
+                      index: '3-2-3',
                     },
                     {
-                      name: '三级菜单1-2-4',
-                      index: '1-2-4',
+                      name: '三级菜单3-2-4',
+                      index: '3-2-4',
                     },
                   ]
                 },
                 {
-                  name: '二级菜单1-3',
-                  index: '1-3',
+                  name: '二级菜单3-3',
+                  index: '3-3',
                   children: [
                     {
                       icon: 'el-icon-s-data',
-                      name: '三级菜单1-3-1',
-                      index: '1-3-1',
+                      name: '三级菜单3-3-1',
+                      index: '3-3-1',
                     },
                   ]
                 },
                 {
-                  name: '二级菜单1-4',
-                  index: '1-4',
+                  name: '二级菜单3-4',
+                  index: '3-4',
                   children: [
                     {
                       icon: 'el-icon-s-data',
-                      name: '三级菜单1-4-1',
-                      index: '1-4-1',
+                      name: '三级菜单3-4-1',
+                      index: '3-4-1',
                     },
                     {
                       icon: 'el-icon-s-data',
-                      name: '三级菜单1-4-2',
-                      index: '1-4-2',
+                      name: '三级菜单3-4-2',
+                      index: '3-4-2',
                     },
                   ]
                 },
                 {
-                  name: '二级菜单1-5',
-                  index: '1-5',
+                  name: '二级菜单3-5',
+                  index: '3-5',
                   children: [
                     {
-                      name: '三级菜单1-5-1',
-                      index: '1-5-1'
+                      name: '三级菜单3-5-1',
+                      index: '3-5-1'
                     },
                     {
-                      name: '三级菜单1-5-2',
-                      index: '1-5-2'
+                      name: '三级菜单3-5-2',
+                      index: '3-5-2'
                     },
                   ]
+                },
+                {
+                  name: '二级菜单3-6',
+                  index: '3-6'
                 },
               ]
             },
@@ -169,8 +173,8 @@
                         },
                         {
                           icon: 'el-icon-s-data',
-                          name: '四级菜单4-1-1-3',
-                          index: '4-1-1-3',
+                          name: '四级菜单4-1-1-4',
+                          index: '4-1-1-4',
                         }
                       ]
                     },
@@ -196,11 +200,16 @@
                         },
                         {
                           icon: 'el-icon-s-data',
-                          name: '四级菜单4-1-2-3',
-                          index: '4-1-2-3',
+                          name: '四级菜单4-1-2-4',
+                          index: '4-1-2-4',
                         }
                       ]
                     },
+                    {
+                      icon: 'el-icon-s-data',
+                      name: '三级菜单4-1-3',
+                      index: '4-1-3'
+                    }
                   ]
                 },
                 {
@@ -258,23 +267,23 @@
                           children: [
                             {
                               icon: 'el-icon-s-data',
-                              name: '五级菜单5-1-1-1-1',
-                              index: '5-1-1-1-1',
+                              name: '五级菜单5-1-1-2-1',
+                              index: '5-1-1-2-1',
                             },
                             {
                               icon: 'el-icon-s-data',
-                              name: '五级菜单5-1-1-1-2',
-                              index: '5-1-1-1-2',
+                              name: '五级菜单5-1-1-2-2',
+                              index: '5-1-1-2-2',
                             },
                             {
                               icon: 'el-icon-s-data',
-                              name: '五级菜单5-1-1-1-3',
-                              index: '5-1-1-1-3',
+                              name: '五级菜单5-1-1-2-3',
+                              index: '5-1-1-2-3',
                             },
                             {
                               icon: 'el-icon-s-data',
-                              name: '五级菜单5-1-1-1-4',
-                              index: '5-1-1-1-4',
+                              name: '五级菜单5-1-1-2-4',
+                              index: '5-1-1-2-4',
                             },
                           ]
                         },
@@ -307,22 +316,22 @@
                     },
                     {
                       icon: 'el-icon-s-data',
-                      name: '二级菜单5-1-3',
+                      name: '三级菜单5-1-3',
                       index: '5-1-3',
                     },
                     {
                       icon: 'el-icon-s-data',
-                      name: '二级菜单5-1-4',
+                      name: '三级菜单5-1-4',
                       index: '5-1-4',
                     },
                     {
                       icon: 'el-icon-s-data',
-                      name: '二级菜单5-1-5',
+                      name: '三级菜单5-1-5',
                       index: '5-1-5',
                     },
                     {
                       icon: 'el-icon-s-data',
-                      name: '二级菜单5-1-6',
+                      name: '三级菜单5-1-6',
                       index: '5-1-6',
                     },
                   ]

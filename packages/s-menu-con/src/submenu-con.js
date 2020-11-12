@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-11-05 10:08:26
  * @LastEditors: PT
- * @LastEditTime: 2020-11-11 17:23:59
+ * @LastEditTime: 2020-11-12 11:04:15
  * @Description: SubmenuCon
  */
 import SSubmenu from '../../s-submenu'
@@ -245,6 +245,7 @@ export default {
           break
         case 4:
           popupMenuContent.push(<VerticalNav
+            defaultActive={this.rootMenu.activeIndex}
             options={option.children}
             on={
               { 'show-popup': (navs) => navs && navs.length > 0 && (this.currentShowNavs = navs) }

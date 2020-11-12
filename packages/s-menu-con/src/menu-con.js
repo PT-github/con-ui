@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-11-05 09:57:48
  * @LastEditors: PT
- * @LastEditTime: 2020-11-11 15:56:16
+ * @LastEditTime: 2020-11-12 08:42:16
  * @Description: SMenuCon 多级菜单组件
  */
 import Vue from 'vue'
@@ -152,7 +152,7 @@ export default {
           class={`s-menu-${this.mode}`}
           {
             ...{
-              attrs: {
+              props: {
                 ...this.$props
               },
               on: {
