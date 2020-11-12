@@ -124,6 +124,12 @@ module.exports = {
             children: [
               '/adv-component/data/table-con',
             ]
+          }, {
+            title: 'Navigation 组件',
+            collapsable: false,
+            children: [
+              '/adv-component/navigation/menu-con',
+            ]
           }
         ]
       }],

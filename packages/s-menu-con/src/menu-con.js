@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-11-05 09:57:48
  * @LastEditors: PT
- * @LastEditTime: 2020-11-12 17:08:30
+ * @LastEditTime: 2020-11-12 17:52:43
  * @Description: SMenuCon 多级菜单组件
  */
 import Vue from 'vue'
@@ -82,6 +82,7 @@ export default {
   },
   data () {
     return {
+      offsetLeft: 0,
       width: 256,
       // 三级菜单数据
       popupMenuitem3Data: [],
@@ -107,6 +108,7 @@ export default {
   },
   mounted () {
     this.handleWidth()
+    this.offsetLeft = this.$el.offsetLeft
   },
   watch: {
     item3Hover (val) {
@@ -214,13 +216,14 @@ export default {
       }
     },
     getPopup4 () {
+      console.log(this.offsetLeft, '=====')
       return (
         <transition name={this.menuTransitionName}>
           <div
             ref="popup_item4"
             v-show={this.item4Hover}
             class='s-menu-popup submenu-level-4'
-            style={{width: `calc(100vw - ${this.width + 240}px)`}}
+            style={{width: `calc(100vw - ${this.width + 240 + this.offsetLeft}px)`}}
             on-mouseenter={() => this.handleItem4PopMouseenter()}
             on-mouseleave={() => this.handleItem4PopMouseleave()}
             on-focus={() => this.handleItem3PopMouseenter()}
