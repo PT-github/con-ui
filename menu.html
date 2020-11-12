@@ -21,7 +21,7 @@
   <div id="app">
     <s-input v-model="value"></s-input>
     <!--  :popper-width="1000"  mode="horizontal" -->
-    <s-menu-con default-active="4-2" popper-width="90%" mode="horizontal" :options="options"> </s-menu-con>
+    <s-menu-con default-active="4-2" @select="handleSelect" popper-width="90%" mode="horizontal" :options="options"> </s-menu-con>
   </div>
   <script>
     new Vue({
@@ -347,7 +347,9 @@
         };
       },
       methods: {
-
+        handleSelect (index, item) {
+          console.log(index, item)
+        }
       },
     }).$mount("#app");
   </script>
