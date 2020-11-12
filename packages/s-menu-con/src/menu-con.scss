@@ -362,6 +362,10 @@ $maxHeight: 300px;
         vertical-align: baseline;
         @include font_color($color: '$1-color-1', $opacity: .65);
       }
+      &:focus {
+        background: none;
+        @include font_color($color: '$1-color-1', $opacity: .65);
+      }
       &:hover, &:hover i {
         @include font_color($color: '$2-color-1');
         @include background_color($color: '$2-color-2');

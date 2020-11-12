@@ -31,7 +31,7 @@
       v-model="isCollapse"
       :options="options2">
     </s-radio-con></div>
-    <s-menu-con popper-width="90%" :unique-opened="true" default-active="3-1-1" :collapse="isCollapse" :options="options"> </s-menu-con>
+    <s-menu-con popper-width="90%" :unique-opened="true" @select="handleSelect" default-active="3-1-1" :collapse="isCollapse" :options="options"> </s-menu-con>
   </div>
   <script>
     new Vue({
@@ -418,7 +418,9 @@
         };
       },
       methods: {
-
+        handleSelect (index, item) {
+          console.log(index, item)
+        }
       },
     }).$mount("#app");
   </script>
