@@ -349,6 +349,8 @@
 
 垂直菜单。
 
+第四、五级菜单所在的弹出层是基于屏幕宽度、左侧宽度和offsetLeft进行计算的，开发人员可以通过css对宽度进行设置达到业务需要的效果
+
 :::demo
 ```html
 <s-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
