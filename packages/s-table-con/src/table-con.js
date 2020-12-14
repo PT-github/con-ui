@@ -416,6 +416,8 @@ export default {
         let observeDom = this.observeSelector ? (document.querySelector(this.observeSelector) || this.parentNode) : this.parentNode
         // 设置父容器溢出隐藏
         this.parentNode.style.overflow = 'hidden'
+
+        this.handleTableHeight = throttle(20, this.observeHeight)
         // 监听高度变化的容器class和style属性变化
         this.observe = domObserve(observeDom, {
           attributes: true,
@@ -428,7 +430,7 @@ export default {
       }
     },
     // 表格高度计算
-    handleTableHeight:  throttle(20, function () {
+    observeHeight () {
       // let height = window.getComputedStyle(this.parentNode).height // 外部容器高度
       // console.log('===',this.parentNode, this.parentNode.offsetHeight, window.getComputedStyle(this.parentNode).height)
       let height = this.parentNode.offsetHeight
@@ -440,7 +442,7 @@ export default {
         console.error('STableCon组件计算自适应高度发生错误', error)
       }
       this.tableHeight = height
-    })
+    }
     // // 表格高度计算
     // handleTableHeight () {
     //   clearTimeout(this.timer)
