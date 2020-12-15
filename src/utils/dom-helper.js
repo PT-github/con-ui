@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-13 20:36:55
  * @LastEditors: PT
- * @LastEditTime: 2020-10-15 17:30:24
+ * @LastEditTime: 2020-12-15 09:57:10
  * @Description: dom帮助类
  */
 /**
@@ -31,4 +31,22 @@ export const domObserve = (dom, option, callback) => {
   })
   observe.observe(dom, option)
   return observe
+}
+/**
+ * @description: 容器resize监听
+ * @param {Element} element 容器
+ * @param {function} handler 容器resize时监听函数
+ * @return {Element} 返回当前容器
+ */
+export const observeResize = (element, handler) => {
+  let iframe = document.createElement('iframe')
+  const css = 'position: absolute;left:0;right:0;top: -100%;height: 100%;margin: 1px 0 0;opacity:0;visibility:hidden;pointer-events:none;'
+  iframe.style.cssText = css
+  iframe.onload = () => {
+    iframe.contentWindow.onresize = () => {
+      typeof handler === 'function' && handler(element)
+    }
+  }
+  element.appendChild(iframe)
+  return element
 }

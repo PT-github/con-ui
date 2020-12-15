@@ -2,7 +2,7 @@ import STable from '../../s-table'
 import STableColumnCon from './table-column-con'
 // import SPagination from '../../s-pagination'
 import Sortable from 'sortablejs'
-import { domObserve } from '../../../src/utils/dom-helper'
+import { observeResize } from '../../../src/utils/dom-helper'
 import { throttle } from 'throttle-debounce'
 import Emitter from '../../../src/utils/emitter'
 import './table-con.scss'
@@ -417,15 +417,19 @@ export default {
         // 设置父容器溢出隐藏
         this.parentNode.style.overflow = 'hidden'
 
+        !this.parentNode.style.position && (this.parentNode.style.position = 'relative')
+
         this.handleTableHeight = throttle(20, this.observeHeight)
-        // 监听高度变化的容器class和style属性变化
-        this.observe = domObserve(observeDom, {
-          attributes: true,
-          attributeFilter: ['class', 'style'],
-          characterData: true, // 节点内容或节点文本的变动
-          childList: true, // 子节点的变动（新增、删除或者更改）
-          subtree: true, // 是否将观察器应用于该节点的所有后代节点
-        }, this.handleTableHeight)
+
+        observeResize(observeDom, this.handleTableHeight)
+        // // 监听高度变化的容器class和style属性变化
+        // this.observe = domObserve(observeDom, {
+        //   attributes: true,
+        //   attributeFilter: ['class', 'style'],
+        //   characterData: true, // 节点内容或节点文本的变动
+        //   childList: true, // 子节点的变动（新增、删除或者更改）
+        //   subtree: true, // 是否将观察器应用于该节点的所有后代节点
+        // }, this.handleTableHeight)
         this.handleTableHeight()
       }
     },
