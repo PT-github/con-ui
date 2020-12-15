@@ -2,11 +2,11 @@
  * @Author: PT
  * @Date: 2020-09-28 16:11:54
  * @LastEditors: PT
- * @LastEditTime: 2020-11-05 15:10:21
+ * @LastEditTime: 2020-12-15 11:19:22
  * @Description: SInput组件
  */
 import './input.scss'
-import Input from 'element-ui/lib/input'
+import Input from './mixin'
 export default {
   name: 'SInput',
   render () {

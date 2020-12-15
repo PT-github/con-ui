@@ -82,7 +82,7 @@
         disabled: false,
         form: {
           username: '',
-          username2: '',
+          username2: 'aaaa',
           sex: '',
           age: '',
           hobby: '',
@@ -107,7 +107,7 @@
         },
         fields: [
           { prop: 'username', label: '姓名', is: 'input', attrs: { onChange (v) {console.log(v)},placeholder: '请输入姓名' } },
-          { prop: 'username2', label: '复合', is: 'input', attrs: { onChange (v) {console.log(v)},onClick () {alert('点击搜索')},placeholder: '请选择', icon: 'el-icon-search' } },
+          { prop: 'username2', label: '复合', is: 'input', attrs: { clearable: true, onChange (v) {console.log(v)},onClick () {alert('点击搜索')},placeholder: '请选择', icon: 'el-icon-search' } },
           { prop: 'sex', label: '性别', is: 'select', attrs: { onChange (v) {console.log(v)},  placeholder: '请选择性别',
               options: [
                 { label: '男', value: '0' },
