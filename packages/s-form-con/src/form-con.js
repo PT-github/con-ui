@@ -2,7 +2,7 @@
  * @Author: PT
  * @Date: 2020-10-17 19:14:45
  * @LastEditors: PT
- * @LastEditTime: 2020-12-15 11:09:19
+ * @LastEditTime: 2020-12-15 11:31:34
  * @Description: SFormCon
  */
 import SForm from '../../s-form'
@@ -261,8 +261,8 @@ export default {
                     input: (v) => {
                       this.handleChange(componentName, key, v, attrs)
                     },
-                    click: () => {
-                      console.log(attrs, '===')
+                    clear: () => {
+                      typeof attrs.onClear === 'function' && attrs.onClear()
                     }
                   }
                 }

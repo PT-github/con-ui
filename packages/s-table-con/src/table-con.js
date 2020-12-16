@@ -90,6 +90,7 @@ export default {
       size,
       data: this.tableData
     }
+    // console.log(JSON.stringify(props.data), 'STableCon render ***********')
     return (
       <div class="s-table-con">
         <s-table ref="table" {
@@ -309,7 +310,8 @@ export default {
       const { data } = this.$props
       
       if (Array.isArray(data)) {
-        this.tableData = data
+        // this.tableData.push(...data)
+        this.$set(this, 'tableData', data)
         this.total = this.tableData.length
         // this.pageSize = this.tableData.length
         this.pageNo = 1
@@ -336,7 +338,9 @@ export default {
             // console.log(res, '=================')
             if (res[props.list] && res[props.list].length > 0) {
               // 设置表格数据
-              this.tableData.push(...res[props.list])
+              // this.tableData.push(...res[props.list])
+              this.$set(this, 'tableData', res[props.list])
+              // console.log(JSON.stringify(this.tableData), '===loadData====')
               // 设置分页数据
               this.pageNo = res[props.pageNo]
               this.pageSize = res[props.pageSize]
@@ -465,6 +469,12 @@ export default {
     // }
   },
   watch: {
+    // tableData: {
+    //   handler: function (v) {
+    //     console.log('tableData change', JSON.stringify(v))
+    //   },
+    //   deep: true
+    // },
     // 监听正在编辑行数据
     currentEditedRows (v) {
       this.$emit('edit-rows-change', v)
