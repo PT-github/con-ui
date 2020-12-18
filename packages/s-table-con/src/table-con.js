@@ -336,19 +336,18 @@ export default {
         if (typeof result === 'object' && typeof result.then === 'function') {
           result.then(res => {
             // console.log(res, '=================')
-            if (res[props.list] && res[props.list].length > 0) {
-              // 设置表格数据
-              // this.tableData.push(...res[props.list])
-              this.$set(this, 'tableData', res[props.list])
-              // console.log(JSON.stringify(this.tableData), '===loadData====')
-              // 设置分页数据
-              this.pageNo = res[props.pageNo]
-              this.pageSize = res[props.pageSize]
-              this.total = res[props.total]
-              this.$nextTick(() => {
-                this.loading = false
-              })
-            }
+            let list = res[props.list] && res[props.list].length > 0 ? res[props.list] : []
+            // 设置表格数据
+            // this.tableData.push(...res[props.list])
+            this.$set(this, 'tableData', list)
+            // console.log(JSON.stringify(this.tableData), '===loadData====')
+            // 设置分页数据
+            this.pageNo = res[props.pageNo]
+            this.pageSize = res[props.pageSize]
+            this.total = res[props.total]
+            this.$nextTick(() => {
+              this.loading = false
+            })
           }).catch(e => {
             this.loading = false
             console.error('STableCon组件获取数据发生错误', e)
