@@ -349,6 +349,7 @@ export default {
               this.loading = false
             })
           }).catch(e => {
+            this.$set(this, 'tableData', [])
             this.loading = false
             console.error('STableCon组件获取数据发生错误', e)
           })
